@@ -1,0 +1,321 @@
+/* =========================================================
+   layout.css  ·  v2 布局与设计系统（纯 CSS，零依赖）
+   ---------------------------------------------------------
+   定位：与 style.css 叠加使用；只做「增强」，不重命名任何既有类名，
+        不依赖 JS，不需要构建/框架/CDN。
+   主题：沿用 --bg/--bg-2/--line/--fg/--accent 与 [data-theme] 机制，
+        本文件新增的每个颜色类变量都给出 dark / light 两套值。
+   注意：本文件目前未被任何 .html 引用（HTML 侧不可改动）；
+        等价的应用层规则同时追加在 style.css 末尾，因此线上效果
+        在 style.css 被加载的页面立即生效。链接写法见文件末尾注释。
+   ========================================================= */
+
+/* ---------- 1. 设计令牌 ---------- */
+:root {
+  /* 间距阶 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* 字号阶 */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.82rem;
+  --fs-md: 0.92rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.06rem;
+  --fs-xl: clamp(1.22rem, 2.2vw, 1.5rem);
+  --fs-2xl: clamp(1.4rem, 2.7vw, 1.9rem);
+  --fs-3xl: clamp(1.75rem, 3.8vw, 2.55rem);
+
+  /* 行高阶 */
+  --lh-tight: 1.22;
+  --lh-snug: 1.38;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;
+  --lh-loose: 1.95;
+
+  /* 圆角阶 */
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* 三级阴影（dark 基准） */
+  --sd-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --sd-2: 0 10px 26px -16px rgba(0, 0, 0, 0.7);
+  --sd-3: 0 26px 60px -30px rgba(0, 0, 0, 0.8);
+
+  /* 过渡时长 */
+  --dur-fast: 120ms;
+  --dur: 180ms;
+  --dur-slow: 280ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  /* 容器 / 栅格 / 垂直节奏 */
+  --container-max: 1120px;
+  --container-pad: clamp(16px, 4vw, 32px);
+  --gutter: clamp(12px, 1.6vw, 20px);
+  --rhythm-section: clamp(48px, 6vw, 84px);
+  --rhythm-section-sm: clamp(28px, 3.6vw, 48px);
+  --rhythm-head: clamp(20px, 2.6vw, 34px);
+  --measure: 65ch;
+
+  /* 主题相关的新增色值：dark（默认） */
+  --nav-bg: rgba(13, 12, 17, 0.82);
+  --hair: rgba(255, 255, 255, 0.05);
+  --ring: rgba(224, 143, 171, 0.55);
+  --sd-hi: rgba(0, 0, 0, 0.5);
+}
+
+/* 显式 dark（JS / 用户可能写死 data-theme="dark"） */
+[data-theme="dark"] {
+  --nav-bg: rgba(13, 12, 17, 0.82);
+  --hair: rgba(255, 255, 255, 0.05);
+  --ring: rgba(224, 143, 171, 0.55);
+  --sd-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --sd-2: 0 10px 26px -16px rgba(0, 0, 0, 0.7);
+  --sd-3: 0 26px 60px -30px rgba(0, 0, 0, 0.8);
+  --sd-hi: rgba(0, 0, 0, 0.5);
+}
+
+/* 浅色（可选外观） */
+[data-theme="light"] {
+  --nav-bg: rgba(250, 249, 252, 0.86);
+  --hair: rgba(28, 26, 36, 0.06);
+  --ring: rgba(158, 63, 92, 0.45);
+  --sd-1: 0 1px 2px rgba(28, 26, 36, 0.06);
+  --sd-2: 0 10px 26px -18px rgba(28, 26, 36, 0.22);
+  --sd-3: 0 26px 56px -30px rgba(28, 26, 36, 0.26);
+  --sd-hi: rgba(28, 26, 36, 0.1);
+}
+
+/* ---------- 2. 容器 / 垂直节奏 ---------- */
+.container {
+  width: min(100% - (var(--container-pad) * 2), var(--container-max));
+  margin-inline: auto;
+}
+
+.section { padding-block: var(--rhythm-section); }
+.section-sm { padding-block: var(--rhythm-section-sm); }
+.page-head { padding-block: clamp(28px, 4vw, 56px) clamp(16px, 2vw, 26px); }
+.page-body { line-height: var(--lh-relaxed); }
+
+.grid { gap: var(--gutter); }
+
+/* ---------- 3. 标题层级与正文节奏 ---------- */
+h1, h2, h3, h4 {
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-3xl); margin-block: 0 var(--space-3); }
+h2 { font-size: var(--fs-2xl); margin-block: 0 var(--space-3); }
+h3 { font-size: var(--fs-xl); margin-block: var(--space-5) var(--space-2); }
+h4 { font-size: var(--fs-lg); margin-block: var(--space-4) var(--space-2); letter-spacing: 0; }
+
+.sec-head h2 { font-size: var(--fs-2xl); }
+.sec-head > :last-child { margin-bottom: 0; }
+
+p, li { text-wrap: pretty; }
+.page-body p, .section p, .card p, .callout p { max-width: var(--measure); }
+.lead, .page-head .lead { font-size: var(--fs-md); line-height: var(--lh-normal); color: var(--ink-2); }
+
+ul, ol { margin-block: var(--space-3) var(--space-5); padding-left: 1.35em; }
+li + li { margin-top: var(--space-1); }
+li > ul, li > ol { margin-block: var(--space-2) var(--space-2); }
+hr { margin-block: var(--space-7); }
+
+/* ---------- 4. 章节序号 / eyebrow 装饰 ---------- */
+.sec-head { margin-bottom: var(--rhythm-head); }
+
+.sec-head .eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  padding: 0;
+  margin-bottom: var(--space-3);
+  color: var(--pink-deep);
+}
+.sec-head .eyebrow::before {
+  content: ""; display: block;
+  width: 26px; height: 1px;
+  background: currentColor; opacity: 0.55;
+}
+.sec-head .eyebrow::after {
+  content: ""; display: block;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: currentColor; opacity: 0.75;
+}
+.sec-head h2 { margin-bottom: var(--space-2); }
+.sec-head p { max-width: 58ch; line-height: var(--lh-normal); }
+
+/* ---------- 5. 卡片内层级 ---------- */
+.card {
+  border-radius: var(--r-lg);
+  padding: clamp(18px, 1.9vw, 28px);
+  box-shadow: var(--sd-1);
+}
+.card.hoverable { transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease),
+                            box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.card.hoverable:hover { box-shadow: var(--sd-2); transform: translateY(-1px); }
+.card > :first-child { margin-top: 0; }
+.card h3, .card h4 { letter-spacing: -0.005em; }
+.card h3 + p, .card h3 + .desc, .card h3 + .meta { margin-top: var(--space-2); }
+.card p { margin-bottom: var(--space-4); max-width: var(--measure); }
+.card .icon-badge { margin-bottom: var(--space-4); }
+.card .stage-meta, .card .meta, .card .desc { color: var(--muted); font-size: var(--fs-sm); line-height: var(--lh-snug); }
+
+/* 标签 / 徽章 / 提示条的统一节奏 */
+.badge, .tag, .pill { font-size: var(--fs-xs); letter-spacing: 0.02em; }
+.tags, .chips, .pill-row { gap: var(--space-2); }
+.tags { margin-top: var(--space-4); }
+
+.callout {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--r-md);
+  line-height: var(--lh-normal);
+  box-shadow: var(--sd-1);
+}
+.callout .ct { margin-bottom: var(--space-1); }
+
+/* ---------- 6. 资源条目 .res 微交互 ---------- */
+.res-list { gap: var(--space-3); }
+.res {
+  padding: var(--space-4);
+  border-radius: var(--r-md);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.res .title { font-size: var(--fs-md); line-height: var(--lh-snug); }
+.res .desc { line-height: var(--lh-snug); margin-top: var(--space-1); }
+.res .go { transition: transform var(--dur) var(--ease), color var(--dur) var(--ease); }
+.res:hover, .res:focus-visible {
+  transform: translateX(3px);
+  background: var(--card-2);
+  box-shadow: var(--sd-2);
+}
+.res:hover .go, .res:focus-visible .go { transform: translateX(3px); color: var(--pink-deep); }
+
+/* ---------- 7. 代码块与表格 ---------- */
+pre, pre.code { line-height: var(--lh-normal); }
+pre.code { font-size: var(--fs-sm); padding: var(--space-5) var(--space-5); }
+.table-scroll { border-radius: var(--r-md); }
+
+/* ---------- 8. 导航：活跃态 + 半透明吸顶 ---------- */
+.site-header {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: inset 0 -1px 0 var(--hair);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .site-header { background: var(--bg); }
+}
+.nav-wrap { height: 64px; }
+.nav a {
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.nav a.active {
+  color: var(--pink-deep);
+  background: var(--pink-soft);
+}
+.nav a.active::after {
+  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+  bottom: 2px; width: 16px; height: 2px; border-radius: var(--r-pill);
+  background: currentColor; opacity: 0.85;
+}
+.icon-btn { transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+                        background var(--dur-fast) var(--ease); }
+
+/* ---------- 9. 页脚 ---------- */
+.site-footer { padding-block: var(--space-7) var(--space-6); }
+.footer-grid { gap: var(--gutter) var(--space-6); }
+.footer-links { display: grid; gap: var(--space-2); }
+
+/* ---------- 10. 焦点环 / 滚动条 / 选区 ---------- */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+.card:focus-within, .res:focus-within { border-color: var(--line-strong); }
+
+::selection { background: color-mix(in srgb, var(--pink) 55%, transparent); color: var(--ink); }
+
+html { scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--r-pill);
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--pink); background-clip: content-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---------- 11. 动效偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .res, .res .go, .card.hoverable, .nav a, .icon-btn { transition: none; }
+  .res:hover, .res:focus-visible, .card.hoverable:hover { transform: none; }
+}
+
+/* ---------- 12. 打印 ---------- */
+@media print {
+  :root {
+    --nav-bg: #fff;
+    --sd-1: none; --sd-2: none; --sd-3: none;
+  }
+  body { background: #fff; }
+  .site-header, .to-top, .read-bar, .nav-tools, .copy-btn { display: none !important; }
+  .container { width: 100%; max-width: none; }
+  .section, .section-sm { padding-block: 12px; }
+  .card, .callout, .res, figure, pre, table { break-inside: avoid; box-shadow: none; }
+  h1, h2, h3 { break-after: avoid; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #555; word-break: break-all; }
+}
+
+/* ---------- 13. 断点：1440 / 1024 / 768 / 480 ---------- */
+@media (min-width: 1440px) {
+  :root { --container-max: 1180px; }
+  .section { padding-block: clamp(72px, 6vw, 96px); }
+}
+
+@media (max-width: 1024px) {
+  :root { --container-max: 100%; --rhythm-section: clamp(44px, 6vw, 68px); }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --container-pad: 18px; }
+  h3 { margin-top: var(--space-4); }
+  .grid-2, .grid-3, .grid-4, .split { grid-template-columns: minmax(0, 1fr); }
+  .card { padding: var(--space-5); }
+  .res { padding: var(--space-3) var(--space-4); }
+  .sec-head .eyebrow::before { width: 18px; }
+  .page-body p, .section p, .card p, .callout p { max-width: none; }
+}
+
+@media (max-width: 480px) {
+  :root { --container-pad: 14px; --gutter: 12px; }
+  .section { padding-block: var(--space-7); }
+  .card { padding: var(--space-4); border-radius: var(--r-md); }
+  .callout { padding: var(--space-3) var(--space-4); }
+  pre.code { font-size: 0.78rem; padding: var(--space-4); }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* 引用方式（HTML 侧改动不在本次范围内，仅作说明）：
+   <link rel="stylesheet" href="assets/css/layout.css">
+   当前 style.css 末尾已追加等价的应用层规则，页面效果不依赖本文件被链接。 */

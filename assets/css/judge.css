@@ -1,0 +1,469 @@
+/* =========================================================================
+   CodeJudge · 在线编程 + 自动判题 —— 样式
+   -------------------------------------------------------------------------
+   只使用 assets/css/style.css 里已有的设计令牌（--card / --line / --ink / --pink …），
+   每个变量都带一条兜底值，所以即使主题变量改动或缺失也不会花掉。
+   浅色 / 深色跟随 <html data-theme="...">，与站点现有切换按钮联动，无需额外脚本。
+
+   全部选择器都收在 .cj 作用域内，不会污染页面其它元素。
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. 语义色（通过态 / 失败态 / 进行态）
+   ------------------------------------------------------------------------- */
+.cj {
+  --cj-pass: var(--mint, #6fae91);
+  --cj-pass-bg: rgba(111, 174, 145, .12);
+  --cj-fail: var(--pink-deep, #e08fab);
+  --cj-fail-bg: rgba(224, 143, 171, .12);
+  --cj-warn: var(--amber, #c09963);
+  --cj-warn-bg: rgba(192, 153, 99, .12);
+  --cj-info: var(--purple, #8b82c4);
+  --cj-mono: var(--mono, "JetBrains Mono", "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace);
+  --cj-code-bg: var(--bg-2, #121117);
+  --cj-code-bg-2: var(--card-2, #1b1a22);
+  --cj-line: var(--line, #262430);
+  --cj-line-strong: var(--line-strong, #383545);
+  --cj-radius: var(--radius, 10px);
+  --cj-radius-s: var(--radius-s, 7px);
+}
+
+[data-theme="light"] .cj {
+  --cj-pass: var(--mint, #45866c);
+  --cj-pass-bg: rgba(69, 134, 108, .10);
+  --cj-fail: var(--pink, #b85875);
+  --cj-fail-bg: rgba(184, 88, 117, .10);
+  --cj-warn: var(--amber, #9c6d33);
+  --cj-warn-bg: rgba(156, 109, 51, .10);
+  --cj-info: var(--purple, #7a6fbc);
+  --cj-code-bg: #fbfafd;
+  --cj-code-bg-2: var(--card-2, #f6f5fa);
+  --cj-line: var(--line, #e7e4ee);
+  --cj-line-strong: var(--line-strong, #d3cfdd);
+}
+
+/* -------------------------------------------------------------------------
+   2. 容器
+   ------------------------------------------------------------------------- */
+.cj.code-lab {
+  display: block;
+  margin: 1.6rem 0;
+  padding: 1.3rem 1.35rem 1.4rem;
+  background: var(--card, #16151c);
+  border: 1px solid var(--cj-line);
+  border-radius: var(--radius-l, 14px);
+  color: var(--ink, #e7e4ee);
+  font-family: var(--font, system-ui, -apple-system, "Segoe UI", sans-serif);
+  font-size: .95rem;
+  line-height: 1.75;
+  box-shadow: var(--shadow, none);
+}
+
+.cj *,
+.cj *::before,
+.cj *::after { box-sizing: border-box; }
+
+.cj [hidden] { display: none !important; }
+
+/* -------------------------------------------------------------------------
+   3. 题头 / 题干 / 提示
+   ------------------------------------------------------------------------- */
+.cj-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem .6rem;
+  margin: 0 0 .7rem;
+}
+
+.cj-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 650;
+  letter-spacing: .01em;
+  color: var(--ink, #e7e4ee);
+}
+
+.cj-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: .16rem .55rem;
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--muted, #8a8398);
+  background: var(--cj-code-bg-2);
+  border: 1px solid var(--cj-line);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.cj-tag-engine { color: var(--cj-info); }
+
+.cj-statement {
+  margin: 0 0 .9rem;
+  padding: .75rem .9rem;
+  color: var(--ink-2, #b8b3c6);
+  background: var(--cj-code-bg-2);
+  border-left: 3px solid var(--pink, #c9748f);
+  border-radius: 0 var(--cj-radius-s) var(--cj-radius-s) 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cj-hints {
+  margin: 0 0 .9rem;
+  padding-left: 1.2rem;
+  color: var(--muted, #8a8398);
+  font-size: .86rem;
+}
+
+.cj-hint { margin: .12rem 0; }
+
+/* -------------------------------------------------------------------------
+   4. 编辑器
+   ------------------------------------------------------------------------- */
+.cj-editor {
+  border: 1px solid var(--cj-line-strong);
+  border-radius: var(--cj-radius);
+  overflow: hidden;
+  background: var(--cj-code-bg);
+}
+
+.cj-editor-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .45rem .7rem;
+  background: var(--cj-code-bg-2);
+  border-bottom: 1px solid var(--cj-line);
+}
+
+.cj-editor-label {
+  font-size: .76rem;
+  color: var(--muted, #8a8398);
+  letter-spacing: .01em;
+}
+
+.cj-editor-actions { display: flex; gap: .4rem; }
+
+.cj-mini {
+  padding: .22rem .6rem;
+  font-family: inherit;
+  font-size: .75rem;
+  color: var(--ink-2, #b8b3c6);
+  background: transparent;
+  border: 1px solid var(--cj-line-strong);
+  border-radius: var(--cj-radius-s);
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+}
+
+.cj-mini:hover {
+  color: var(--pink-deep, #e08fab);
+  border-color: var(--pink, #c9748f);
+  background: var(--pink-soft, rgba(201, 116, 143, .13));
+}
+
+.cj-code {
+  display: flex;
+  align-items: stretch;
+  max-height: 460px;
+  overflow: hidden;
+}
+
+.cj-gutter {
+  flex: none;
+  margin: 0;
+  padding: .7rem .5rem .7rem .7rem;
+  overflow: hidden;
+  font-family: var(--cj-mono);
+  font-size: .82rem;
+  line-height: 1.6;
+  text-align: right;
+  color: var(--muted, #8a8398);
+  background: var(--cj-code-bg-2);
+  border-right: 1px solid var(--cj-line);
+  user-select: none;
+  white-space: pre;
+}
+
+.cj-input {
+  flex: 1 1 auto;
+  min-height: 140px;
+  margin: 0;
+  padding: .7rem .8rem;
+  overflow: auto;
+  font-family: var(--cj-mono);
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--ink, #e7e4ee);
+  background: transparent;
+  border: 0;
+  outline: none;
+  resize: none;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  white-space: pre;
+  overflow-wrap: normal;
+  caret-color: var(--pink-deep, #e08fab);
+}
+
+.cj-input:focus-visible { box-shadow: inset 0 0 0 2px var(--pink-soft, rgba(201, 116, 143, .13)); }
+
+.cj-input::selection { background: var(--pink-soft, rgba(201, 116, 143, .25)); }
+
+/* -------------------------------------------------------------------------
+   5. 操作区
+   ------------------------------------------------------------------------- */
+.cj-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem;
+  margin: 1rem 0 .2rem;
+}
+
+.cj-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .55rem 1.05rem;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 550;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: var(--cj-radius-s);
+  cursor: pointer;
+  transition: transform .12s ease, background-color .15s ease, color .15s ease, border-color .15s ease, opacity .15s ease;
+}
+
+.cj-btn:active { transform: translateY(1px); }
+
+.cj-btn:focus-visible {
+  outline: 2px solid var(--pink-deep, #e08fab);
+  outline-offset: 2px;
+}
+
+.cj-btn[disabled] {
+  opacity: .55;
+  cursor: progress;
+  transform: none;
+}
+
+.cj-btn-run {
+  color: var(--ink, #e7e4ee);
+  background: var(--cj-code-bg-2);
+  border-color: var(--cj-line-strong);
+}
+
+.cj-btn-run:hover:not([disabled]) {
+  color: var(--pink-deep, #e08fab);
+  border-color: var(--pink, #c9748f);
+  background: var(--pink-soft, rgba(201, 116, 143, .13));
+}
+
+.cj-btn-submit {
+  color: #14121a;
+  background: var(--pink, #c9748f);
+  border-color: var(--pink, #c9748f);
+}
+
+.cj-btn-submit:hover:not([disabled]) { background: var(--pink-deep, #e08fab); border-color: var(--pink-deep, #e08fab); }
+
+.cj-btn.is-loading { position: relative; color: var(--muted, #8a8398); }
+
+.cj-status {
+  margin-left: auto;
+  font-size: .84rem;
+  color: var(--muted, #8a8398);
+  text-align: right;
+  word-break: break-word;
+}
+
+.cj-status.is-ok { color: var(--cj-pass); }
+.cj-status.is-bad { color: var(--cj-fail); }
+.cj-status.is-busy { color: var(--cj-warn); }
+
+/* -------------------------------------------------------------------------
+   6. 提示条（编译错误 / 网络错误）
+   ------------------------------------------------------------------------- */
+.cj-alert {
+  margin: 1rem 0 .2rem;
+  padding: .8rem .95rem;
+  background: var(--cj-fail-bg);
+  border: 1px solid var(--cj-fail);
+  border-left-width: 3px;
+  border-radius: var(--cj-radius-s);
+}
+
+.cj-alert.is-warn { background: var(--cj-warn-bg); border-color: var(--cj-warn); }
+
+.cj-alert-static { margin-top: 0; }
+
+.cj-alert-title {
+  margin-bottom: .25rem;
+  font-size: .89rem;
+  font-weight: 650;
+  color: var(--cj-fail);
+}
+
+.cj-alert.is-warn .cj-alert-title { color: var(--cj-warn); }
+
+.cj-alert-text {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--ink-2, #b8b3c6);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cj-alert-body,
+.cj-col pre {
+  margin: .6rem 0 0;
+  padding: .65rem .75rem;
+  max-height: 320px;
+  overflow: auto;
+  font-family: var(--cj-mono);
+  font-size: .78rem;
+  line-height: 1.55;
+  color: var(--ink-2, #b8b3c6);
+  background: var(--cj-code-bg);
+  border: 1px solid var(--cj-line);
+  border-radius: var(--cj-radius-s);
+  white-space: pre;
+  tab-size: 4;
+}
+
+.cj-col pre { margin-top: .35rem; }
+
+/* -------------------------------------------------------------------------
+   7. 用例结果
+   ------------------------------------------------------------------------- */
+.cj-results:empty { display: none; }
+
+.cj-results {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  margin-top: 1rem;
+}
+
+.cj-case {
+  padding: .7rem .8rem .8rem;
+  background: var(--cj-code-bg-2);
+  border: 1px solid var(--cj-line);
+  border-left: 3px solid var(--cj-line-strong);
+  border-radius: var(--cj-radius-s);
+}
+
+.cj-case.is-pass { border-left-color: var(--cj-pass); }
+.cj-case.is-fail { border-left-color: var(--cj-fail); }
+.cj-case.is-error { border-left-color: var(--cj-warn); }
+
+.cj-case-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+}
+
+.cj-case-name {
+  font-size: .87rem;
+  font-weight: 600;
+  color: var(--ink, #e7e4ee);
+}
+
+.cj-case-meta {
+  margin-left: auto;
+  font-size: .74rem;
+  color: var(--muted, #8a8398);
+  text-align: right;
+}
+
+.cj-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .14rem .55rem;
+  font-size: .74rem;
+  font-weight: 600;
+  color: var(--muted, #8a8398);
+  background: var(--cj-code-bg);
+  border: 1px solid var(--cj-line-strong);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.cj-badge.is-pass { color: var(--cj-pass); border-color: var(--cj-pass); background: var(--cj-pass-bg); }
+.cj-badge.is-fail { color: var(--cj-fail); border-color: var(--cj-fail); background: var(--cj-fail-bg); }
+.cj-badge.is-error { color: var(--cj-warn); border-color: var(--cj-warn); background: var(--cj-warn-bg); }
+.cj-badge.is-info { color: var(--cj-info); border-color: var(--cj-info); }
+
+.cj-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: .6rem;
+  margin-top: .55rem;
+}
+
+.cj-col { min-width: 0; }
+
+.cj-col h4 {
+  margin: 0;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted, #8a8398);
+}
+
+.cj-col pre { min-height: 2.2rem; }
+
+.cj-col-compare pre,
+.cj-case.is-fail .cj-col pre,
+.cj-case.is-error .cj-col pre { max-height: 220px; }
+
+.cj-case.is-fail .cj-actual pre {
+  color: var(--cj-fail);
+  border-color: var(--cj-fail);
+}
+
+.cj-expect pre { color: var(--cj-pass); }
+
+.cj-stderr pre { color: var(--cj-warn); }
+
+.cj-case-tip {
+  margin: .55rem 0 0;
+  font-size: .8rem;
+  color: var(--cj-warn);
+}
+
+/* -------------------------------------------------------------------------
+   8. 窄屏适配
+   ------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .cj.code-lab { padding: 1rem .9rem 1.1rem; }
+
+  .cj-code { max-height: 340px; }
+
+  .cj-gutter { display: none; }
+
+  .cj-actions { gap: .5rem; }
+
+  .cj-btn { flex: 1 1 auto; justify-content: center; }
+
+  .cj-status { flex: 1 1 100%; margin-left: 0; text-align: left; }
+
+  .cj-cols { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cj *,
+  .cj *::before,
+  .cj *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

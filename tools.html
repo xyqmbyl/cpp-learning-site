@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>环境搭建 · Visual Studio 2026 与 VS Code | Code Bloom</title>
+<meta name="description" content="C++ 开发环境搭建完整教程：Visual Studio 2026 安装与配置、VS Code + MSVC/MinGW-w64、tasks.json / launch.json / c_cpp_properties.json 完整配置、断点调试与常见报错排查。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/judge.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/favicon.svg" alt="">
+      <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="basics.html">C++ 基础</a>
+      <a href="oop-stl.html">面向对象 · STL</a>
+      <a href="algorithms.html">算法与数据结构</a>
+      <a href="advanced.html">进阶与实战</a>
+      <a href="tools.html">环境搭建</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="展开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container">
+    <p class="crumb"><a href="index.html">首页</a> / 环境搭建</p>
+    <span class="badge pink">阶段 ① · 先跑起来，再谈别的</span>
+    <h1>把开发环境配好</h1>
+    <p class="lead">
+      90% 的初学者放弃 C++，不是被语法劝退的，而是被<strong>"装环境装不上"</strong>劝退的。       这一页的目标只有一个：让 <code class="inline">Hello World</code> 在你自己的电脑上跑起来，并且能打断点。     </p>
+    <div class="chips">
+      <a href="#checklist">检查清单</a>
+      <a href="#choose">选哪个</a>
+      <a href="#vs">Visual Studio 2026</a>
+      <a href="#vscode">VS Code</a>
+      <a href="#configs">三个 JSON</a>
+      <a href="#firstrun">第一次运行</a>
+      <a href="#trouble">报错排查</a>
+      <a href="#res">资源</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 清单 ============ -->
+<section class="section-sm" id="checklist">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Checklist</span>
+      <h2>环境搭建检查清单</h2>
+      <p>全部打勾，你才真正"有了环境"，可以开始写代码了。</p>
+    </div>
+    <div class="progress-box" data-progress-box>
+      <span class="label">本阶段进度</span>
+      <span class="progress-track"><span class="progress-fill"></span></span>
+      <span class="progress-num">0 / 0</span>
+      <button class="reset-btn" type="button">清空</button>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>编译器与工具链</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t01" data-id="t01"><label for="t01">安装了一个能用的 C++ 编译器</label></li>
+          <li><input type="checkbox" id="t02" data-id="t02"><label for="t02">在终端能执行 <code class="inline">cl</code> 成 <code class="inline">g++ --version</code> 并看到版本号</label></li>
+          <li><input type="checkbox" id="t03" data-id="t03"><label for="t03">知道自己的编译器默认是哪一版 C++ 标准</label></li>
+          <li><input type="checkbox" id="t04" data-id="t04"><label for="t04">会用命令行手动编译一个 .cpp 文件</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>编辑器 / IDE</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t05" data-id="t05"><label for="t05">安装并打开了 Visual Studio 或 VS Code</label></li>
+          <li><input type="checkbox" id="t06" data-id="t06"><label for="t06">能新建一个项目并添加 .cpp 文件</label></li>
+          <li><input type="checkbox" id="t07" data-id="t07"><label for="t07">按 F5 能编译并运行</label></li>
+          <li><input type="checkbox" id="t08" data-id="t08"><label for="t08">代码补全和跳转定义是正常的</label></li>
+          <li><input type="checkbox" id="t09" data-id="t09"><label for="t09">终端中文不乱码，源码文件是 UTF-8</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>调试能力</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t10" data-id="t10"><label for="t10">会打断点，程序能停在断点处</label></li>
+          <li><input type="checkbox" id="t11" data-id="t11"><label for="t11">会单步（F10 / F11）和跳出（Shift+F11）</label></li>
+          <li><input type="checkbox" id="t12" data-id="t12"><label for="t12">能查看变量的值和调用栈</label></li>
+          <li><input type="checkbox" id="t13" data-id="t13"><label for="t13">会为调试设置命令行参数</label></li>
+          <li><input type="checkbox" id="t14" data-id="t14"><label for="t14">知道 Debug 和 Release 的区别</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 选哪个 ============ -->
+<section class="section" id="choose" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">00 · Before You Start</span>
+      <h2>先明确一件事：你装的到底是什么</h2>
+    </div>
+
+    <div class="callout info">
+      <span class="ci">🔍</span>
+      <div>
+        <span class="ct">"VS Code 2026" 这个说法需要澄清</span>
+        <p style="margin:0">
+          <strong>Visual Studio</strong>（简移 VS）是有大版本号的商业 IDE，<strong>Visual Studio 2026 是真实存在的版本</strong>，           和 Visual Studio 2022 一样按年份发布。<br>
+          而 <strong>Visual Studio Code</strong>（简称 VS Code）<strong>没有 2026 这个版本</strong>——           它是一个轻量编辑器，采用 1.x + 每月更新 的滚动版本策略，官方从不按年份命名、           网上说的"VS Code 2026"通常是"2026 年在用的 VS Code"的意思，直接装最新版即可。         </p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="ci">💡</span>
+      <div>
+        <span class="ct">更重要的：编辑器 ≠ 编译器</span>
+        <p style="margin:0">
+          新手最容易卡住的地方。VS Code <strong>本身不能编译 C++</strong>，           它只是一个文本编辑器——你必须在它之外<strong>另外安装一个编译器</strong>（MSVC 或 MinGW-w64），
+          再通过配置告诉 VS Code"用哪个编译器、加什么参数"。<br>
+          Visual Studio 则是一个<strong>全家桶</strong>：编辑器 + 编译器 + 调试器 + 构建系统，装完开箱即用。         </p>
+      </div>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="Visual Studio 与 VS Code 的定位对比 >
+        <defs>
+          <marker id="ar20" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+
+        <!-- 左：Visual Studio -->
+        <rect class="box-u" x="20" y="20" width="350" height="258" rx="16"/>
+        <text class="t" x="40" y="50" style="font-size:14px">Visual Studio 2026</text>
+        <text class="s" x="40" y="70">开箱即用的集成开发环境（IDE）</text>
+
+        <rect class="box" x="40" y="84" width="310" height="34" rx="9"/>
+        <text class="m" x="56" y="106">编辑器 + 编译器 + 调试器 + 构建</text>
+
+        <text class="s" x="40" y="142">✓ 装完就能写、能跑、能断点</text>
+        <text class="s" x="40" y="162">✓ 智能提示最强，重构和错误提示最出</text>
+        <text class="s" x="40" y="182">✓ 图形化调试界面，看内存 / 调用栈很方便</text>
+        <text class="s" x="40" y="202">✓ 自动管理项目文件，不用手写配置文件</text>
+        <text class="s" x="40" y="228" style="fill:var(--pink-deep)">✓ 安装体积大（几个 GB 起）</text>
+        <text class="s" x="40" y="248" style="fill:var(--pink-deep)">✓ 只能装在 Windows / Mac（新版本代 Windows）</text>
+        <text class="s" x="40" y="268" style="fill:var(--pink-deep)">✓ 启动慢，占用内存多</text>
+
+        <!-- 右：VS Code -->
+        <rect class="box-c" x="390" y="20" width="350" height="258" rx="16"/>
+        <text class="t" x="410" y="50" style="font-size:14px">Visual Studio Code</text>
+        <text class="s" x="410" y="70">轻量编辑器 + 插件生态（无"2026"版本号）</text>
+
+        <rect class="box" x="410" y="84" width="310" height="34" rx="9"/>
+        <text class="m" x="426" y="106">只是编辑器 —— 必须另装编译器</text>
+
+        <text class="s" x="410" y="142">✓ 安装化 ~100 MB，秒开，跨 Win/Mac/Linux</text>
+        <text class="s" x="410" y="162">✓ 配置全在 JSON 文件里，可版本控制、可复用</text>
+        <text class="s" x="410" y="182">✓ 支持 CMake、WSL、远程开发、Git 一体</text>
+        <text class="s" x="410" y="202">✓ 刷算法题、写小项目体验极你</text>
+        <text class="s" x="410" y="228" style="fill:var(--pink-deep)">✓ 需要手动装编译器并写配置，新手门槛更高</text>
+        <text class="s" x="410" y="248" style="fill:var(--pink-deep)">✓ 大型项目的重构能力弱于 VS</text>
+        <text class="s" x="410" y="268" style="fill:var(--pink-deep)">✓ 配置出问题时，报错信息不如 VS 直观</text>
+      </svg>
+      <figcaption>
+        <strong>怎么选？</strong>
+        Windows + 零基础 → 先装 <strong>Visual Studio 2026</strong>，把注意力放在语言本身，         想刷题 / 跨平台 / 用 CMake 做项目 → 用 <strong>VS Code</strong>。         <br>两者都装也可以，它们<strong>不冲突</strong>，可以共用同一套 MSVC 编译器。       </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ Visual Studio ============ -->
+<section class="section" id="vs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Visual Studio 2026</span>
+      <h2>Visual Studio 2026 完整安装教程</h2>
+      <p>从下载到跑通第一个程序，照着做大概 20～30 分钟（主要时间花在下载）。</p>
+    </div>
+
+    <h3>步骤 1 · 下载安装器</h3>
+    <ol class="steps">
+      <li>
+        <strong>打开官网下载项</strong>
+        访问 <a href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">visualstudio.microsoft.com/zh-hans/downloads</a>，         找到 <strong>Visual Studio 2026</strong> 一栏。       </li>
+      <li>
+        <strong>选对版本：Community（社区版）</strong>
+        三个版本里，<strong>Community 对个人、学生、开源项目完全免费</strong>，功能对学习来说绰绰有余。         Professional / Enterprise 是给企业用的，别选。       </li>
+      <li>
+        <strong>点击"下载 Visual Studio"→ 选择 "Community 2026"</strong>
+        会得到一个几 MB 的引导程序（<code class="inline">VisualStudioSetup.exe</code>）、         它本身不是完整的 VS，只是下载器。       </li>
+    </ol>
+
+    <h3 style="margin-top:2rem">步骤 2 · 选择工作负载（最关键的一步）</h3>
+    <div class="callout warn">
+      <span class="ci">⭐</span>
+      <div>
+        <span class="ct">这里选错，后面 90% 的"找不到编译器"都源于此</span>
+        <p style="margin:0">
+          安装器打开后会出现「工作负载」标签页。你<strong>必须勾选</strong>，           <br>👉 <strong>使用 C++ 的桌面开发</strong>（英文界面：<em>Desktop development with C++</em>）           <br>它位于「桌面和移动」分组下。勾上之后，右侧会有一大堆默认组件被自动选中——那些都要留着。         </p>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>这个工作负载帮你装了什么</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MSVC v14x 生成工具</strong>（C++ 编译器与库）</td><td>就是 <code class="inline">cl.exe</code> 编译器本体，最核心的一页</td></tr>
+          <tr><td><strong>Windows SDK</strong></td><td>Windows 平台的头文件和库（<code class="inline">windows.h</code> 等）</td></tr>
+          <tr><td><strong>C++ CMake 工具</strong></td><td>用 CMake 构建项目时必需</td></tr>
+          <tr><td><strong>适用于 Windows 的 C++ AddressSanitizer</strong></td><td>内存错误检测工具，强烈建议保留</td></tr>
+          <tr><td><strong>测试工具核心功能 / Google Test</strong></td><td>写单元测试用</td></tr>
+          <tr><td><strong>用于 Windows 的 C++ Clang 工具</strong>（可选）</td><td>多一个编译器可切换，初期可以不装</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h3>步骤 3 · 其他标签页</h3>
+        <ul class="tight" style="margin:0">
+          <li><strong>单个组件</strong>：默认不用动。想装 Git 可以在这里勾「Git for Windows」。</li>
+          <li><strong>语言化</strong>：默认跟系统语言走，中文系统会自动装简体中文。</li>
+          <li><strong>安装位置</strong>：建议改到空间充足的盘，<strong>完整安装约 10～20 GB</strong>。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>步骤 4 · 安装并重启</h3>
+        <ul class="tight" style="margin:0">
+          <li>点右下角「安装」，然后去喝茶。下载 + 安装通常 20～30 分钟。</li>
+          <li>装完可能要求<strong>重启电脑</strong>，一定要重启。</li>
+          <li>第一次启动会让你<strong>登录 Microsoft 账号</strong>——可以直接点"以后再说"，不登录也能用。</li>
+          <li>主题选深色（Dark）对眼睛友好。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">步骤 5 · 创建第一个项目</h3>
+    <ol class="steps">
+      <li>
+        <strong>启动界面 → 「创建新项目」</strong>
+        也就是 <em>Create a new project</em>。       </li>
+      <li>
+        <strong>搜索框输入 "空项目"，选择「空项目」（Empty Project），语言选 C++</strong>
+        <div class="callout tip" style="margin:.6rem 0 0">
+          <span class="ci">✓</span>
+          <div>
+            <span class="ct">为什么推荐"空项目"而不是"控制台应用" </span>
+            <p style="margin:0">
+              「控制台应用」会生成一堆模板代码和预编译头（<code class="inline">pch.h</code>），对新手是干扰。               <strong>空项目</strong>什么都没有，你从零开始加自己的 <code class="inline">.cpp</code>，               对理解"一个程序由哪些文件组成"更有帮助。             </p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <strong>填写项目名和位置</strong>
+        项目名建议用英文，例如 <code class="inline">HelloCpp</code>。         位置选一个好找的目录，例如 <code class="inline">D:\Code\</code>。         <strong>不要放在中文路径或桌面同步盘里</strong>，容易出奇怪的问题。       </li>
+      <li>
+        <strong>在「解决方案资源管理器」里右键「源文件」→ 添加 → 新建项</strong>
+        选「C++ 文件(.cpp)」，命名 <code class="inline">main.cpp</code>，点添加。       </li>
+      <li>
+        <strong>粘贴下面的代码，按 F5 运行</strong>
+      </li>
+    </ol>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello, C++!\n";
+
+    // 顺便验证一下 C++17 的结构化绑定能不能用
+    std::vector&lt;std::pair&lt;std::string, int&gt;&gt; scores = {
+        {"小 C", 100}, {"小 A", 98}
+    };
+    for (const auto&amp; [name, score] : scores) {
+        std::cout &lt;&lt; name &lt;&lt; " → " &lt;&lt; score &lt;&lt; '\n';
+    }
+    return 0;
+}
+</code></pre>
+
+    <p>
+      如果弹出一个黑色控制台窗口并显示 <code class="inline">Hello, C++!</code>（<strong>恭喜，环境通了。</strong>）
+      如果窗口一闪而过，见下方<a href="#trouble">报错排查</a>。     </p>
+
+    <h3 style="margin-top:2.4rem">推荐立刻改的几个设置</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>设置项</th><th>路径</th><th>推荐值</th><th>为什么</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>C++ 语言标准</td>
+            <td>右键项目 → 属性 → C/C++ → 语言 → C++ 语言标准</td>
+            <td><code class="inline">ISO C++17 标准 (/std:c++17)</code></td>
+            <td>默认可能是 C++14，用不了结构化绑定、<code class="inline">optional</code> 等</td>
+          </tr>
+          <tr>
+            <td>警告等级</td>
+            <td>属性 → C/C++ → 常规 → 警告等级</td>
+            <td><code class="inline">/W4</code></td>
+            <td>把潜在问题提前暴露出来，学习阶段非常有价值</td>
+          </tr>
+          <tr>
+            <td>SDL 检查</td>
+            <td>属性 → C/C++ → 常规 → SDL 检查</td>
+            <td>是（<code class="inline">/sdl</code>）</td>
+            <td>多一层安全检查，会拦住一些不安全的老式代码</td>
+          </tr>
+          <tr>
+            <td>源码字符集</td>
+            <td>属性 → C/C++ → 命令行 → 其他选项</td>
+            <td><code class="inline">/utf-8</code></td>
+            <td><strong>解决中文乱码的终极办法</strong>，强烈建议加上</td>
+          </tr>
+          <tr>
+            <td>AddressSanitizer</td>
+            <td>属性 → C/C++ → 常规 → 启用地址擦除器</td>
+            <td>是（调试配置下）</td>
+            <td>越界、悬垂指针会在出错的那一行直接报出来</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:2.4rem">Visual Studio 常用快捷键（务必练熟）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>快捷键</th><th>功能</th><th>使用频率</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>F5</kbd></td><td>开始调试（编译 + 运行 + 挂调试器）</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>F5</kbd></td><td>开始执行（不调试，直接跑完）</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>F9</kbd></td><td>在当前行切换断点</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>F10</kbd></td><td>逐过程（执行一行，不进入函数）</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>F11</kbd></td><td>逐语句（执行一行，进入函数）</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Shift</kbd>+<kbd>F11</kbd></td><td>跳出当前函数</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></td><td>只生成（编译）不运行</td><td>⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>K</kbd> <kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>格式化整个文档</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>K</kbd> <kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>注释选中行</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>K</kbd> <kbd>Ctrl</kbd>+<kbd>U</kbd></td><td>取消注释</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>]</kbd></td><td>跳到匹配的括号</td><td>⭐⭐⭐</td></tr>
+          <tr><td><kbd>F12</kbd></td><td>转到定义</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>-</kbd></td><td>后退到上一个编辑位置</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></td><td>在整个解决方案中搜索</td><td>⭐⭐⭐⭐</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="ci">🔍</span>
+      <div>
+        <span class="ct">两个很好用的调试技工</span>
+        <ul class="tight" style="margin-bottom:0">
+          <li><strong>条件断点</strong>：右键断点 → 条件，填 <code class="inline">i == 500</code>。循环跑一万次时不用手动跳过前 499 次。</li>
+          <li><strong>数据断点</strong>（VS 独有）：监视某个变量，右键 → 值更改时中断。变量被"莫名其妙改掉"时，这个能直接抓到凶手。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">VS 的三种视图各管什么</h3>
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 240" role="img" aria-label="Visual Studio 解决方案资源管理器、编辑器与输出窗口的关系">
+        <!-- 左：解决方案资源管理器 -->
+        <rect class="box-u" x="20" y="30" width="190" height="182" rx="12"/>
+        <text class="t" x="34" y="54">解决方案资源管理器</text>
+        <text class="s" x="34" y="80">Solution 'HelloCpp'</text>
+        <text class="s" x="34" y="102">─ HelloCpp</text>
+        <text class="s" x="34" y="122">   ├ 头文件</text>
+        <text class="s" x="34" y="142">   ├ 源文件</text>
+        <text class="m" x="34" y="162" style="fill:var(--purple)">   ─  ├ main.cpp</text>
+        <text class="s" x="34" y="182">   ├ 资源文件</text>
+        <text class="s" x="34" y="204">右键项目 → 属性 / 添加 → 新建项</text>
+
+        <!-- 中：编辑器 -->
+        <rect class="box-c" x="228" y="30" width="300" height="182" rx="12"/>
+        <text class="t" x="242" y="54">代码编辑器</text>
+        <text class="m" x="242" y="82" style="font-size:10.5px">1  #include &lt;iostream&gt;</text>
+        <text class="m" x="242" y="102" style="font-size:10.5px">2</text>
+        <text class="m" x="242" y="122" style="font-size:10.5px">3  int main() {</text>
+        <text class="m" x="242" y="142" style="font-size:10.5px">4      std::cout &lt;&lt; "hi";</text>
+        <text class="m" x="242" y="162" style="font-size:10.5px">5      return 0;</text>
+        <text class="m" x="242" y="182" style="font-size:10.5px">6  }</text>
+        <text class="s" x="242" y="204">行号左侧灰条 = 可下断点的地方</text>
+
+        <!-- 右：输出窗口 -->
+        <rect class="box-m" x="544" y="30" width="196" height="182" rx="12"/>
+        <text class="t" x="558" y="54">输出 / 错误列表</text>
+        <text class="s" x="558" y="80">生成: 成功 1 个，失败 0 个</text>
+        <text class="m" x="558" y="102" style="font-size:10.5px;fill:var(--mint)">✓ 已启动 HelloCpp.exe</text>
+        <text class="s" x="558" y="128">出错时这里会给出</text>
+        <text class="s" x="558" y="146">「文件(行号): error C2xxx」</text>
+        <text class="s" x="558" y="164">双击直接跳到出错行</text>
+        <text class="s" x="558" y="190">★ 学习阶段先看这里的第一条错误，</text>
+        <text class="s" x="558" y="206">后面几十条常常是它的连锁反应</text>
+      </svg>
+      <figcaption>看错误的铁律：<strong>永远从第一条 error 开始改</strong>。一个漏掉的分号能引发几十条"语法错误"，改掉分号后面全部消大</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VS Code ============ -->
+<section class="section" id="vscode" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">02 · VS Code</span>
+      <h2>VS Code 搭建 C++ 环境</h2>
+      <p>
+        再次强调（<strong>VS Code 是编辑器，不是编译器）</strong>
+        下面分两条路——<strong>路线 A 用 MSVC</strong>（和 Visual Studio 同一套编译器），
+        <strong>路线 B 用 MinGW-w64</strong>（GCC 的 Windows 版，刷题党常用，命令和 Linux 一致）。       </p>
+    </div>
+
+    <h3>步骤 1 · 安装 VS Code</h3>
+    <p>
+      到 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>
+      下载 Windows 版，安装时<strong>务必勾选"添加到 PATH"</strong>（默认已勾选），       这样命令行里才能用 <code class="inline">code .</code> 打开当前目录。     </p>
+
+    <h3 style="margin-top:2rem">步骤 2 · 安装编译器（二选一）</h3>
+
+    <div class="split">
+      <div class="card">
+        <h3>路线 A · MSVC<span class="badge pink" style="margin-left:.4rem">已装 VS 就选它</span></h3>
+        <p style="font-size:.92rem;color:var(--muted)">
+          如果你已经装了 Visual Studio 2026 并且勾了「使用 C++ 的桌面开发」，
+          <strong>编译器已经在你电脑上了</strong>，不需要再装任何东西——跳到步骤 3。         </p>
+        <p style="font-size:.92rem;color:var(--muted);margin-bottom:0">
+          如果不想装完整的 VS，可以只装           <a href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">Visual Studio 生成工具</a>
+          （Build Tools for Visual Studio），同样勾选「使用 C++ 的桌面开发」工作负载，体积小很多。         </p>
+      </div>
+      <div class="card">
+        <h3>路线 B · MinGW-w64<span class="badge" style="margin-left:.4rem">刷题 / 跨平台</span></h3>
+        <p style="font-size:.92rem;color:var(--muted)">
+          获取方式三选一，推荐前两个，         </p>
+        <ul class="tight" style="margin:0">
+          <li><strong>MSYS2</strong>（最推荐）：装完在终端跑 <code class="inline">pacman -S mingw-w64-ucrt-x86_64-gcc</code></li>
+          <li><strong>w64devkit</strong>：单压缩包，解压即用，无需安装</li>
+          <li><strong>WinLibs</strong>：单个 zip，解压后抄 <code class="inline">bin</code> 目录加到 PATH</li>
+        </ul>
+        <p style="font-size:.88rem;color:var(--muted);margin:.5rem 0 0">
+          装完打开新终端验证：<code class="inline">g++ --version</code> 应输出版本号。         </p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="ci">🧭</span>
+      <div>
+        <span class="ct">怎么确认编译器到底装好没有</span>
+        <p style="margin:0">
+          打开一个<strong>新的</strong> PowerShell 窗口（旧窗口不会重新加载 PATH），执行，         </p>
+<pre class="code" data-lang="bash"><code>
+# 如果你走的是 MinGW-w64 路线
+g++ --version
+gcc --version
+gdb --version
+
+# 如果你走的是 MSVC 路线
+# 注意：cl.exe 默认不在 PATH 里，必须从「Developer Command Prompt」打开终端
+cl
+
+# 找不到命令时的排查：看看 g++ 到底在哪
+where.exe g++
+where.exe gcc
+</code></pre>
+        <p style="margin:.4rem 0 0">
+          <strong>MSVC 特别说明</strong>：<code class="inline">cl.exe</code> 不在系统 PATH 里，因为它需要一堆环境变量。正确做法是从开始菜单打开 <strong>"Developer Command Prompt for VS 2026"</strong> 或 <strong>"x64 Native Tools Command Prompt for VS 2026"</strong>。           VS Code 的 MSVC 配置会自动调用一个脚本帮你设置这些变量，所以不必手动配。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem">步骤 3 · 安装 VS Code 扩展</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>扩展向</th><th>扩展 ID</th><th>作用</th><th>必装，</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>C/C++</strong>（微软官方）</td>
+            <td><code class="inline">ms-vscode.cpptools</code></td>
+            <td>代码补全、跳转、语法检查、<strong>cppdbg 调试器</strong>（MSVC 和 MinGW 都靠它）</td>
+            <td><strong>必装</strong></td>
+          </tr>
+          <tr>
+            <td>C/C++ Extension Pack</td>
+            <td><code class="inline">ms-vscode.cpptools-extension-pack</code></td>
+            <td>上面那个 + CMake Tools + 主题等一整套</td>
+            <td>推荐</td>
+          </tr>
+          <tr>
+            <td><strong>CMake Tools</strong></td>
+            <td><code class="inline">ms-vscode.cmake-tools</code></td>
+            <td>在 VS Code 里配置 / 构建 / 调试 CMake 项目</td>
+            <td>用 CMake 时必装</td>
+          </tr>
+          <tr>
+            <td>Chinese (Simplified) Language Pack</td>
+            <td><code class="inline">ms-ceintl.vscode-language-pack-zh-hans</code></td>
+            <td>界面汉化</td>
+            <td>可选</td>
+          </tr>
+          <tr>
+            <td>CodeLLDB</td>
+            <td><code class="inline">vadimcn.vscode-lldb</code></td>
+            <td>用 LLDB 调试（Clang / macOS 场景）</td>
+            <td>Windows 上一般不需要</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>安装方式：左侧活动栏点「扩展」图标（四个方块），或按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>，搜索扩展 ID 即可。</p>
+
+    <h3 style="margin-top:2rem">步骤 4 · 准备一个测试项目</h3>
+    <p>
+      新建一个文件夹（例如 <code class="inline">D:\Code\cpp-test</code>），
+      在里面创建 <code class="inline">.vscode</code> 文件夹，然后创建下面的 4 个文件、       <strong>路径里不要有中文和空格</strong>，这是新手最容易踩的坑。     </p>
+
+<pre class="code" data-lang="text"><code>
+cpp-test/
+├── .vscode/
+│   ├── tasks.json              → 定义"怎么编译"
+│   ├── launch.json             → 定义"怎么调试"
+│   ├── c_cpp_properties.json   → 定义"代码补全去哪儿找头文件"
+│   └── settings.json           → 编辑器行为（可选但建议）
+└── main.cpp                    → 你的代码
+</code></pre>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="VS Code 中四个 JSON 配置文件各自的职贝 >
+        <defs>
+          <marker id="ar21" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+          <marker id="ar22" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--mint)" />
+          </marker>
+        </defs>
+
+        <rect class="box-c" x="270" y="20" width="220" height="52" rx="12"/>
+        <text class="t" x="380" y="44" text-anchor="middle">你按下 F5</text>
+        <text class="s" x="380" y="62" text-anchor="middle">VS Code 开始调度</text>
+
+        <path class="ln-a" d="M330 76C250 96 200 118 170 146" marker-end="url(#ar21)"/>
+        <path class="ln-c" d="M430 76C510 96 560 118 590 146" marker-end="url(#ar22)"/>
+
+        <rect class="box-u" x="20" y="150" width="290" height="64" rx="12"/>
+        <text class="t" x="36" y="176">① tasks.json</text>
+        <text class="s" x="36" y="198">"先编译  —— 调用编译器把 .cpp 变成 .exe"</text>
+
+        <rect class="box-u" x="20" y="226" width="290" height="64" rx="12"/>
+        <text class="t" x="36" y="252">② launch.json</text>
+        <text class="s" x="36" y="274">"再调试  —— 启动调试器，附到 .exe 上"</text>
+
+        <rect class="box-m" x="450" y="150" width="290" height="64" rx="12"/>
+        <text class="t" x="466" y="176">③ c_cpp_properties.json</text>
+        <text class="s" x="466" y="198">"补全从哪来" —— 头文件路径、C++ 标准</text>
+
+        <rect class="box-m" x="450" y="226" width="290" height="64" rx="12"/>
+        <text class="t" x="466" y="252">④ settings.json</text>
+        <text class="s" x="466" y="274">"编辑器怎么表现" —— 编码、格式化、保存行为</text>
+
+        <text class="s" x="330" y="262">①② 影响"运行"</text>
+        <text class="s" x="330" y="280">③④ 影响"写代码的体验"</text>
+      </svg>
+      <figcaption>
+        <strong>关键区别</strong>：<code class="inline">tasks.json</code> 和 <code class="inline">launch.json</code> 是<strong>"F5 时真正干活"</strong>的；
+        <code class="inline">c_cpp_properties.json</code> <strong>只影响补全和报红</strong>——它写错了，代码照样能编译运行，只是编辑器到处画红线
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 三个 JSON ============ -->
+<section class="section" id="configs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Configuration</span>
+      <h2>四个配置文件，直接抄</h2>
+      <p>
+        下面给出 <strong>MSVC 版</strong>和 <strong>MinGW-w64 版</strong>两套。         按你实际用的编译器选一套复制，不要混着用。       </p>
+    </div>
+
+    <div class="callout info">
+      <span class="ci">📌</span>
+      <div>
+        <span class="ct">复制前必看：三处要改成你自己的路径</span>
+        <ul class="tight" style="margin-bottom:0">
+          <li><code class="inline">compilerPath</code>：编译器的完整路径（用 <code class="inline">where g++</code> 或 VS 安装目录查）</li>
+          <li><code class="inline">miDebuggerPath</code>：调试器路径（MinGW 是 <code class="inline">gdb.exe</code>；MSVC 用 <code class="inline">cppvsdbg</code> 类型则不需要）</li>
+          <li><code class="inline">${workspaceFolder}</code> 不用改，它是 VS Code 内置变量，代表你打开的文件夹</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>3.1 tasks.json —— 定义怎么编译</h3>
+
+    <p><strong>版本 A：MinGW-w64（g++.exe）</strong></p>
+<pre class="code" data-lang="json"><code>
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++ 生成活动文件",
+      "command": "D:/msys64/ucrt64/bin/g++.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",                          // 生成调试信息（断点必需）
+        "-Wall",                       // 打开常用警告
+        "-Wextra",                     // 更多警告
+        "-std=c++17",                  // C++ 标准，按需改成 c++20
+        "${file}",                     // 当前打开的 .cpp 文件
+        "-o",                          // 输出
+        "${fileDirname}/${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true             // Ctrl+Shift+B 的默认任务
+      },
+      "detail": "使用 g++ 编译当前文件"
+    }
+  ]
+}
+</code></pre>
+
+    <p><strong>版本 B：MSVC（cl.exe）</strong></p>
+    <p style="font-size:.92rem;color:var(--muted)">
+      MSVC 需要先执行 <code class="inline">vcvars64.bat</code> 来设置环境变量，
+      所以要用 <code class="inline">cmd /c</code> 包一层。把下面的路径换成你实际安装的版本号。     </p>
+<pre class="code" data-lang="json"><code>
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "C/C++: cl.exe 生成活动文件",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "\"\"C:/Program Files/Microsoft Visual Studio/2026/Community/VC/Auxiliary/Build/vcvars64.bat\" && cl /Zi /EHsc /W4 /std:c++17 /utf-8 /Fe:${fileDirname}\\${fileBasenameNoExtension}.exe ${file}\""
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$msCompile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "使用 MSVC 编译当前文件"
+    }
+  ]
+}
+</code></pre>
+
+    <div class="callout warn">
+      <span class="ci">⚠️</span>
+      <div>
+        <span class="ct">MSVC 路径里的引号很容易写错</span>
+        <p style="margin:0">
+          <code class="inline">vcvars64.bat</code> 的路径含空格（<code class="inline">cmd /c</code> 对引号的处理又很挑剔）。           正确写法是路径用<strong>双引号包住、整条命令外面再包一层双引号</strong>，也就是像上面那样           <code class="inline">\"\"...\vcvars64.bat\" &amp;&amp; cl ...\"</code>。           如果一直报"命令语法不正确"，把 <code class="inline">args</code> 里的路径换成短路径，或者干脆改用 MinGW 路线。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem">3.2 launch.json —— 定义怎么调试</h3>
+
+    <p><strong>版本 A：MinGW-w64（gdb.exe）</strong></p>
+<pre class="code" data-lang="json"><code>
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++: g++ 调试活动文件",
+      "type": "cppdbg",                      // 用微软 C/C++ 扩展的调试器
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],                            // 命令行参数，例如 ["input.txt"]
+      "stopAtEntry": false,                  // true = 在 main 第一行就停下
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": true,               // true = 弹出独立控制台窗口
+      "MIMode": "gdb",
+      "miDebuggerPath": "D:/msys64/ucrt64/bin/gdb.exe",
+      "setupCommands": [
+        {
+          "description": "为 gdb 启用整齐打印",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C/C++: g++ 生成活动文件"   // ★ 调试前先执行这个任务
+    }
+  ]
+}
+</code></pre>
+
+    <p><strong>版本 B：MSVC（cppvsdbg）</strong></p>
+    <p style="font-size:.92rem;color:var(--muted)">
+      MSVC 用的是 Visual Studio 自己的调试引擎 <code class="inline">cppvsdbg</code>，       <strong>不需要写 miDebuggerPath</strong>，它自己去注册表里找。     </p>
+<pre class="code" data-lang="json"><code>
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++: cl.exe 调试活动文件",
+      "type": "cppvsdbg",                    // MSVC 专用调试器类型
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "console": "externalTerminal",         // 成 "integratedTerminal"
+      "preLaunchTask": "C/C++: cl.exe 生成活动文件"
+    }
+  ]
+}
+</code></pre>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>字段</th><th>作用</th><th>什么时候要改</th></tr></thead>
+        <tbody>
+          <tr><td><code class="inline">type</code></td><td>用哪个调试引擎</td><td>MinGW → <code class="inline">cppdbg</code>；MSVC → <code class="inline">cppvsdbg</code></td></tr>
+          <tr><td><code class="inline">program</code></td><td>要调试的可执行文件</td><td>一定要和 tasks.json 的 <code class="inline">-o</code> 输出路径一致</td></tr>
+          <tr><td><code class="inline">args</code></td><td>传给程序的命令行参数</td><td><strong>刷题时最常用</strong>：写 <code class="inline">["&lt; input.txt"]</code> 做重定向（需结合 shell）</td></tr>
+          <tr><td><code class="inline">stopAtEntry</code></td><td>是否在 main 入口暂停</td><td>想从第一行开始单步就计 <code class="inline">true</code></td></tr>
+          <tr><td><code class="inline">externalConsole</code></td><td>是否用独立控制台</td><td>需要 <code class="inline">cin</code> 输入时建议 <code class="inline">true</code>，集成终端有时无法输入</td></tr>
+          <tr><td><code class="inline">preLaunchTask</code></td><td>调试前自动跑的构建任务</td><td><strong>必须和 tasks.json 的 <code class="inline">label</code> 完全一致</strong>，多一个空格都不行</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="ci">🔴</span>
+      <div>
+        <span class="ct">最常见的报错："找不到任务 C/C++: g++ 生成活动文件"</span>
+        <p style="margin:0">
+          这说明 <code class="inline">launch.json</code> 里 <code class="inline">preLaunchTask</code> 的字符串，           和 <code class="inline">tasks.json</code> 里 <code class="inline">label</code> 的字符串<strong>不完全一样</strong>。           把它们复制粘贴成完全相同的文本即可（注意中文冒号、空格、大小写）。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem">3.3 c_cpp_properties.json —— 只管补全，不管编译</h3>
+<pre class="code" data-lang="json"><code>
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/**"          // 自己项目里的头文件
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "compilerPath": "D:/msys64/ucrt64/bin/g++.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",            // ★ 改成 c++20 就能用 concept / ranges
+      "intelliSenseMode": "windows-gcc-x64",
+      // MSVC 用户改成：
+      // "compilerPath": "C:/Program Files/Microsoft Visual Studio/2026/Community/VC/Tools/MSVC/<版本号 /bin/Hostx64/x64/cl.exe",
+      // "intelliSenseMode": "windows-msvc-x64"
+    }
+  ]
+}
+</code></pre>
+
+    <div class="callout tip">
+      <span class="ci">🎯</span>
+      <div>
+        <span class="ct">怎么找到 MSVC 的 compilerPath</span>
+        <p style="margin:.2rem 0 0">
+          在文件资源管理器里打开
+          <code class="inline">C:\Program Files\Microsoft Visual Studio\2026\Community\VC\Tools\MSVC\</code>，           里面会有一个以版本号命名的文件夹（形如 <code class="inline">14.xx.xxxxx</code>）、           进入它下面的 <code class="inline">bin\Hostx64\x64\</code>，找到 <code class="inline">cl.exe</code>，           把<strong>完整路径</strong>复制过来，记得把反斜杠 <code class="inline">\</code> 换成正斜杠 <code class="inline">/</code>。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem">3.4 settings.json —— 让编码不再抽风</h3>
+<pre class="code" data-lang="json"><code>
+{
+  // 保存时自动格式化（配合 clang-format）
+  "editor.formatOnSave": true,
+
+  // 默认文件编码：统一 UTF-8，中文才不会乱码
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": true,
+
+  // 终端编码：Windows 下必须显式指定
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.env.windows": {
+    "PYTHONIOENCODING": "utf-8"
+  },
+
+  // 关掉烦人的 检测到 #include 错误"
+  "C_Cpp.errorSquiggles": "enabled",
+  "C_Cpp.intelliSenseEngine": "default",
+
+  // 保存时去掉行尾空白
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // 自动保存
+  "files.autoSave": "onFocusChange"
+}
+</code></pre>
+
+    <div class="callout info">
+      <span class="ci">🧩</span>
+      <div>
+        <span class="ct">CLion / Visual Studio / VS Code 该怎么选？说句实在语</span>
+        <ul class="tight" style="margin-bottom:0">
+          <li><strong>纯新手、Windows</strong>：Visual Studio 社区版。少折腾，把时间花在语法上。</li>
+          <li><strong>刷题、写小工具</strong>：VS Code + MinGW-w64。轻快，配置文件一次写好到处能用。</li>
+          <li><strong>做正式项目、用 CMake</strong>：任一都行；CLion 的 CMake 体验最好（但收费，学生可免费申请）。</li>
+          <li>结论：<strong>不要在这件事上纠结超过一大</strong>。能用哪个就用哪个，工具是可以换的。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第一次运行 ============ -->
+<section class="section" id="firstrun">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">04 · First Run</span>
+      <h2>不依赖 IDE，用命令行跑一次</h2>
+      <p>
+        这一步<strong>非常重要</strong>。很多人用了几年 VS，却不知道"编译"这个动作究竟发生了什么、         手动跑一次，你就理解了整条链路。       </p>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h3>步骤 1：写一个最简单的程序</h3>
+<pre class="code" data-lang="cpp"><code>
+// hello.cpp
+#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello, world!\n";
+    return 0;
+}
+</code></pre>
+      </div>
+      <div class="card">
+        <h3>步骤 2：编译它</h3>
+<pre class="code" data-lang="bash"><code>
+# MinGW-w64 / Linux / macOS
+g++ -std=c++17 -Wall -g hello.cpp -o hello
+./hello
+
+# 拆开看每一步在做什么：
+#   -std=c++17   用 C++17 标准
+#   -Wall        打开警告
+#   -g           生成调试信息（否则不能断点）
+#   -o hello     输出文件变 hello
+#   hello.cpp    输入源文件 </code></pre>
+      </div>
+    </div>
+
+<pre class="code" data-lang="bash"><code>
+# MSVC：先打开 "x64 Native Tools Command Prompt for VS 2026"
+cl /std:c++17 /W4 /Zi /EHsc hello.cpp /Fe:hello.exe
+hello.exe
+
+#    /std:c++17   语言标准
+#    /W4          警告等级 4
+#    /Zi          生成调试信息（对应 g++ 的 -g）
+#    /EHsc        标准异常处理模型
+#    /Fe:hello.exe  指定输出文件向 </code></pre>
+
+    <h3 style="margin-top:2rem">编译过程其实分成四步</h3>
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 260" role="img" aria-label="C++ 从源码到可执行文件的编译链接流程，以及错误出现在哪个阶段">
+        <defs>
+          <marker id="ar23" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+
+        <rect class="box-c" x="20" y="46" width="118" height="56" rx="11"/>
+        <text class="t" x="79" y="70" text-anchor="middle">main.cpp</text>
+        <text class="s" x="79" y="88" text-anchor="middle">源代码</text>
+        <path class="ln-a" d="M142 74H170" marker-end="url(#ar23)"/>
+
+        <rect class="box-u" x="174" y="46" width="118" height="56" rx="11"/>
+        <text class="t" x="233" y="70" text-anchor="middle">预处理</text>
+        <text class="s" x="233" y="88" text-anchor="middle">展开 #include</text>
+        <path class="ln-a" d="M296 74H324" marker-end="url(#ar23)"/>
+
+        <rect class="box-u" x="328" y="46" width="118" height="56" rx="11"/>
+        <text class="t" x="387" y="70" text-anchor="middle">编译</text>
+        <text class="s" x="387" y="88" text-anchor="middle">→ 汇编 / 目标文件</text>
+        <path class="ln-a" d="M450 74H478" marker-end="url(#ar23)"/>
+
+        <rect class="box-p" x="482" y="46" width="118" height="56" rx="11"/>
+        <text class="t" x="541" y="70" text-anchor="middle">链接</text>
+        <text class="s" x="541" y="88" text-anchor="middle">合并库与目标文件</text>
+        <path class="ln-a" d="M604 74H632" marker-end="url(#ar23)"/>
+
+        <rect class="box-m" x="636" y="46" width="104" height="56" rx="11"/>
+        <text class="t" x="688" y="70" text-anchor="middle">hello.exe</text>
+        <text class="s" x="688" y="88" text-anchor="middle">可执行文件</text>
+
+        <!-- 错误标注 -->
+        <path class="dash" d="M20 122H740"/>
+        <text class="t" x="20" y="150" style="fill:var(--pink-deep)">编译错误（Compiler Error）：</text>
+        <text class="s" x="20" y="172">语法写错了：漏分号、括号不匹配、类型不兼容、拼错名字。</text>
+        <text class="s" x="20" y="192">报错信息里带 <tspan class="hl">文件 + 行号</tspan>，还可能附带 "note:" 提示真正的原因。</text>
+        <text class="s" x="20" y="212">MSVC 形如 <tspan class="hl">error C2xxx</tspan>；GCC/Clang 形如 <tspan class="hl">error: ...</tspan></text>
+
+        <text class="t" x="20" y="240" style="fill:var(--amber)">链接错误（Linker Error）：</text>
+        <text class="s" x="400" y="150">函数只有声明没有定义，</text>
+        <text class="s" x="400" y="170">库没加进链接参数，</text>
+        <text class="s" x="400" y="190">同一符号定义了两次。</text>
+        <text class="s" x="400" y="212">MSVC（<tspan class="hl">LNK2019 / LNK2005</tspan>）</text>
+        <text class="s" x="400" y="232">GCC（<tspan class="hl">undefined reference to ...</tspan>）</text>
+        <text class="s" x="400" y="252">★ 链接错误没有行号 —— 要自己找是哪个函数没实现</text>
+      </svg>
+      <figcaption>
+        <strong>看懂错误类型，排查效率能翻好几倍</strong>：有行号的是编译错误（好改），像 undefined reference / LNK2019 这类的是链接错误（多半是漏了某个 .cpp 或者拼错了函数签名）。</figcaption>
+    </figure>
+
+    <div class="callout info">
+      <span class="ci">💭</span>
+      <div>
+        <span class="ct">理解这一点，你就超过了 80% 的初学者</span>
+        <p style="margin:0">
+          <strong>编译器一次只处理一个 .cpp 文件</strong>（叫"编译单元"），把它们各自变成 <code class="inline">.o</code> / <code class="inline">.obj</code>，           最后由<strong>链接器</strong>把这些目标文件和库拼成一个 <code class="inline">.exe</code>。           <br>这就解释了两件事：为什么"头文件里写函数实现"会导致"重复定义"（每个 .cpp 都包含它，都被定义了一次），           以及为什么改了头文件，所有包含它的 .cpp 都要重新编译。         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 报错排查 ============ -->
+<section class="section" id="trouble" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Troubleshooting</span>
+      <h2>新手最常撞的坑，这里已经有答案</h2>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th style="width:30%">现象 / 报错</th><th>原因</th><th>解决办法</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>控制台窗口<strong>一闪而过</strong></td>
+            <td>程序运行完就退出，窗口随之关闭</td>
+            <td>① 用 <kbd>Ctrl</kbd>+<kbd>F5</kbd> 而不是 F5；② 在 <code class="inline">return 0;</code> 前加 <code class="inline">system("pause");</code>（Windows）；③ 打断点后 F5</td>
+          </tr>
+          <tr>
+            <td><code class="inline">'g++' 不是内部或外部命令</code></td>
+            <td>g++ 不在系统 PATH 里，或者终端是安装前打开的</td>
+            <td>把 <code class="inline">...\bin</code> 目录加进系统环境变量 PATH，然后<strong>重开终端</strong>；用 <code class="inline">where g++</code> 验证</td>
+          </tr>
+          <tr>
+            <td><code class="inline">'cl' 不是内部或外部命令</code></td>
+            <td>MSVC 的环境变量没有设置</td>
+            <td>从开始菜单打开 <strong>"x64 Native Tools Command Prompt for VS 2026"</strong>，不要用普通 cmd</td>
+          </tr>
+          <tr>
+            <td>中文输出变成<strong>乱码</strong></td>
+            <td>源码是 UTF-8，但控制台按 GBK 解读（或反过来）</td>
+            <td>① MSVC 加 <code class="inline">/utf-8</code> 编译选项；② 源码统一保存为 UTF-8；③ 在程序开头加 <code class="inline">SetConsoleOutputCP(CP_UTF8);</code>（需 <code class="inline">&lt;windows.h&gt;</code>）</td>
+          </tr>
+          <tr>
+            <td>VS Code 里到处<strong>画红线</strong>，但程序能编译</td>
+            <td>IntelliSense 找不到头文件</td>
+            <td>检查 <code class="inline">c_cpp_properties.json</code> 的 <code class="inline">includePath</code> 和 <code class="inline">compilerPath</code>；改完按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> 执行 "C/C++: Reset IntelliSense Database"</td>
+          </tr>
+          <tr>
+            <td>断点是<strong>灰色空心</strong>的，命不中</td>
+            <td>编译时没生成调试信息</td>
+            <td>检查编译参数：GCC 要有 <code class="inline">-g</code>，MSVC 要有 <code class="inline">/Zi</code>；并且确认用的不是 Release 配置</td>
+          </tr>
+          <tr>
+            <td><code class="inline">undefined reference to 'xxx'</code><br><code class="inline">LNK2019: 无法解析的外部符号</code></td>
+            <td>函数只有声明没有定义，或定义所在的 .cpp 没参与链接</td>
+            <td>检查拼写、参数列表（<code class="inline">const</code> 也算签名的一部分）；确认相关 .cpp 已加入项目或编译命令</td>
+          </tr>
+          <tr>
+            <td><code class="inline">LNK1168: 无法打开 hello.exe 进行写入</code></td>
+            <td>上一次的程序还在后台运行着</td>
+            <td>关掉那个控制台窗口，或在任务管理器里结束进程，然后重新生成</td>
+          </tr>
+          <tr>
+            <td>找不到该任务 / The task ... cannot be found</td>
+            <td><code class="inline">launch.json</code> 的 <code class="inline">preLaunchTask</code> 和 <code class="inline">tasks.json</code> 的 <code class="inline">label</code> 不一致</td>
+            <td>把两个字符串改成一模一样（注意空格和标点）</td>
+          </tr>
+          <tr>
+            <td>程序运行中<strong>突然崩溃</strong>，无任何提示</td>
+            <td>很可能是数组越界 / 空指针 / 野指针</td>
+            <td>开 AddressSanitizer：GCC 加 <code class="inline">-fsanitize=address</code>；VS 项目属性里启用地址擦除器</td>
+          </tr>
+          <tr>
+            <td>改了头文件，程序行为<strong>没变化</strong></td>
+            <td>增量编译没有重新编译依赖该头文件的源文件</td>
+            <td>执行「重新生成 / Rebuild」而不是「生成」；CMake 项目删掉 <code class="inline">build</code> 目录重来</td>
+          </tr>
+          <tr>
+            <td><code class="inline">fatal error: bits/stdc++.h: No such file or directory</code></td>
+            <td><code class="inline">&lt;bits/stdc++.h&gt;</code> 是 GCC 特有的，MSVC 没有</td>
+            <td>用 MSVC 时改成分别包含需要的标准头文件；或改用 MinGW-w64 编译</td>
+          </tr>
+          <tr>
+            <td>项目路径含中文，编译各种奇怪失贝</td>
+            <td>部分工具链对面 ASCII 路径处理不佳</td>
+            <td>把项目移到纯英文路径，例如 <code class="inline">D:\Code\cpp</code></td>
+          </tr>
+          <tr>
+            <td><code class="inline">error: 'auto' ... only available with -std=c++11</code></td>
+            <td>编译器默认标准太老</td>
+            <td>显式加 <code class="inline">-std=c++17</code>，或在项目属性里改「C++ 语言标准」。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="ci">🛠️</span>
+      <div>
+        <span class="ct">遇到看不懂的报错，正确的求助姿势</span>
+        <ol class="tight" style="margin-bottom:0">
+          <li>先<strong>只保留第一条 error</strong>，把它的完整英文原句复制下来。</li>
+          <li>去掉路径和具体变量名，只留错误码和通用描述，例如搜 <code class="inline">C2143 syntax error missing ';' before</code>。</li>
+          <li>优先看 <a href="https://learn.microsoft.com/zh-cn/cpp/error-messages/compiler-errors-1/compiler-errors-c2000-c3999" target="_blank" rel="noopener">MSVC 错误码官方文档</a>，它每条都会解释原因。</li>
+          <li>问别人时，<strong>贴出最小可复现代码 + 完整报错</strong>，别只发一句「我的代码报错了」。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 资源 ============ -->
+<section class="section" id="res">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Resources</span>
+      <h2>官方文档与视频</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h3 style="font-size:1rem">📘 官方文档（遇到问题优先查这里）</h3>
+        <div class="res-list">
+          <a class="res" href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">
+            <span class="ic doc">VS</span>
+            <span class="body"><span class="title">Visual Studio 官方下载</span><span class="desc">选 Community 社区版，个人免费</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://learn.microsoft.com/zh-cn/cpp/build/vscpp-step-0-installation" target="_blank" rel="noopener">
+            <span class="ic doc">MS</span>
+            <span class="body"><span class="title">Microsoft Learn · 安装 C++ 工具</span><span class="desc">官方图文教程，含工作负载选择说明</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://code.visualstudio.com/docs/cpp/config-mingw" target="_blank" rel="noopener">
+            <span class="ic doc">VS</span>
+            <span class="body"><span class="title">VS Code 官方 · 使用 MinGW 配置 C++</span><span class="desc">tasks.json / launch.json 官方示例，最权威</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://code.visualstudio.com/docs/cpp/config-msvc" target="_blank" rel="noopener">
+            <span class="ic doc">VS</span>
+            <span class="body"><span class="title">VS Code 官方 · 使用 MSVC 配置 C++</span><span class="desc">Windows + MSVC 路线的官方配置指南</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://learn.microsoft.com/zh-cn/cpp/error-messages/" target="_blank" rel="noopener">
+            <span class="ic doc">⚠</span>
+            <span class="body"><span class="title">MSVC 错误码速查</span><span class="desc">C2xxx / LNKxxxx 都能查到详细解释</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem">🎬 视频教程</h3>
+        <div class="res-list">
+          <a class="res" href="https://www.bilibili.com/video/BV1F443zUEEM/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">Visual Studio 安装与配置</span><span class="desc">看别人实际操作一遍，比自己看文档快得多</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV19c411G7ey/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">VS Code 配置 C++ 环境</span><span class="desc">重点看 tasks.json / launch.json 的讲解</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1Z3411W7Ax/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">MinGW-w64 / MSYS2 安装</span><span class="desc">刷题党主流方案，装好就有 g++ / gdb</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1kv411b7ub/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">C++ 断点调试入门</span><span class="desc">学会调试，等于多了一双眼睛</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout pink" style="margin-top:1.8rem">
+      <span class="ci">i</span>
+      <div>
+        <span class="ct">卡住了怎么动</span>
+        <p style="margin:0">
+          环境这一步所有人都卡过，包括写了十年 C++ 的人在新电脑上也会卡。           <strong>这不是你笨，这是工具链本身就复杂。</strong>
+          <br>给自己设一个止损点：<strong>同一件事折腾超过 2 小时，就换一条路线</strong>——           比如 MinGW 装不上，就直接装 Visual Studio 社区版，先把代码写起来。           环境是用来服务于学习的，不要让它反过来消耗你。         </p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem">
+      <a class="btn btn-ghost" href="index.html">→ 回到路线总览</a>
+      <a class="btn btn-primary" href="basics.html">开始学 C++ 基础 →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:28em">
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/img/favicon.svg" alt="" style="width:26px">
+          <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+        </div>
+        <p style="margin:0;font-size:.85rem">个人学习路线整理，非官方站点。所有资源链接均指向原始平台，内容版权归各自作者所有。</p>
+      </div>
+      <div>
+        <h4>学习路径</h4>
+        <div class="footer-links">
+          <a href="basics.html">② C++ 基础</a>
+          <a href="oop-stl.html">③ 面向对象 · STL</a>
+          <a href="algorithms.html">④ 算法与数据结构</a>
+          <a href="advanced.html">⑤ 进阶与实战</a>
+        </div>
+      </div>
+      <div>
+        <h4>本页跳转</h4>
+        <div class="footer-links">
+          <a href="#choose">选 VS 还是 VS Code</a>
+          <a href="#vs">Visual Studio 2026</a>
+          <a href="#vscode">VS Code</a>
+          <a href="#configs">配置文件</a>
+          <a href="#trouble">报错排查</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:1.6rem 0 0;font-size:.8rem;text-align:center;opacity:.8">
+      © <span id="year">2026</span> Code Bloom · 手工搭建
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/judge.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

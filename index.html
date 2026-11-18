@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Bloom · C++ 与算法学习路线图</title>
+<meta name="description" content="从零开始的 C++ 与算法学习路线：梳理五个阶段的学习路径，配套图解、视频与博客资源，并附 Visual Studio 2026 与 VS Code 环境搭建教程。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/judge.css">
+<noscript><style>.cover,.cover-driver{display:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- ================= 起始页：封面（下拉翻页进入内容） ================= -->
+<section class="cover" id="cover" aria-label="起始页">
+  <div class="cover-bg" id="coverBg" aria-hidden="true"></div>
+  <div class="cover-shade" aria-hidden="true"></div>
+  <div class="cover-inner">
+    <h1 class="cover-title">C++ &amp; 算法</h1>
+    <p class="cover-sub">从零到能刷题 · 能写项目</p>
+  </div>
+  <!-- 右上角工具条：上传背景图 / 移除背景 / 主题（仅图标） -->
+  <div class="cover-tools">
+    <button class="cover-btn" id="coverUploadBtn" type="button" title="上传本地图片作为起始页背景">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v2.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V16"/></svg>
+      <span>上传背景图</span>
+    </button>
+    <button class="cover-btn" id="coverClearBtn" type="button" title="移除背景图，恢复默认渐变" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.8A.8.8 0 0 1 9.8 4h4.4a.8.8 0 0 1 .8.8V7M6.5 7l.8 12a1.6 1.6 0 0 0 1.6 1.5h6.2a1.6 1.6 0 0 0 1.6-1.5l.8-12"/></svg>
+      <span>移除背景</span>
+    </button>
+    <button class="cover-btn cover-btn-icon" id="coverThemeBtn" type="button" aria-label="切换到浅色主题"></button>
+    <input type="file" id="coverFile" accept="image/*" hidden>
+    <span class="cover-note" id="coverNote" role="status"></span>
+  </div>
+  <div class="cover-hint" aria-hidden="true">
+    <span>下滑翻页</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+<div class="cover-driver" id="coverDriver" aria-hidden="true"></div>
+
+<div class="page-body" id="pageBody">
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/favicon.svg" alt="">
+      <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="basics.html">C++ 基础</a>
+      <a href="oop-stl.html">面向对象 · STL</a>
+      <a href="algorithms.html">算法与数据结构</a>
+      <a href="advanced.html">进阶与实战</a>
+      <a href="tools.html">环境搭建</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="展开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid hero-solo">
+    <div>
+      <span class="badge pink">零基础 → 能刷题 → 能写项目</span>
+      <h1>把 <span class="grad">C++ 与算法</span><br>从零学到能写项目</h1>
+      <p class="lead">
+        这是一份从零开始的学习路线图：把 C++ 语言、数据结构与算法拆成五个阶段，         每个阶段都配有<strong>图解</strong>。<strong>视频课入口</strong>。<strong>文档与题库</strong>，         还有一份写得非常细的 <strong>Visual Studio 2026 / VS Code 环境搭建教程</strong>。       </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="basics.html">从第一阶段开始 →</a>
+        <a class="btn btn-ghost" href="tools.html">先装好编译器</a>
+        <a class="btn btn-ghost" href="#roadmap">看完整路线</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">5 个阶段</span>
+        <span class="pill">20+ 张图解</span>
+        <span class="pill">可打卡进序</span>
+        <span class="pill">深浅色主题</span>
+      </div>
+    </div>
+      </div>
+</section>
+
+<!-- ================= 为什么 ================= -->
+<section class="section-sm">
+  <div class="container">
+    <div class="grid grid-4">
+      <div class="card hoverable">
+        <div class="icon-badge pink">⚠</div>
+        <h3>性能天花板高</h3>
+        <p style="margin:0;color:var(--muted);font-size:.92rem">没有 GC、可以手动控制内存布局，游戏引擎、数据库内核、高频交易都靠它。</p>
+      </div>
+      <div class="card hoverable">
+        <div class="icon-badge">🧠</div>
+        <h3>逼你理解计算机</h3>
+        <p style="margin:0;color:var(--muted);font-size:.92rem">指针、栈/堆、值语义——学完 C++，再看别的语言会觉得"原来这里是这个意思"。</p>
+      </div>
+      <div class="card hoverable">
+        <div class="icon-badge cyan">🏆</div>
+        <h3>竞赛与刷题的通用语</h3>
+        <p style="margin:0;color:var(--muted);font-size:.92rem">NOI / ICPC / LeetCode 的主流语言，STL 直接给你现成的高效数据结构。</p>
+      </div>
+      <div class="card hoverable">
+        <div class="icon-badge mint">🎯</div>
+        <h3>校招硬通货</h3>
+        <p style="margin:0;color:var(--muted);font-size:.92rem">后台、嵌入式、音视频、游戏客户端岗位的核心考察项，笔试基本就是算法题。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 路线总览 ================= -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Roadmap</span>
+      <h2>五阶段学习路径</h2>
+      <p>按顺序走，不要跳。每个阶段都给了「大概要多久」和「学完能做什么」，方便你判断自己是不是真的学会了。</p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 250" role="img" aria-label="学习投入与能力增长曲线 >
+        <defs>
+          <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-opacity=".45" style="stop-color:var(--purple)" />
+            <stop offset="1" stop-opacity="0" style="stop-color:var(--purple)" />
+          </linearGradient>
+        </defs>
+        <!-- 坐标转 -->
+        <path class="ln" d="M58 20V212H700"/>
+        <path class="dash" d="M58 168H700M58 124H700M58 80H700"/>
+        <text class="s" x="16" y="46">能力</text>
+        <text class="s" x="662" y="232">时间</text>
+
+        <!-- 面积 -->
+        <path d="M58 212L58 200C110 196 140 186 178 172 224 155 258 138 300 120 348 99 380 82 424 68 470 53 520 44 570 38 620 32 662 29 700 27L700 212Z" fill="url(#areaG)"/>
+        <!-- 曲线 -->
+        <path d="M58 200C110 196 140 186 178 172 224 155 258 138 300 120 348 99 380 82 424 68 470 53 520 44 570 38 620 32 662 29 700 27"
+              fill="none" stroke-width="3" stroke-linecap="round" style="stroke:var(--purple-deep)" />
+        <!-- 节点 -->
+        <g>
+          <circle cx="110" cy="193" r="6" style="fill:var(--pink)" />
+          <text class="t" x="72" y="238" style="font-size:11px">语法基础</text>
+        </g>
+        <g>
+          <circle cx="270" cy="133" r="6" style="fill:var(--purple)" />
+          <text class="t" x="232" y="238" style="font-size:11px">OOP · STL</text>
+        </g>
+        <g>
+          <circle cx="424" cy="68" r="6" style="fill:var(--cyan)" />
+          <text class="t" x="382" y="238" style="font-size:11px">数据结构</text>
+        </g>
+        <g>
+          <circle cx="570" cy="38" r="6" style="fill:var(--mint)" />
+          <text class="t" x="530" y="238" style="font-size:11px">算法思想</text>
+        </g>
+        <g>
+          <circle cx="690" cy="28" r="6" style="fill:var(--amber)" />
+          <text class="t" x="630" y="238" style="font-size:11px">工程实战</text>
+        </g>
+
+        <!-- 关键提示 -->
+        <rect class="box-p" x="150" y="150" width="150" height="42" rx="10"/>
+        <text class="t" x="164" y="168" style="font-size:11px">😣 最难受的一段</text>
+        <text class="s" x="164" y="183">语法细节多，看不到成长</text>
+
+        <rect class="box-m" x="386" y="88" width="168" height="42" rx="10"/>
+        <text class="t" x="400" y="106" style="font-size:11px">🚀 开始有正反馈</text>
+        <text class="s" x="400" y="121">能独立写出中等题解</text>
+      </svg>
+      <figcaption>能力不是线性的：前 4 周最痛苦，第 2 个月开始加速，第 4 个月后会明显感觉"看题有思路了"</figcaption>
+    </figure>
+
+    <div class="path">
+      <!-- 阶段 1 -->
+      <div class="stage">
+        <div class="stage-num">01</div>
+        <div class="stage-body">
+          <div class="card hoverable">
+            <h3>环境搭建：让第一行代码跑起来</h3>
+            <div class="stage-meta">约 1～2 天 · 难点：不是写代码，是装环境</div>
+            <p style="font-size:.94rem;margin-bottom:.6rem">
+              安装编译器与 IDE，跑通 <code class="inline">Hello, World</code>，               学会「编译 → 链接 → 运行」这条链路，并配好调试断点。             </p>
+            <ul class="tight" style="color:var(--ink-2)">
+              <li>Visual Studio 2026（<strong>使用 C++ 的桌面开发</strong>工作负载）</li>
+              <li>VS Code + MSVC / MinGW-w64 + CMake Tools</li>
+              <li>搞懂 <code class="inline">.cpp → .obj → .exe</code> 与 include 路径</li>
+            </ul>
+            <div class="tags"><span class="tag hot">先做这一步</span><span class="tag">含完整配置 JSON</span></div>
+            <p style="margin:.9rem 0 0"><a class="btn btn-ghost btn-sm" href="tools.html">进入环境搭建教程 →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段 2 -->
+      <div class="stage">
+        <div class="stage-num">02</div>
+        <div class="stage-body">
+          <div class="card hoverable">
+            <h3>C++ 语言基础：语法、类型与内存初体验</h3>
+            <div class="stage-meta">约 4～6 周 · 每天 1.5 小时</div>
+            <p style="font-size:.94rem;margin-bottom:.6rem">
+              变量与类型、运算符与流程控制、函数、数组与字符串、指针与引用、结构体。               这一阶段的目标不是"记住语法"，而是<strong>能独立写出 100 行以内的小程序</strong>。             </p>
+            <ul class="tight" style="color:var(--ink-2)">
+              <li>编译流程与预处理、命名空间</li>
+              <li>栈与堆、指针与引用、const 的正确用法</li>
+              <li><code class="inline">std::string</code> 与 <code class="inline">std::vector</code> 的入门用法</li>
+            </ul>
+            <div class="tags"><span class="tag">含内存模型图解</span><span class="tag">含可勾选清单</span></div>
+            <p style="margin:.9rem 0 0"><a class="btn btn-ghost btn-sm" href="basics.html">进入 C++ 基础 →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段 3 -->
+      <div class="stage">
+        <div class="stage-num">03</div>
+        <div class="stage-body">
+          <div class="card hoverable">
+            <h3>面向对象与 STL：从"能写"到"写得像样"</h3>
+            <div class="stage-meta">约 5～8 周</div>
+            <p style="font-size:.94rem;margin-bottom:.6rem">
+              类与对象、封装继承多态、运算符重载、模板入门；然后是 STL 三大件               <code class="inline">vector / map / algorithm</code>。这一阶段结束后，你已经能刷大部分简单题了。             </p>
+            <ul class="tight" style="color:var(--ink-2)">
+              <li>构造 析构、拷贝与移动语义、RAII</li>
+              <li>容器选型：什么时候用 <code class="inline">unordered_map</code> 而不是 <code class="inline">map</code></li>
+              <li>迭代器、仿函数、lambda、常用算法</li>
+            </ul>
+            <div class="tags"><span class="tag">同 STL 选型速查行</span></div>
+            <p style="margin:.9rem 0 0"><a class="btn btn-ghost btn-sm" href="oop-stl.html">进入面向对象与 STL →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段 4 -->
+      <div class="stage">
+        <div class="stage-num">04</div>
+        <div class="stage-body">
+          <div class="card hoverable">
+            <h3>数据结构与算法：真正的分水岭</h3>
+            <div class="stage-meta">约 8～12 周 · 建议配合刷题同步进行</div>
+            <p style="font-size:.94rem;margin-bottom:.6rem">
+              复杂度分析 → 线性表 → 栈队列 → 树与堆 → 哈希 → 排序 → 查找、               然后进入算法思想：双指针、前缀和、二分、贪心、DFS/BFS、回溯、DP、图论。             </p>
+            <ul class="tight" style="color:var(--ink-2)">
+              <li>每学一个结构，立刻去对应题库刷 5～10 题</li>
+              <li>坚持写题解：题解写不出来说明还没真懂</li>
+              <li>建立自己的模板库（快排、二分、并查集、Dijkstra…）</li>
+            </ul>
+            <div class="tags"><span class="tag hot">重点阶段</span><span class="tag">含大量图解</span></div>
+            <p style="margin:.9rem 0 0"><a class="btn btn-ghost btn-sm" href="algorithms.html">进入算法与数据结构 →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段 5 -->
+      <div class="stage">
+        <div class="stage-num">05</div>
+        <div class="stage-body">
+          <div class="card hoverable">
+            <h3>进阶与实战：现代 C++ 与工程能力</h3>
+            <div class="stage-meta">长期 · 与第 4 阶段部分重叠</div>
+            <p style="font-size:.94rem;margin-bottom:.6rem">
+              C++11/14/17/20 新特性、模板与泛型编程、智能指针、移动语义、               并发与内存模型，以及 CMake / 单元测试 / 调试与性能分析。             </p>
+            <ul class="tight" style="color:var(--ink-2)">
+              <li>写 2～3 个能写进简历的项目（小型解释器、线程池、简易 STL）</li>
+              <li>用 Compiler Explorer 看汇编，用 Sanitizer 抓内存错误</li>
+              <li>参加几场 Codeforces / 洛谷月赛，检验水平</li>
+            </ul>
+            <div class="tags"><span class="tag new">拉开差距</span></div>
+            <p style="margin:.9rem 0 0"><a class="btn btn-ghost btn-sm" href="advanced.html">进入进阶与实战 →</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 资源总表 ================= -->
+<section class="section" id="resources" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Resources</span>
+      <h2>资源总表</h2>
+      <p>
+        B 站链接统一指向<strong>视频直链</strong>（形如 BV… 的那支视频本身）：想换视频时，把链接里的 BV 号替换掉即可。</p>
+    </div>
+
+    <div class="split">
+      <div>
+        <h3 style="font-size:1rem">🎬 B 站视频课</h3>
+        <div class="res-list">
+          <a class="res" href="https://www.bilibili.com/video/BV1ZH4y137ws/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">黑马程序员 · C++ 入门教程</span>
+              <span class="desc">最主流的零基础长课，配套课件完善，适合第一次接触编程</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1r6h5zgE2i/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">侯捷 · C++ 面向对象 / STL 源码剖析</span>
+              <span class="desc">进阶必看。讲清楚 STL 底层到底怎么实现的，听一遍有一遍的收获</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1Ka411f7k9/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">代码随想录 · 算法公开课</span>
+              <span class="desc">按专题顺序讲刷题，题目和讲解一一对应，适合零基础刷题起点</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1At411P79N/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">AcWing · 算法基础课 / 提高课</span>
+              <span class="desc">竞赛向，模板化讲解，讲得快、密度高，配套题库很硬核</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1dg4y137M2/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">清华大学 邓俊辉 · 数据结构</span>
+              <span class="desc">学院派经典，讲原理和证明，适合想学"为什么"的人</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1wBh5zkE2Y/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body">
+              <span class="title">现代 C++ 新特性（C++11/17/20）</span>
+              <span class="desc">按知识点挑，重点看 move 语义、智能指针、lambda、concept</span>
+            </span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem">📚 文档与图解博客</h3>
+        <div class="res-list">
+          <a class="res" href="https://zh.cppreference.com/w/cpp" target="_blank" rel="noopener">
+            <span class="ic doc">C</span>
+            <span class="body">
+              <span class="title">cppreference 中文版</span>
+              <span class="desc">C++ 的"字典"。查标准库签名、复杂度、边界行为，一律以它为出</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://oi-wiki.org/" target="_blank" rel="noopener">
+            <span class="ic doc">O</span>
+            <span class="body">
+              <span class="title">OI Wiki</span>
+              <span class="desc">算法竞赛百科，每个算法都有原理 + 复杂度 + 代码实现，中文最佳</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.hello-algo.com/" target="_blank" rel="noopener">
+            <span class="ic doc">H</span>
+            <span class="body">
+              <span class="title">Hello 算法（动画图解）</span>
+              <span class="desc">带动态图的数据结构入门书，看图就能懂，非常适合第 4 阶段起步</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://programmercarl.com/" target="_blank" rel="noopener">
+            <span class="ic doc">难</span>
+            <span class="body">
+              <span class="title">代码随想录</span>
+              <span class="desc">刷题顺序 + 详细题解 + 分类总结，和上面的视频课配套使用</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.learncpp.com/" target="_blank" rel="noopener">
+            <span class="ic doc">L</span>
+            <span class="body">
+              <span class="title">LearnCpp（英文，但写得极好）</span>
+              <span class="desc">从零讲到现代 C++，循序渐进、无废话，英文吃力可以机翻</span>
+            </span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://learn.microsoft.com/zh-cn/cpp/" target="_blank" rel="noopener">
+            <span class="ic doc">M</span>
+            <span class="body">
+              <span class="title">Microsoft Learn · C++ 文档</span>
+              <span class="desc">MSVC 编译器选项、标准库实现差异，用 VS 的话这份是官方说明书</span>
+            </span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:2rem">
+      <div>
+        <h3 style="font-size:1rem">🧩 刷题 / OJ 平台</h3>
+        <div class="res-list">
+          <a class="res" href="https://leetcode.cn/" target="_blank" rel="noopener">
+            <span class="ic prac">LC</span>
+            <span class="body"><span class="title">LeetCode 力扣</span><span class="desc">面试向，题目分类清晰，建议按「标签 + 难度」刷</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.luogu.com.cn/" target="_blank" rel="noopener">
+            <span class="ic prac">洛</span>
+            <span class="body"><span class="title">洛谷</span><span class="desc">国内最大的 OJ，有官方题单和难度分级，适合系统训练</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.acwing.com/" target="_blank" rel="noopener">
+            <span class="ic prac">AC</span>
+            <span class="body"><span class="title">AcWing</span><span class="desc">课程 + 题库一体，算法基础课 + 提高课配套练习</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://codeforces.com/" target="_blank" rel="noopener">
+            <span class="ic prac">CF</span>
+            <span class="body"><span class="title">Codeforces</span><span class="desc">国际竞赛平台，打 Div.3/Div.4 是检验水平最快的方式</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem">🛠️ 在线工具</h3>
+        <div class="res-list">
+          <a class="res" href="https://godbolt.org/" target="_blank" rel="noopener">
+            <span class="ic git">CE</span>
+            <span class="body"><span class="title">Compiler Explorer</span><span class="desc">报 C++ 实时编译成汇编，理解"优化到底做了什么"的神器</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://quick-bench.com/" target="_blank" rel="noopener">
+            <span class="ic git">QB</span>
+            <span class="body"><span class="title">Quick C++ Benchmark</span><span class="desc">在线路 benchmark，验证"哪种写法更快"，而不是靠感觉</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://cmake.org/documentation/" target="_blank" rel="noopener">
+            <span class="ic git">CM</span>
+            <span class="body"><span class="title">CMake 官方文档</span><span class="desc">工程化构建的行业标准，第 5 阶段必学</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://github.com/google/googletest" target="_blank" rel="noopener">
+            <span class="ic git">GT</span>
+            <span class="body"><span class="title">GoogleTest</span><span class="desc">C++ 单元测试框架，写项目时用来保证"改完没坏"</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 方法计 ================= -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">How to learn</span>
+      <h2>学习方法与避坑指南</h2>
+      <p>同一份路线图，有人 4 个月能刷中等题，有人 1 年还在背语法——差的是方法。</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>✓ 这样做</h3>
+        <ul class="tight">
+          <li><strong>代码一定要自己敲。</strong>看懂视频 ≠ 会写，别开 2 倍速看完就过。</li>
+          <li><strong>每个知识点写一个小 demo。</strong>指针就写个交换函数，STL 就写个词频统计。</li>
+          <li><strong>每学一个数据结构就立刻刷题。</strong>学和练间隔超过 3 天，记忆衰减很快。</li>
+          <li><strong>写题解。</strong>用一句话说清「这题为什么这么做」，写不出来就是没懂。</li>
+          <li><strong>建立自己的模板库。</strong>二分、快排、并查集、Dijkstra，写顺手的版本就固定下来。</li>
+          <li><strong>用调试器而不是 printf。</strong>学会看调用栈和变量窗口，效率差好几倍。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>❌ 别这样</h3>
+        <ul class="tight">
+          <li><strong>不要一上来就啃《C++ Primer》。</strong>它更像词典，适合有基础后回头精读。</li>
+          <li><strong>不要同时开 5 门课。</strong>选定一套主线课，其余当参考，学完再说。</li>
+          <li><strong>不要只刷 easy。</strong>正确配比大约是 easy 4 : medium 4 : hard 2。</li>
+          <li><strong>不要背题解。</strong>换个数据范围就不会了，说明学的是答案不是方法。</li>
+          <li><strong>不要跳过复杂度分析。</strong>它是判断"这个算法能不能过"的唯一工具。</li>
+          <li><strong>不要为了学 C++ 而学 C++。</strong>早点进入项目或刷题，语言只是工具。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout tip" style="margin-top:1.4rem">
+      <span class="ci">💡</span>
+      <div>
+        <span class="ct">给完全零基础的一句话</span>
+        <p style="margin:0">
+          前两周你会觉得"这也太简单了"，第三周会突然觉得"这也太复杂了"，第五周会觉得「好像也还行」。           这三段情绪是必经的，卡在第二段的人最多——撑过去就赢了一半。         </p>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <caption class="s" style="text-align:left;padding:.6rem .9rem;color:var(--muted);font-size:.84rem">推荐每周投入（可按比例缩放，关键是「每天都碰一点」）</caption>
+        <thead>
+          <tr><th>阶段</th><th>建议周期</th><th>理论 : 敲代码 : 刷题</th><th>阶段验收标准</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>① 环境搭建</td><td>1～2 天</td><td>— / 全敲 / —</td>
+            <td>能新建项目、打断点、单步看变量</td>
+          </tr>
+          <tr>
+            <td>② C++ 基础</td><td>4～6 周</td><td>3 : 5 : 2</td>
+            <td>独立写出「学生成绩管理」这类 200 行小程序</td>
+          </tr>
+          <tr>
+            <td>③ OOP + STL</td><td>5～8 周</td><td>3 : 4 : 3</td>
+            <td>用类设计一个小游戏/模拟器；熟练使用 vector/map/sort</td>
+          </tr>
+          <tr>
+            <td>④ 数据结构与算法</td><td>8～12 周</td><td>3 : 3 : 4</td>
+            <td>稳定做出 LeetCode Medium；能说出每题的时间复杂度</td>
+          </tr>
+          <tr>
+            <td>⑤ 进阶与实战</td><td>长期</td><td>2 : 5 : 3</td>
+            <td>有 2 个以上能讲清架构的项目；会用 CMake 组织工程</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section-sm">
+  <div class="container">
+    <div class="card" style="text-align:center;background:linear-gradient(135deg,var(--pink-soft),var(--purple-soft));border-color:transparent">
+      <h2 style="margin-bottom:.4rem">准备好了吗？先去把环境装好</h2>
+      <p style="color:var(--ink-2);max-width:40em;margin:0 auto 1.2rem">
+        90% 的新人卡在环境配置这一步。我们把它写成了照抄就能跑通的分步教程，         包括 Visual Studio 2026 与 VS Code 的完整配置文件。       </p>
+      <div class="hero-actions" style="justify-content:center;margin-top:0">
+        <a class="btn btn-primary" href="tools.html">环境搭建教程 →</a>
+        <a class="btn btn-ghost" href="basics.html">直接开始学 C++</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:28em">
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/img/favicon.svg" alt="" style="width:26px">
+          <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+        </div>
+        <p style="margin:0;font-size:.85rem">
+          个人学习路线整理，非官方站点。所有资源链接均指向原始平台，           内容版权归各自作者所有。页面按「学习路径 + 图解 + 资源导航」组织，持续更新。
+        </p>
+      </div>
+      <div>
+        <h4>学习路径</h4>
+        <div class="footer-links">
+          <a href="basics.html">② C++ 基础</a>
+          <a href="oop-stl.html">③ 面向对象 · STL</a>
+          <a href="algorithms.html">④ 算法与数据结构</a>
+          <a href="advanced.html">⑤ 进阶与实战</a>
+        </div>
+      </div>
+      <div>
+        <h4>常用外链</h4>
+        <div class="footer-links">
+          <a href="https://zh.cppreference.com/w/cpp" target="_blank" rel="noopener">cppreference</a>
+          <a href="https://oi-wiki.org/" target="_blank" rel="noopener">OI Wiki</a>
+          <a href="https://leetcode.cn/" target="_blank" rel="noopener">LeetCode 力扣</a>
+          <a href="https://www.hello-algo.com/" target="_blank" rel="noopener">Hello 算法</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:1.6rem 0 0;font-size:.8rem;text-align:center;opacity:.8">
+      © <span id="year">2026</span> Code Bloom · 手工搭建
+    </p>
+  </div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/judge.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

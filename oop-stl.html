@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向对象与 STL · 阶段三 | Code Bloom</title>
+<meta name="description" content="C++ 面向对象编程与 STL 学习路径：类与对象、封装继承多态、RAII、模板、容器选型、迭代器与常用算法，含图解与代码示例。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/judge.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/favicon.svg" alt="">
+      <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="basics.html">C++ 基础</a>
+      <a href="oop-stl.html">面向对象 · STL</a>
+      <a href="algorithms.html">算法与数据结构</a>
+      <a href="advanced.html">进阶与实战</a>
+      <a href="tools.html">环境搭建</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="展开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container">
+    <p class="crumb"><a href="index.html">首页</a> / 阶段三</p>
+    <span class="badge pink">阶段 ③ · 约 5～8 周</span>
+    <h1>面向对象与 STL</h1>
+    <p class="lead">
+      阶段二让你「能写出正确的代码」，阶段三让你「能写出像样的代码」。       学完这一页，你手里就有一套成熟的工具：用类来组织逻辑，用 STL 来省掉重复劳动。       <strong>这也是开始大量刷题的最佳时机。</strong>
+    </p>
+    <div class="chips">
+      <a href="#checklist">学习清单</a>
+      <a href="#oop">类与对象</a>
+      <a href="#raii">构造析构与 RAII</a>
+      <a href="#inherit">继承与多态</a>
+      <a href="#template">模板入门</a>
+      <a href="#stl">STL 三大件</a>
+      <a href="#choose">容器选型</a>
+      <a href="#lab">编程练习</a>
+      <a href="#practice">练习题单</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 清单 ============ -->
+<section class="section-sm" id="checklist">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Checklist</span>
+      <h2>本阶段学习清单</h2>
+    </div>
+    <div class="progress-box" data-progress-box>
+      <span class="label">本阶段进度</span>
+      <span class="progress-track"><span class="progress-fill"></span></span>
+      <span class="progress-num">0 / 0</span>
+      <button class="reset-btn" type="button">清空</button>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>面向对象</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="o01" data-id="o01"><label for="o01">会定义 <code class="inline">class</code>，理解成员变量</ 成员函数</label></li>
+          <li><input type="checkbox" id="o02" data-id="o02"><label for="o02">访问控制 <code class="inline">public / private / protected</code></label></li>
+          <li><input type="checkbox" id="o03" data-id="o03"><label for="o03">构造函数、初始化列表、析构函数</label></li>
+          <li><input type="checkbox" id="o04" data-id="o04"><label for="o04">拷贝构造与赋值运算符，为什么要传引用</label></li>
+          <li><input type="checkbox" id="o05" data-id="o05"><label for="o05">移动语义与 <code class="inline">std::move</code>（先用起来，原理后面再补）</label></li>
+          <li><input type="checkbox" id="o06" data-id="o06"><label for="o06">继承、虚函数、纯虚函数与多态</label></li>
+          <li><input type="checkbox" id="o07" data-id="o07"><label for="o07">虚析构函数为什么必须写</label></li>
+          <li><input type="checkbox" id="o08" data-id="o08"><label for="o08">运算符重载（至少 <code class="inline">+ == &lt;</code> 和 <code class="inline">&lt;&lt;</code>）</label></li>
+          <li><input type="checkbox" id="o09" data-id="o09"><label for="o09">友元、static 成员、const 成员函数</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>泛型与 STL</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="o10" data-id="o10"><label for="o10">函数模板与类模板，模板特化的概念</label></li>
+          <li><input type="checkbox" id="o11" data-id="o11"><label for="o11">迭代器：<code class="inline">begin/end</code>、四种迭代器类别</label></li>
+          <li><input type="checkbox" id="o12" data-id="o12"><label for="o12">顺序容器（<code class="inline">vector / deque / list / array</code>）</label></li>
+          <li><input type="checkbox" id="o13" data-id="o13"><label for="o13">关联容器（<code class="inline">map / set / unordered_map / unordered_set</code>）</label></li>
+          <li><input type="checkbox" id="o14" data-id="o14"><label for="o14">容器适配器：<code class="inline">stack / queue / priority_queue</code></label></li>
+          <li><input type="checkbox" id="o15" data-id="o15"><label for="o15"><code class="inline">std::sort</code> 与自定义比较器</label></li>
+          <li><input type="checkbox" id="o16" data-id="o16"><label for="o16">lambda 表达式，捕获列表的三种写法</label></li>
+          <li><input type="checkbox" id="o17" data-id="o17"><label for="o17"><code class="inline">lower_bound / upper_bound / unique / accumulate</code></label></li>
+          <li><input type="checkbox" id="o18" data-id="o18"><label for="o18">知道每种容器的增删查复杂度</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>现代 C++ 习惯</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="o19" data-id="o19"><label for="o19"><code class="inline">auto</code> 与范围 for 的合理使用</label></li>
+          <li><input type="checkbox" id="o20" data-id="o20"><label for="o20"><code class="inline">nullptr</code> 替代 <code class="inline">NULL</code></label></li>
+          <li><input type="checkbox" id="o21" data-id="o21"><label for="o21"><code class="inline">unique_ptr / shared_ptr</code> 替代裸指针管理资源</label></li>
+          <li><input type="checkbox" id="o22" data-id="o22"><label for="o22">能用 <code class="inline">const&amp;</code> 就不传值</label></li>
+          <li><input type="checkbox" id="o23" data-id="o23"><label for="o23">读懂 <code class="inline">std::vector::reserve</code> 与容量概念</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 类与对象 ============ -->
+<section class="section" id="oop" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">01 · OOP</span>
+      <h2>类与对象：蓝图与实例</h2>
+      <p>
+        <strong>类（class）是模板，对象（object）是按模板造出来的具体东西。</strong>
+        类不占内存（严格说是类型信息），对象才占内存。这句话能解释初学者 80% 的困惑。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 268" role="img" aria-label="类与对象关系：类作为蓝图，实例化出多个对象 >
+        <defs>
+          <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+
+        <!-- 类 -->
+        <rect class="box-u" x="20" y="30" width="248" height="200" rx="14"/>
+        <text class="t" x="36" y="54">class Student   // 蓝图</text>
+        <path class="ln" d="M20 66H268"/>
+
+        <text class="m" x="36" y="88" style="fill:var(--pink-deep)">private:   // 外界看不见</text>
+        <text class="m" x="46" y="108">std::string name;</text>
+        <text class="m" x="46" y="126">int         score;</text>
+
+        <text class="m" x="36" y="152" style="fill:var(--mint)">public:    // 对外接口</text>
+        <text class="m" x="46" y="172">Student(name, score);</text>
+        <text class="m" x="46" y="190">int  getScore() const;</text>
+        <text class="m" x="46" y="208">void print()    const;</text>
+
+        <!-- 箭头 -->
+        <path class="ln-a" d="M268 130H330" marker-end="url(#ar5)"/>
+        <text class="s" x="299" y="120" text-anchor="middle">实例化</text>
+        <text class="s" x="299" y="150" text-anchor="middle">Student a;</text>
+
+        <!-- 对象 -->
+        <rect class="box-p" x="334" y="26" width="366" height="58" rx="12"/>
+        <text class="t" x="350" y="48">s1</text>
+        <text class="m" x="392" y="48">name = "小 C"　score = 92</text>
+        <text class="s" x="350" y="70">独立内存，各自保存自己的 name 与 score</text>
+
+        <rect class="box-p" x="334" y="98" width="366" height="58" rx="12"/>
+        <text class="t" x="350" y="120">s2</text>
+        <text class="m" x="392" y="120">name = "小 A"　score = 98</text>
+        <text class="s" x="350" y="142">成员函数代码只有一份，被所有对象共享</text>
+
+        <rect class="box-p" x="334" y="170" width="366" height="58" rx="12"/>
+        <text class="t" x="350" y="192">s3</text>
+        <text class="m" x="392" y="192">name = "小 B"　score = 85</text>
+        <text class="s" x="350" y="214">所以 sizeof(s1) 里不包含函数的大小</text>
+      </svg>
+      <figcaption>封装的意义：外部只能通过 <code class="inline">getScore()</code> 读分数，不能直接放 <code class="inline">score</code>。以后你想加"分数必须在 0~100 之间"的校验，只改一个地方</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Student {
+private:                              // 数据藏起来
+    std::string name_;
+    int         score_;
+
+public:
+    // 构造函数 + 初始化列表（比在函数体里赋值更高效）
+    Student(std::string name, int score)
+        : name_(std::move(name)), score_(score) {}
+
+    // const 成员函数：承诺不修改对象状态
+    int  getScore() const { return score_; }
+    const std::string&amp; getName() const { return name_; }
+
+    // 提供受控的修改入口
+    void setScore(int s) {
+        if (s &lt; 0 || s &gt; 100) {
+            std::cerr &lt;&lt; "分数非法，已忽略： " &lt;&lt; s &lt;&lt; '\n';
+            return;
+        }
+        score_ = s;
+    }
+
+    void print() const {
+        std::cout &lt;&lt; name_ &lt;&lt; " : " &lt;&lt; score_ &lt;&lt; '\n';
+    }
+};
+
+int main() {
+    Student s1("小 C", 92);
+    Student s2("小 A", 98);
+
+    s1.print();
+    s2.print();
+    s1.setScore(200);        // 被拦截，分数不变 —— 这就是封装的价值
+    s1.setScore(95);
+    s1.print();
+    return 0;
+}
+</code></pre>
+  </div>
+</section>
+
+<!-- ============ RAII ============ -->
+<section class="section" id="raii">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">02 · RAII</span>
+      <h2>构造、析构与 RAII —— C++ 最重要的设计思想</h2>
+      <p>
+        RAII = <em>Resource Acquisition Is Initialization</em>（资源获取即初始化）、         翻译成人话：<strong>把资源的生命周期绑定到对象的生命周期上，构造函数里拿资源，析构函数里放资源。</strong>
+      </p>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;vector&gt;
+
+// 反面教材：手动管理，中间任何一个 return / 抛异常都会泄漏
+void bad() {
+    int* buf = new int[1000];
+    // ... 中途 return 或者抛异常 → delete[] 永远不会执行
+    delete[] buf;
+}
+
+// 正面写法：把资源交给对象管理
+class Buffer {
+private:
+    int*  data_;
+    size_t size_;
+
+public:
+    explicit Buffer(size_t n) : data_(new int[n]), size_(n) {
+        std::cout &lt;&lt; "申请了 " &lt;&lt; n &lt;&lt; " 个 int\n";
+    }
+
+    ~Buffer() {                     // 离开作用域时一定被调用
+        delete[] data_;
+        std::cout &lt;&lt; "自动释放了\n";
+    }
+
+    // 禁止拷贝：否则两个对象会指向同一块内存，析构时
+double free
+    Buffer(const Buffer&amp;)            = delete;
+    Buffer&amp; operator=(const Buffer&amp;) = delete;
+};
+
+int main() {
+    {
+        Buffer b(1000);
+        // 这里无论怎么 return、怎么抛异常，b 的析构函数都会执行
+    }   // → 作用域结束，自动释放
+
+    std::cout &lt;&lt; "------\n";
+
+    // 标准库里的 RAII 例子：vector 自动管理它的堆内存
+    {
+        std::vector&lt;int&gt; v(10, 7);
+        v.push_back(1);
+    }   // → 不需要 delete，vector 自己在析构时释放
+
+    // 智能指针：RAII 的直接应用
+    {
+        auto p = std::make_unique&lt;int&gt;(42);
+        std::cout &lt;&lt; *p &lt;&lt; '\n';
+    }   // → 不需要 delete，unique_ptr 析构时自动
+delete
+    return 0;
+}
+</code></pre>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 220" role="img" aria-label="对象生命周期：构造与析构的调用时最 >
+        <defs>
+          <marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+        <path class="ln" d="M40 150H690" marker-end="url(#ar6)"/>
+        <text class="s" x="694" y="154">时间</text>
+
+        <rect class="box-u" x="90" y="60" width="250" height="52" rx="12"/>
+        <text class="t" x="104" y="82" style="font-size:11.5px">构造函数 Student(...)</text>
+        <text class="s" x="104" y="100">分配内存 + 初始化成员变量</text>
+        <path class="ln-a" d="M104 112V146"/>
+
+        <rect class="box-m" x="200" y="24" width="330" height="30" rx="10"/>
+        <text class="s" x="214" y="44">对象存活期间：可以调用它的成员函数</text>
+
+        <rect class="box-p" x="450" y="60" width="230" height="52" rx="12"/>
+        <text class="t" x="464" y="82" style="font-size:11.5px">析构函数 ~Student()</text>
+        <text class="s" x="464" y="100">释放资源，离开作用域自动触可</text>
+        <path class="ln-p" d="M464 112V146"/>
+
+        <text class="s" x="90" y="176">作用域开始</text>
+        <text class="s" x="440" y="176">作用域结束</text>
+        <path class="dash" d="M96 150V160M470 150V160"/>
+
+        <text class="s" x="200" y="204">💡 顺序与构造相反：后构造的先析构（像叠盘子）</text>
+      </svg>
+      <figcaption>只要理解了「构造 / 析构的调用时机」，后面的拷贝构造、移动构造、智能指针、锁守卫全都是同一套逻辑的延会</figcaption>
+    </figure>
+
+    <div class="callout warn">
+      <span class="ci">⚠️</span>
+      <div>
+        <span class="ct">三法则 / 五法则</span>
+        <p style="margin:0">
+          如果你手动写了<strong>析构函数</strong>、<strong>拷贝构造函数</strong>、<strong>拷贝赋值运算符</strong>中的任意一个，
+          通常三个都要写（这就是「三法则」）。C++11 之后再加上<strong>移动构造</strong>和<strong>移动赋值</strong>，就是「五法则」。           更省事的做法是：<strong>尽量别自己管理裸资源</strong>，用 <code class="inline">vector</code> / <code class="inline">string</code> / 智能指针，让编译器生成默认版本。         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 继承与多态 ============ -->
+<section class="section" id="inherit" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Polymorphism</span>
+      <h2>继承与多态：一套接口，多种行为</h2>
+      <p>多态解决的问题是：<strong>调用方只关心"你能做什么"，不关心"你具体是什么"。</strong></p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 280" role="img" aria-label="继承与多态：基类指针指向不同派生类对象，调用同一接口产生不同行为">
+        <defs>
+          <marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--cyan)" />
+          </marker>
+        </defs>
+
+        <!-- 基类 -->
+        <rect class="box-u" x="240" y="20" width="240" height="66" rx="14"/>
+        <text class="t" x="360" y="44" text-anchor="middle">Shape（抽象基类）</text>
+        <text class="m" x="360" y="66" text-anchor="middle">virtual double area() const = 0;</text>
+        <text class="s" x="360" y="80" text-anchor="middle">纯虚函数 → 不能实例化</text>
+
+        <path class="ln" d="M300 86L150 128"/>
+        <path class="ln" d="M360 86V128"/>
+        <path class="ln" d="M420 86L570 128"/>
+
+        <!-- 派生类 -->
+        <rect class="box-c" x="60" y="132" width="180" height="72" rx="14"/>
+        <text class="t" x="150" y="156" text-anchor="middle">Circle</text>
+        <text class="m" x="150" y="176" text-anchor="middle">area() { π·r² }</text>
+        <text class="s" x="150" y="193" text-anchor="middle">override</text>
+
+        <rect class="box-c" x="270" y="132" width="180" height="72" rx="14"/>
+        <text class="t" x="360" y="156" text-anchor="middle">Rectangle</text>
+        <text class="m" x="360" y="176" text-anchor="middle">area() { w·h }</text>
+        <text class="s" x="360" y="193" text-anchor="middle">override</text>
+
+        <rect class="box-c" x="480" y="132" width="180" height="72" rx="14"/>
+        <text class="t" x="570" y="156" text-anchor="middle">Triangle</text>
+        <text class="m" x="570" y="176" text-anchor="middle">area() { b·h/2 }</text>
+        <text class="s" x="570" y="193" text-anchor="middle">override</text>
+
+        <!-- 统一调用 -->
+        <rect class="box-m" x="120" y="228" width="480" height="40" rx="12"/>
+        <text class="m" x="360" y="253" text-anchor="middle">std::vector&lt;Shape*&gt; shapes;  for (auto s : shapes) s-&gt;area();</text>
+        <path class="ln-c" d="M150 204V224" marker-end="url(#ar7)"/>
+        <path class="ln-c" d="M360 204V224" marker-end="url(#ar7)"/>
+        <path class="ln-c" d="M570 204V224" marker-end="url(#ar7)"/>
+      </svg>
+      <figcaption>同一行 <code class="inline">s-&gt;area()</code>，运行时根据对象真实类型分派到不同实现。这就是「动态绑定」，靠虚函数表（vtable）实现</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+
+class Shape {
+public:
+    virtual double area() const = 0;          // 纯虚函数：子类必须实现
+    virtual void   describe() const {         // 普通虚函数：子类可选覆盖
+        std::cout &lt;&lt; "面积 = " &lt;&lt; area() &lt;&lt; '\n';
+    }
+    virtual ~Shape() = default;               // ★ 基类必须有虚析构函数：
+};
+
+class Circle : public Shape {
+    double r_;
+public:
+    explicit Circle(double r) : r_(r) {}
+    double area() const override { return 3.14159265358979 * r_ * r_; }
+};
+
+class Rectangle : public Shape {
+    double w_, h_;
+public:
+    Rectangle(double w, double h) : w_(w), h_(h) {}
+    double area() const override { return w_ * h_; }
+};
+
+int main() {
+    // 用智能指针管理多态对象，避免手动 delete
+    std::vector&lt;std::unique_ptr&lt;Shape&gt;&gt; shapes;
+    shapes.push_back(std::make_unique&lt;Circle&gt;(2.0));
+    shapes.push_back(std::make_unique&lt;Rectangle&gt;(3.0, 4.0));
+
+    double total = 0;
+    for (const auto&amp; s : shapes) {
+        s-&gt;describe();            // 多态：各自调用自己的 area()
+        total += s-&gt;area();
+    }
+    std::cout &lt;&lt; "总面积 = " &lt;&lt; total &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+
+    <div class="grid grid-2">
+      <div class="callout" style="margin:0">
+        <span class="ci">🧩</span>
+        <div>
+          <span class="ct">为什么基类必须有 virtual 析构函数</span>
+          <p style="margin:0">
+            <code class="inline">Shape* p = new Circle(); delete p;</code><br>
+            如果 <code class="inline">~Shape()</code> 不是虚函数，只会调用基类析构，             <code class="inline">Circle</code> 自己的资源不会被释放 → 泄漏。这是面试高频题，也是真实 bug 来源。           </p>
+        </div>
+      </div>
+      <div class="callout tip" style="margin:0">
+        <span class="ci">🎯</span>
+        <div>
+          <span class="ct">什么时候该用继承</span>
+          <p style="margin:0">
+            只有满足「is-a」关系时才用继承、<code class="inline">Circle is a Shape</code> ✅；
+            <code class="inline">Stack is a Vector</code> ❌（栈不是向量，是「用向量实现」），这种情况用<strong>组合</strong>。             经验法则（<em>优先组合，谨慎继承</em>）。           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 模板 ============ -->
+<section class="section" id="template">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Templates</span>
+      <h2>模板：让一份代码适配多种类型</h2>
+      <p>STL 全部建立在模板之上。理解模板，才算真正理解 STL 为什么能做到"一套算法，适配所有容器"。</p>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// 函数模板：编译器为每种用到的类型生成一件
+template &lt;typename T&gt;
+T myMax(const T&amp; a, const T&amp; b) {
+    return (a &gt; b) ? a : b;
+}
+
+// 类模板：一个通用的 栈 
+template &lt;typename T&gt;
+class Stack {
+private:
+    std::vector&lt;T&gt; data_;
+public:
+    void push(const T&amp; v) { data_.push_back(v); }
+    void pop()             { data_.pop_back(); }
+    T&amp;   top()             { return data_.back(); }
+    bool empty() const     { return data_.empty(); }
+    size_t size() const    { return data_.size(); }
+};
+
+// 可变参数模板（C++11）：一次打印任意多个参数
+template &lt;typename... Args&gt;
+void printAll(const Args&amp;... args) {
+    ((std::cout &lt;&lt; args &lt;&lt; ' '), ...);   // C++17 折叠表达开
+    std::cout &lt;&lt; '\n';
+}
+
+int main() {
+    std::cout &lt;&lt; myMax(3, 7)       &lt;&lt; '\n';   // T = int
+    std::cout &lt;&lt; myMax(2.5, 1.5)   &lt;&lt; '\n';   // T = double
+    std::cout &lt;&lt; myMax&lt;std::string&gt;("abc", "abd") &lt;&lt; '\n';
+
+    Stack&lt;int&gt; st;
+    st.push(1); st.push(2); st.push(3);
+    std::cout &lt;&lt; st.top() &lt;&lt; " size=" &lt;&lt; st.size() &lt;&lt; '\n';
+
+    printAll("现代", "C++", 2026, 3.14);
+    return 0;
+}
+</code></pre>
+
+    <div class="callout info">
+      <span class="ci">🔧</span>
+      <div>
+        <span class="ct">模板的坑：定义必须放在头文件里</span>
+        <p style="margin:0">
+          模板不是真正的代码，编译器在看到<strong>具体类型</strong>时才会生成代码、           所以模板的定义（不只是声明）通常要写在 <code class="inline">.h</code> 里，
+          否则链接时会把 <code class="inline">undefined reference</code>。这是初学模板最常见的困惑。         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STL ============ -->
+<section class="section" id="stl" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">05 · STL</span>
+      <h2>STL 三大件：容器、迭代器、算法</h2>
+      <p>
+        你不需要背 STL 的所有接口，只需要记住<strong>三件事</strong>，         有哪些容器、迭代器怎么用、常用算法叫什么名字。剩下的随查随用。       </p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="icon-badge pink">📦</div>
+        <h3>容器 Container</h3>
+        <p style="font-size:.92rem;color:var(--muted);margin:0">负责<strong>存数据</strong>。vector 是动态数组，map 是有序字典，unordered_map 是哈希表……选对容器，题目难度直接降一档。</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge">🔗</div>
+        <h3>迭代器 Iterator</h3>
+        <p style="font-size:.92rem;color:var(--muted);margin:0">容器与算法之间的<strong>桥梁</strong>。它像「泛化的指针」，让 sort 不关心你给的是数组、vector 还是 deque。</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge mint">⚙️</div>
+        <h3>算法 Algorithm</h3>
+        <p style="font-size:.92rem;color:var(--muted);margin:0">现成的<strong>通用操作</strong>：排序、查找、计数、去重、变换。写题时先问自己"这个有没有现成算法"。</p>
+      </div>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;unordered_map&gt;
+#include &lt;set&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;string&gt;
+
+int main() {
+    // ---------- vector：动态数组，最常用，默认首选 ----------
+    std::vector&lt;int&gt; v = {5, 3, 8, 1, 9, 3};
+    v.push_back(7);
+    std::sort(v.begin(), v.end());                 // 升序
+    std::sort(v.begin(), v.end(), std::greater&lt;int&gt;());  // 降序
+
+    // 去重标准三连（先排序 → unique → erase）
+    std::sort(v.begin(), v.end());
+    v.erase(std::unique(v.begin(), v.end()), v.end());
+
+    int sum = std::accumulate(v.begin(), v.end(), 0);
+    std::cout &lt;&lt; "sum = " &lt;&lt; sum &lt;&lt; '\n';
+
+    // ---------- map：有序字典（红黑树），遍历时指 key 升序 ----------
+    std::map&lt;std::string, int&gt; ordered;
+    ordered["apple"]  = 3;
+    ordered["banana"] = 5;
+    ordered["cherry"] = 1;
+    for (const auto&amp; [key, val] : ordered)         // C++17 结构化绑定
+        std::cout &lt;&lt; key &lt;&lt; " -> " &lt;&lt; val &lt;&lt; '\n';
+
+    // ---------- unordered_map：哈希表，平均 O(1)，刷题主动 ----------
+    std::unordered_map&lt;std::string, int&gt; freq;
+    std::string text = "the quick brown fox jumps over the lazy dog the end";
+    std::string word;
+    for (char c : text) {
+        if (c == ' ') { freq[word]++; word.clear(); }
+        else         { word += c; }
+    }
+    freq[word]++;
+    std::cout &lt;&lt; "the 出现 " &lt;&lt; freq["the"] &lt;&lt; " 次\n";
+
+    // ---------- set / unordered_set：去重与存在性判断 ----------
+    std::set&lt;int&gt; s = {3, 1, 4, 1, 5, 9, 2, 6};
+    s.insert(7);
+    std::cout &lt;&lt; "size = " &lt;&lt; s.size() &lt;&lt; '\n';     // 自动去重（只保留一次）
+    if (s.count(4)) std::cout &lt;&lt; "4 在集合里\n";
+
+    // ---------- 二分查找：只能用在已排序区间 ----------
+    std::vector&lt;int&gt; a = {1, 3, 5, 7, 9, 11};
+    auto it = std::lower_bound(a.begin(), a.end(), 7);   // 第一个 &gt;= 7 的位置
+    std::cout &lt;&lt; "下标 = " &lt;&lt; (it - a.begin()) &lt;&lt; '\n';   // 3
+
+    return 0;
+}
+</code></pre>
+
+    <div class="callout tip">
+      <span class="ci">💡</span>
+      <div>
+        <span class="ct">刷题时最高频的 8 个 STL 操作</span>
+        <p style="margin:0">
+          <code class="inline">sort</code> · <code class="inline">lower_bound / upper_bound</code> ·
+          <code class="inline">unique</code> · <code class="inline">accumulate</code> ·
+          <code class="inline">max_element / min_element</code> · <code class="inline">reverse</code> ·
+          <code class="inline">next_permutation</code> · <code class="inline">__gcd</code>（GCC 内建：<code class="inline">std::gcd</code>）。           把这几个练熟，能省下大量手写代码的时间。         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 容器选型 ============ -->
+<section class="section" id="choose">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Choose</span>
+      <h2>容器与算法复杂度速查</h2>
+      <p>选错容器是"能过"和"超时"之间最常见的原因。下面这张表建议截图存手机里。</p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 300" role="img" aria-label="map 与 unordered_map 数据结构对比：红黑树 vs 哈希桶 >
+        <!-- 左：红黑树 -->
+        <text class="t" x="20" y="24">std::map —— 红黑树（有序）</text>
+        <path class="ln" d="M180 52V104M180 52V104"/>
+        <path class="ln" d="M180 52L110 104M180 52L250 104"/>
+        <path class="ln" d="M110 104L75 156M110 104L145 156"/>
+        <path class="ln" d="M250 104L215 156M250 104L285 156"/>
+
+        <circle cx="180" cy="52" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="180" y="57" text-anchor="middle">5</text>
+        <circle cx="110" cy="104" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="110" y="109" text-anchor="middle">3</text>
+        <circle cx="250" cy="104" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="250" y="109" text-anchor="middle">8</text>
+        <circle cx="75" cy="156" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="75" y="161" text-anchor="middle">2</text>
+        <circle cx="145" cy="156" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="145" y="161" text-anchor="middle">4</text>
+        <circle cx="215" cy="156" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="215" y="161" text-anchor="middle">7</text>
+        <circle cx="285" cy="156" r="19" stroke-width="2" style="fill:var(--purple-soft);stroke:var(--purple)" />
+        <text class="t" x="285" y="161" text-anchor="middle">9</text>
+
+        <rect class="box-m" x="20" y="196" width="300" height="86" rx="12"/>
+        <text class="s" x="36" y="218">✓ 自动指 key 排序，中序遍历即升序</text>
+        <text class="s" x="36" y="238">✓ 支持 lower_bound（第一个 ≥ x 的元素）</text>
+        <text class="s" x="36" y="258">✓ 增删查都是 O(log n)，常数比哈希大</text>
+        <text class="s" x="36" y="276" style="fill:var(--pink-deep)">适用：需要有序 / 需要范围查询</text>
+
+        <!-- 右：哈希桶 -->
+        <text class="t" x="380" y="24">std::unordered_map —— 哈希桶（无序）</text>
+        <g>
+          <rect class="box-c" x="380" y="34" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="53" text-anchor="middle">0</text>
+          <rect class="box-c" x="380" y="68" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="87" text-anchor="middle">1</text>
+          <rect class="box-c" x="380" y="102" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="121" text-anchor="middle">2</text>
+          <rect class="box-c" x="380" y="136" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="155" text-anchor="middle">3</text>
+          <rect class="box-c" x="380" y="170" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="189" text-anchor="middle">4</text>
+          <rect class="box-c" x="380" y="204" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="223" text-anchor="middle">5</text>
+          <rect class="box-c" x="380" y="238" width="54" height="28" rx="7"/>
+          <text class="s" x="407" y="257" text-anchor="middle">6</text>
+        </g>
+
+        <!-- 链 -->
+        <rect class="box-p" x="470" y="68" width="70" height="28" rx="7"/>
+        <text class="m" x="505" y="87" text-anchor="middle">8</text>
+
+        <rect class="box-p" x="470" y="136" width="70" height="28" rx="7"/>
+        <text class="m" x="505" y="155" text-anchor="middle">3</text>
+        <rect class="box-p" x="556" y="136" width="70" height="28" rx="7"/>
+        <text class="m" x="591" y="155" text-anchor="middle">10</text>
+
+        <rect class="box-p" x="470" y="204" width="70" height="28" rx="7"/>
+        <text class="m" x="505" y="223" text-anchor="middle">12</text>
+        <rect class="box-p" x="556" y="204" width="70" height="28" rx="7"/>
+        <text class="m" x="591" y="223" text-anchor="middle">19</text>
+        <rect class="box-p" x="642" y="204" width="70" height="28" rx="7"/>
+        <text class="m" x="677" y="223" text-anchor="middle">26</text>
+
+        <path class="ln" d="M434 82H466M434 150H466M540 150H552M434 218H466M540 218H552M626 218H638"/>
+        <text class="s" x="470" y="44">key % 7 决定落在哪个桶</text>
+        <text class="s" x="470" y="248" style="fill:var(--pink-deep)">碰撞（2/19/26）→ 链表变长 → 最坏 O(n)</text>
+      </svg>
+      <figcaption>需要「有序 / 范围查询 / 前驱后继」→ <code class="inline">map</code>；只需要「快速查找」→ <code class="inline">unordered_map</code>。刷题里后者用得更多，但要注意它可能被卡哈希</figcaption>
+    </figure>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>容器</th><th>底层结构</th><th>随机访问</th><th>插入 / 删除</th><th>查找</th><th>典型场景</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>vector</code></td><td>动态数组</td><td>O(1)</td><td>尾部均摊 O(1)，中间 O(n)</td><td>O(n)</td><td><strong>默认首选</strong>，需要连续内存</td></tr>
+          <tr><td><code>deque</code></td><td>分段连续数组</td><td>O(1)</td><td>首尾 O(1)</td><td>O(n)</td><td>两端都要增删</td></tr>
+          <tr><td><code>list</code></td><td>双向链表</td><td>O(n)</td><td>已知位置 O(1)</td><td>O(n)</td><td>频繁在中间插入删除</td></tr>
+          <tr><td><code>map / set</code></td><td>红黑树</td><td>不支持</td><td>O(log n)</td><td>O(log n)</td><td>需要有序、范围查询</td></tr>
+          <tr><td><code>unordered_map / set</code></td><td>哈希表</td><td>不支持</td><td>平均 O(1)</td><td>平均 O(1)</td><td>纯查找、去重、计数</td></tr>
+          <tr><td><code>priority_queue</code></td><td>二叉堆</td><td>仅堆项 O(1)</td><td>push O(log n)</td><td>—</td><td>Top-K、贪心、Dijkstra</td></tr>
+          <tr><td><code>stack / queue</code></td><td>容器适配器</td><td>不支持</td><td>O(1)</td><td>—</td><td>括号匹配、BFS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="ci">🔥</span>
+      <div>
+        <span class="ct">vector 扩容会导致迭代器失效</span>
+        <p style="margin:0">
+          归 <code class="inline">size() == capacity()</code> 时再 <code class="inline">push_back</code>，           vector 会申请一块<strong>2 倍（GCC）或 1.5 倍（MSVC）</strong>的新内存、拷贝旧元素、释放旧内存、           这意味着<strong>之前保存的指针、引用、迭代器全部失效</strong>。           如果你提前知道要存多少元素，用 <code class="inline">v.reserve(n)</code> 一次分配到位。         </p>
+      </div>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 268" role="img" aria-label="vector 扩容过程示意图 >
+        <defs>
+          <marker id="ar8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--pink-deep)" />
+          </marker>
+        </defs>
+
+        <text class="s" x="30" y="26">旧内存块 · capacity = 4</text>
+        <rect class="cell-hi" x="30" y="36" width="64" height="46"/>
+        <text class="t" x="62" y="65" text-anchor="middle">1</text>
+        <rect class="cell-hi" x="94" y="36" width="64" height="46"/>
+        <text class="t" x="126" y="65" text-anchor="middle">2</text>
+        <rect class="cell-hi" x="158" y="36" width="64" height="46"/>
+        <text class="t" x="190" y="65" text-anchor="middle">3</text>
+        <rect class="cell" x="222" y="36" width="64" height="46" stroke-dasharray="4 4"/>
+        <text class="s" x="254" y="65" text-anchor="middle">空</text>
+        <text class="s" x="30" y="102">size = 3，还前 1 个空位。此时 push_back(4) 不需要扩容</text>
+        <text class="s" x="30" y="122">内 push_back(5) → 满了 → 触发扩容</text>
+
+        <path class="ln-p" d="M300 60C330 60 340 90 340 110" marker-end="url(#ar8)"/>
+        <text class="s" x="352" y="104" style="fill:var(--pink-deep)">申请 2 倍大小的新内存</text>
+
+        <text class="s" x="30" y="160">新内存块 · capacity = 8</text>
+        <rect class="cell-hi2" x="30" y="170" width="64" height="46"/>
+        <text class="t" x="62" y="199" text-anchor="middle">1</text>
+        <rect class="cell-hi2" x="94" y="170" width="64" height="46"/>
+        <text class="t" x="126" y="199" text-anchor="middle">2</text>
+        <rect class="cell-hi2" x="158" y="170" width="64" height="46"/>
+        <text class="t" x="190" y="199" text-anchor="middle">3</text>
+        <rect class="cell-hi2" x="222" y="170" width="64" height="46"/>
+        <text class="t" x="254" y="199" text-anchor="middle">4</text>
+        <rect class="cell-hi2" x="286" y="170" width="64" height="46"/>
+        <text class="t" x="318" y="199" text-anchor="middle">5</text>
+        <rect class="cell" x="350" y="170" width="64" height="46" stroke-dasharray="4 4"/>
+        <rect class="cell" x="414" y="170" width="64" height="46" stroke-dasharray="4 4"/>
+        <rect class="cell" x="478" y="170" width="64" height="46" stroke-dasharray="4 4"/>
+
+        <text class="s" x="30" y="240">步骤：① 分配新内存 ② 拷贝/移动旧元素 ③ 释放旧内存 ④ 原指针与迭代器<b>全部失效</b></text>
+        <text class="s" x="30" y="258" style="fill:var(--pink-deep)">→ 预知大小时用 v.reserve(n) 可以完全避免这次拷贝</text>
+      </svg>
+      <figcaption>这就是为什么「循环里 <code class="inline">v.push_back</code> 之后之前保存的迭代器会失效」，也是为什么 <code class="inline">reserve</code> 是一个免费的性能优化</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 练习 ============ -->
+<section class="section" id="practice" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Practice</span>
+      <h2>阶段验收题单</h2>
+      <p>从这一阶段开始，正式进入「边学边刷」的节奏。建议每天 1～3 题，坚持比数量重要。</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>🟡 面向对象练习</h3>
+        <ol class="tight">
+          <li>设计 <code class="inline">Fraction</code> 分数类，支持加减乘除、约分、比较、输出</li>
+          <li>设计 <code class="inline">DynamicArray</code> 模板类，实现 push_back / size / 下标访问 / 析构释放</li>
+          <li>用继承写一个 <code class="inline">Shape</code> 体系（圆、矩形、三角形），求总面积</li>
+          <li>设计 <code class="inline">String</code> 类，自己实现拷贝构造、赋值运算符（体会浅拷贝问题）</li>
+          <li>用 RAII 封装一个文件句柄类，保证 <code class="inline">fclose</code> 一定被调用</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>🔴 STL 练习（可直接投到 LeetCode）</h3>
+        <ol class="tight">
+          <li>两数之和 → 体会 <code class="inline">unordered_map</code> 把 O(n²) 降到 O(n)</li>
+          <li>字母异位词分组 → <code class="inline">unordered_map&lt;string, vector&lt;string&gt;&gt;</code></li>
+          <li>前 K 个高频元素 → <code class="inline">priority_queue</code> + 哈希计数</li>
+          <li>数组中的第 K 个最大元素 → 分别用 sort、堆、快选实现，比较复杂度</li>
+          <li>合并区间 → 自定义比较器 + <code class="inline">sort</code></li>
+          <li>区间和的个数 / 二分查找系列 → <code class="inline">lower_bound</code> 熟练度</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="code-lab" id="lab">
+      <script type="application/json" class="lab-spec">
+      {
+        "title": "两数之和",
+        "statement": "第一行读入整数 n（2 <= n <= 200000）和目标值 target，第二行读入 n 个整数。输出数组中和恰好等于 target 的两个不同位置的下标（下标从 0 开始，任意一组解即可，保证有解），用空格分隔，小的在前。",
+        "template": "#include <iostream>\n#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nint main() {\n    int n; long long target;\n    if (!(cin >> n >> target)) return 0;\n    vector<long long> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    \n    return 0;\n}\n",
+        "tests": [
+          { "name": "用例 1", "input": "4 9\n2 7 11 15\n", "output": "0 1\n" },
+          { "name": "用例 2", "input": "3 6\n3 2 4\n", "output": "1 2\n" },
+          { "name": "负数与重复", "input": "5 97\n-3 4 3 90 100\n", "output": "0 4\n" }
+        ],
+        "hints": [
+          "暴力双重循环是 O(n²)，n 到 20 万会超时。",
+          "用 unordered_map 记录「数值 -> 下标」，一边读一边查 target - a[i] 是否出现过，整体 O(n)。"
+        ]
+      }
+      </script>
+    </div>
+
+    <div class="code-lab">
+      <script type="application/json" class="lab-spec">
+      {
+        "title": "前 K 个高频元素",
+        "statement": "第一行读入整数 n（1 <= n <= 100000）和 k（1 <= k <= 不同整数的个数），第二行读入 n 个整数。输出一行：出现次数最多的前 k 个整数，按出现次数从多到少输出；次数相同的按数值从小到大，用空格分隔。",
+        "template": "#include <iostream>\n#include <vector>\n#include <unordered_map>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    int n, k;\n    if (!(cin >> n >> k)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    \n    return 0;\n}\n",
+        "tests": [
+          { "name": "用例 1", "input": "6 2\n1 1 1 2 2 3\n", "output": "1 2\n" },
+          { "name": "次数相同", "input": "4 2\n4 4 3 3\n", "output": "3 4\n" },
+          { "name": "单元素", "input": "1 1\n7\n", "output": "7\n" }
+        ],
+        "hints": [
+          "先用 unordered_map 统计每个数出现的次数。",
+          "把（次数, 数值）放进 vector，用 sort + 自定义比较器排一次即可；也可以试试 priority_queue。"
+        ]
+      }
+      </script>
+    </div>
+
+    <div class="callout pink" style="margin-top:1.6rem">
+      <span class="ci">i</span>
+      <div>
+        <span class="ct">小 A 的建议</span>
+        <p style="margin:0">
+          这一阶段最容易犯的错是「只用 vector 硬写」。           做题前先花 30 秒问自己（<strong>这题需要的是"快速查找"、"有序遍历"还是"按优先级取最大"）</strong>
+          答案会直接告诉你该用哪个容器。养成这个习惯，你的代码长度会缩短一半。         </p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem">
+      <a class="btn btn-ghost" href="basics.html">→ 阶段二：C++ 基础</a>
+      <a class="btn btn-primary" href="algorithms.html">进入阶段四：算法与数据结构 →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:28em">
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/img/favicon.svg" alt="" style="width:26px">
+          <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+        </div>
+        <p style="margin:0;font-size:.85rem">个人学习路线整理，非官方站点。所有资源链接均指向原始平台，内容版权归各自作者所有。</p>
+      </div>
+      <div>
+        <h4>学习路径</h4>
+        <div class="footer-links">
+          <a href="basics.html">② C++ 基础</a>
+          <a href="oop-stl.html">③ 面向对象 · STL</a>
+          <a href="algorithms.html">④ 算法与数据结构</a>
+          <a href="advanced.html">⑤ 进阶与实战</a>
+        </div>
+      </div>
+      <div>
+        <h4>本页跳转</h4>
+        <div class="footer-links">
+          <a href="#raii">RAII</a>
+          <a href="#inherit">继承与多态</a>
+          <a href="#stl">STL 三大件</a>
+          <a href="#choose">容器选型</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:1.6rem 0 0;font-size:.8rem;text-align:center;opacity:.8">
+      © <span id="year">2026</span> Code Bloom · 手工搭建
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/judge.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

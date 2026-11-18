@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>进阶与实战 · 阶段五 | Code Bloom</title>
+<meta name="description" content="现代 C++ 进阶：C++11/14/17/20 新特性、智能指针与 RAII、移动语义、并发与内存模型、CMake 构建、单元测试、Sanitizer 与调试，含图解与完整代码示例。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/judge.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/favicon.svg" alt="">
+      <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="basics.html">C++ 基础</a>
+      <a href="oop-stl.html">面向对象 · STL</a>
+      <a href="algorithms.html">算法与数据结构</a>
+      <a href="advanced.html">进阶与实战</a>
+      <a href="tools.html">环境搭建</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="展开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container">
+    <p class="crumb"><a href="index.html">首页</a> / 阶段五</p>
+    <span class="badge pink">阶段 ⑤ · 持续进行 · 决定水平上限</span>
+    <h1>进阶与工程实战</h1>
+    <p class="lead">
+      到这里，你已经能写出"能跑通"的代码了。这一阶段要解决的，是
+      <strong>"能不能写出别人敢用的代码"</strong>——资源安全、性能、可构建、可测试、可调试、       这五项，才是把 C++ 代码"会用"变成"会写"的分水岭。     </p>
+    <div class="chips">
+      <a href="#checklist">学习清单</a>
+      <a href="#modern">现代 C++</a>
+      <a href="#raii">智能指针 · RAII</a>
+      <a href="#move">移动语义</a>
+      <a href="#concurrency">并发</a>
+      <a href="#build">构建 · CMake</a>
+      <a href="#test">测试与调试</a>
+      <a href="#project">项目实战</a>
+      <a href="#lab">编程练习</a>
+      <a href="#res">资源</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 清单 ============ -->
+<section class="section-sm" id="checklist">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Checklist</span>
+      <h2>本阶段学习清单</h2>
+    </div>
+    <div class="progress-box" data-progress-box>
+      <span class="label">本阶段进度</span>
+      <span class="progress-track"><span class="progress-fill"></span></span>
+      <span class="progress-num">0 / 0</span>
+      <button class="reset-btn" type="button">清空</button>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>现代 C++ 语言</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="ad01" data-id="ad01"><label for="ad01">auto、范围 for、结构化绑定</label></li>
+          <li><input type="checkbox" id="ad02" data-id="ad02"><label for="ad02">lambda 表达式与捕获列表</label></li>
+          <li><input type="checkbox" id="ad03" data-id="ad03"><label for="ad03">右值引用、移动语义、完美转发</label></li>
+          <li><input type="checkbox" id="ad04" data-id="ad04"><label for="ad04">智能指针与 RAII</label></li>
+          <li><input type="checkbox" id="ad05" data-id="ad05"><label for="ad05">constexpr / consteval 编译期计算</label></li>
+          <li><input type="checkbox" id="ad06" data-id="ad06"><label for="ad06">optional / variant / string_view / span</label></li>
+          <li><input type="checkbox" id="ad07" data-id="ad07"><label for="ad07">模板进阶：可变参数、if constexpr</label></li>
+          <li><input type="checkbox" id="ad08" data-id="ad08"><label for="ad08">C++20 concepts / ranges（了解即可）</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>并发与性能</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="ad09" data-id="ad09"><label for="ad09">std::thread 与 join / detach</label></li>
+          <li><input type="checkbox" id="ad10" data-id="ad10"><label for="ad10">mutex、lock_guard、unique_lock</label></li>
+          <li><input type="checkbox" id="ad11" data-id="ad11"><label for="ad11">条件变量与生产者—消费者模型</label></li>
+          <li><input type="checkbox" id="ad12" data-id="ad12"><label for="ad12">atomic 与内存序的基本概念</label></li>
+          <li><input type="checkbox" id="ad13" data-id="ad13"><label for="ad13">性能分析：先测量，再优化</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>工程能力</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="ad14" data-id="ad14"><label for="ad14">会写 CMakeLists.txt，理解 target 概念</label></li>
+          <li><input type="checkbox" id="ad15" data-id="ad15"><label for="ad15">用 Git 管理代码，会写清晰的提交信息</label></li>
+          <li><input type="checkbox" id="ad16" data-id="ad16"><label for="ad16">会写单元测试（GoogleTest / doctest）</label></li>
+          <li><input type="checkbox" id="ad17" data-id="ad17"><label for="ad17">会用 ASan / UBSan 抓内存错误</label></li>
+          <li><input type="checkbox" id="ad18" data-id="ad18"><label for="ad18">会断点调试：看调用栈、监视变量、单步</label></li>
+          <li><input type="checkbox" id="ad19" data-id="ad19"><label for="ad19">独立完成 1～2 个完整小项目</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 现代 C++ ============ -->
+<section class="section" id="modern" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Modern C++</span>
+      <h2>先搞清楚"C++ 有好几个版本"</h2>
+      <p>
+        网上很多教程讲的是 C++98 的写法，而实际项目早就用 C++17 / C++20 了。         <strong>先知道自己学的是哪一版</strong>，能省下大量困惑。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 470" role="img" aria-label="C++ 标准版本演进时间线">
+        <path class="ln" d="M120 40V430"/>
+
+        <circle cx="120" cy="60" r="7" class="box-u"/>
+        <text class="t" x="100" y="58" text-anchor="end">C++98 / 03</text>
+        <text class="m" x="150" y="52">现代 C++ 的起点</text>
+        <text class="s" x="150" y="70">STL、模板、异常、命名空间</text>
+
+        <circle cx="120" cy="120" r="8" class="box-p"/>
+        <text class="t" x="100" y="118" text-anchor="end">C++11</text>
+        <text class="m" x="150" y="112">分量最重的一次更新，"现代 C++"的开端</text>
+        <text class="s" x="150" y="130">auto · lambda · 右值引用与移动语义 · 智能指针 · 线程库 · 范围 for</text>
+
+        <circle cx="120" cy="180" r="7" class="box-u"/>
+        <text class="t" x="100" y="178" text-anchor="end">C++14</text>
+        <text class="m" x="150" y="172">小步完善</text>
+        <text class="s" x="150" y="190">泛型 lambda · 变量模板 · std::make_unique</text>
+
+        <circle cx="120" cy="240" r="7" class="box-c"/>
+        <text class="t" x="100" y="238" text-anchor="end">C++17</text>
+        <text class="m" x="150" y="232">实用主义，日常写代码性价比最高的一版</text>
+        <text class="s" x="150" y="250">结构化绑定 · optional · variant · string_view · if constexpr · std::filesystem</text>
+
+        <circle cx="120" cy="300" r="8" class="box-p"/>
+        <text class="t" x="100" y="298" text-anchor="end">C++20</text>
+        <text class="m" x="150" y="292">又一次大版本</text>
+        <text class="s" x="150" y="310">concepts · ranges · 协程 · modules · span · 三路比较 &lt;=&gt;</text>
+
+        <circle cx="120" cy="360" r="7" class="box-m"/>
+        <text class="t" x="100" y="358" text-anchor="end">C++23</text>
+        <text class="m" x="150" y="352">补齐常用短板</text>
+        <text class="s" x="150" y="370">expected · mdspan · std::print · flat_map · stacktrace</text>
+
+        <circle cx="120" cy="420" r="7" class="box"/>
+        <text class="t" x="100" y="418" text-anchor="end">C++26</text>
+        <text class="m" x="150" y="412">制定中</text>
+        <text class="s" x="150" y="430">反射 · 契约 · 执行器（executors）· 并行 ranges</text>
+      </svg>
+      <figcaption>学习建议（<strong>以 C++17 为日常基准</strong>，C++11/14 的写法当作基本功，C++20 的 concepts / ranges 遇到再学。不要一上来就啃 C++23/26 的冷门特性）</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+#include &lt;variant&gt;
+#include &lt;string_view&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+
+// C++17：结构化绑定让遍历 map 清爽很多
+void printScores(const std::map&lt;std::string, int&gt;&amp; scores) {
+    for (const auto&amp; [name, score] : scores)          // → 结构化绑定
+        std::cout &lt;&lt; name &lt;&lt; " = " &lt;&lt; score &lt;&lt; '\n';
+}
+
+// C++14：泛型 lambda + auto 返回类型推导
+auto sumOf = [](const auto&amp; container) {
+    return std::accumulate(container.begin(), container.end(), 0);
+};
+
+// C++17：optional 表达"可能没有值"，替代返回 -1 或空指针
+std::optional&lt;int&gt; findIndex(const std::vector&lt;int&gt;&amp; v, int target) {
+    auto it = std::find(v.begin(), v.end(), target);
+    if (it == v.end()) return std::nullopt;
+    return (int)std::distance(v.begin(), it);
+}
+
+// C++17：variant 表达"几个类型中的一个"，替代 union + 手动记 tag
+using Value = std::variant&lt;int, double, std::string&gt;;
+
+std::string describe(const Value&amp; v) {
+    return std::visit([](const auto&amp; x) -&gt; std::string {
+        using T = std::decay_t&lt;decltype(x)&gt;;
+        if constexpr (std::is_same_v&lt;T, int&gt;)         return "整数: " + std::to_string(x);
+        else if constexpr (std::is_same_v&lt;T, double&gt;) return "小数: " + std::to_string(x);
+        else                                          return "字符串: " + x;
+    }, v);
+}
+
+// C++17：string_view 传字符串不拷贝（只读视图）
+std::size_t countChar(std::string_view sv, char c) {
+    return (std::size_t)std::count(sv.begin(), sv.end(), c);
+}
+
+// C++11 起：constexpr 让计算发生在编译期
+constexpr long long factorial(int n) {
+    return n &lt;= 1 ? 1 : n * factorial(n - 1);
+}
+static_assert(factorial(5) == 120, "编译期就能验证！");
+
+int main() {
+    printScores({{"小明", 92}, {"小红", 98}, {"小 C", 100}});
+
+    std::vector&lt;int&gt; v = {10, 20, 30, 40};
+    std::cout &lt;&lt; sumOf(v) &lt;&lt; '\n';                    // 100
+
+    if (auto idx = findIndex(v, 30))                    // C++17：if 里带初始化
+        std::cout &lt;&lt; "找到，下标 = " &lt;&lt; *idx &lt;&lt; '\n';   // 2
+    else
+        std::cout &lt;&lt; "没找到\n";
+
+    std::cout &lt;&lt; describe(Value{42}) &lt;&lt; '\n';
+    std::cout &lt;&lt; describe(Value{3.14}) &lt;&lt; '\n';
+    std::cout &lt;&lt; describe(Value{std::string("hello")}) &lt;&lt; '\n';
+
+    std::cout &lt;&lt; countChar("banana", 'a') &lt;&lt; '\n';      // 3
+    std::cout &lt;&lt; "5! = " &lt;&lt; factorial(5) &lt;&lt; '\n';       // 120
+    return 0;
+}
+</code></pre>
+  </div>
+</section>
+
+<!-- ============ RAII ============ -->
+<section class="section" id="raii">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">02 · RAII &amp; Smart Pointers</span>
+      <h2>RAII：C++ 最核心的一条设计哲学</h2>
+      <p>
+        <strong>把资源的生命周期绑在对象的生命周期上。</strong>
+        在构造函数里获取资源，在析构函数里释放资源。只要对象被正确销毁，资源就一定会被释放——         哪怕中途抛出异常。       </p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>unique_ptr <span class="badge">独占</span></h3>
+        <p style="font-size:.9rem;color:var(--muted);margin:0">
+          一个对象只能有一个所有者、<strong>不能拷贝，只能 move</strong>。           零额外开销，应该作为默认首选。         </p>
+      </div>
+      <div class="card">
+        <h3>shared_ptr <span class="badge">共享</span></h3>
+        <p style="font-size:.9rem;color:var(--muted);margin:0">
+          通过引用计数共享所有权，计数归零才释放。           有原子操作开销（<strong>不要默认用它</strong>）。         </p>
+      </div>
+      <div class="card">
+        <h3>weak_ptr <span class="badge">观察</span></h3>
+        <p style="font-size:.9rem;color:var(--muted);margin:0">
+          不增加引用计数，用来<strong>打破循环引用</strong>造成的泄漏。           使用前要用 <code class="inline">lock()</code> 检查对象是否还活着。         </p>
+      </div>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 330" role="img" aria-label="三种智能指针的所有权模型对比">
+        <defs>
+          <marker id="ar12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple-deep)" />
+          </marker>
+          <marker id="ar13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--cyan)" />
+          </marker>
+          <marker id="ar14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--muted)" />
+          </marker>
+        </defs>
+
+        <!-- unique_ptr -->
+        <text class="m" x="20" y="52">unique_ptr</text>
+        <text class="s" x="20" y="68">&lt;T&gt; 独占</text>
+        <rect class="box-u" x="150" y="36" width="126" height="44" rx="10"/>
+        <text class="t" x="213" y="63" text-anchor="middle">owner</text>
+        <path class="ln-a" d="M280 58H386" marker-end="url(#ar12)"/>
+        <rect class="box-u" x="390" y="36" width="126" height="44" rx="10"/>
+        <text class="t" x="453" y="63" text-anchor="middle">T 对象</text>
+        <text class="s" x="540" y="52">1 对 1 绑定：所有者销毁 → 对象立即释放</text>
+        <text class="s" x="540" y="70">拷贝被禁用；转移所有权要写 std::move(p)</text>
+
+        <path class="dash" d="M20 100H740"/>
+
+        <!-- shared_ptr -->
+        <text class="m" x="20" y="150">shared_ptr</text>
+        <text class="s" x="20" y="166">&lt;T&gt; 共享</text>
+        <rect class="box-c" x="150" y="124" width="112" height="38" rx="9"/>
+        <text class="t" x="206" y="148" text-anchor="middle">p1</text>
+        <rect class="box-c" x="150" y="178" width="112" height="38" rx="9"/>
+        <text class="t" x="206" y="202" text-anchor="middle">p2</text>
+
+        <path class="ln-c" d="M266 143L326 158" marker-end="url(#ar13)"/>
+        <path class="ln-c" d="M266 197L326 182" marker-end="url(#ar13)"/>
+
+        <rect class="box" x="330" y="138" width="146" height="62" rx="10"/>
+        <text class="t" x="403" y="164" text-anchor="middle">控制块</text>
+        <text class="m" x="403" y="184" text-anchor="middle">count = 2</text>
+
+        <path class="ln-c" d="M480 169H554" marker-end="url(#ar13)"/>
+        <rect class="box-c" x="558" y="147" width="132" height="44" rx="10"/>
+        <text class="t" x="624" y="174" text-anchor="middle">T 对象</text>
+
+        <text class="s" x="150" y="236">计数减到 0 才真正释放；拷贝会 +1，析构会 −1（计数本身是原子操作，有开销）</text>
+
+        <path class="dash" d="M20 254H740"/>
+
+        <!-- weak_ptr -->
+        <text class="m" x="20" y="292">weak_ptr</text>
+        <text class="s" x="20" y="308">&lt;T&gt; 观察</text>
+        <rect class="box" x="150" y="272" width="112" height="38" rx="9"/>
+        <text class="t" x="206" y="296" text-anchor="middle">w</text>
+        <path class="ln-p" d="M266 291H554" marker-end="url(#ar14)"/>
+        <rect class="box" x="558" y="269" width="132" height="44" rx="10"/>
+        <text class="t" x="624" y="296" text-anchor="middle">T 对象</text>
+        <text class="s" x="300" y="284" style="fill:var(--pink-deep)">不增加引用计数</text>
+        <text class="s" x="20" y="326">对象还活着时 w.lock() 返回可用的 shared_ptr；否则返回 nullptr —— 必须先检查再用</text>
+      </svg>
+      <figcaption>选择顺序：<strong>能用栈对象就用栈对象 → 需要堆上多态对象用 unique_ptr → 真的需要共享所有权才用 shared_ptr</strong></figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+struct Resource {
+    std::string name;
+    explicit Resource(std::string n) : name(std::move(n)) {
+        std::cout &lt;&lt; "  获取资源: " &lt;&lt; name &lt;&lt; '\n';
+    }
+    ~Resource() {
+        std::cout &lt;&lt; "  释放资源: " &lt;&lt; name &lt;&lt; '\n';   // 一定会被调用
+    }
+};
+
+// ---------- RAII 手写版：任何资源都能这样封装 ----------
+class FileGuard {
+    std::FILE* fp_ = nullptr;
+public:
+    explicit FileGuard(const char* path, const char* mode) : fp_(std::fopen(path, mode)) {
+        if (!fp_) throw std::runtime_error("打开文件失败");
+    }
+    ~FileGuard() { if (fp_) std::fclose(fp_); }        // 析构时自动关问
+
+    FileGuard(const FileGuard&amp;)            = delete;    // 禁止拷贝
+    FileGuard&amp; operator=(const FileGuard&amp;) = delete;
+    FileGuard(FileGuard&amp;&amp; o) noexcept : fp_(o.fp_) { o.fp_ = nullptr; }  // 允许移动
+
+    std::FILE* get() const { return fp_; }
+};
+
+// ---------- shared_ptr 的经典坑：循环引用 ----------
+struct NodeBad {
+    std::shared_ptr&lt;NodeBad&gt; next;
+    ~NodeBad() { std::cout &lt;&lt; "  NodeBad 析构\n"; }
+};
+
+struct NodeGood {
+    std::shared_ptr&lt;NodeGood&gt; next;
+    std::weak_ptr&lt;NodeGood&gt;   prev;      // ★ 反向用 weak_ptr，打破循环
+    ~NodeGood() { std::cout &lt;&lt; "  NodeGood 析构\n"; }
+};
+
+int main() {
+    std::cout &lt;&lt; "[1] 作用域结束自动释放\n";
+    {
+        auto r = std::make_unique&lt;Resource&gt;("独占地雷");
+    }   // 出作用域立刻打印"释放资源"
+
+    std::cout &lt;&lt; "[2] 所有权转移\n";
+    {
+        auto p = std::make_unique&lt;Resource&gt;("可转移的宝物");
+        auto q = std::move(p);                      // p 变成 nullptr
+        std::cout &lt;&lt; "  p 现在为空? " &lt;&lt; std::boolalpha &lt;&lt; (p == nullptr) &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "[3] 循环引用导致泄漏（两个都不会析构）\n";
+    {
+        auto a = std::make_shared&lt;NodeBad&gt;();
+        auto b = std::make_shared&lt;NodeBad&gt;();
+        a-&gt;next = b;
+        b-&gt;next = a;                                // 计数永远归不了 0
+        std::cout &lt;&lt; "  a.use_count = " &lt;&lt; a.use_count() &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "[4] 用 weak_ptr 打破循环（两个都会正常析构）\n";
+    {
+        auto a = std::make_shared&lt;NodeGood&gt;();
+        auto b = std::make_shared&lt;NodeGood&gt;();
+        a-&gt;next = b;
+        b-&gt;prev = a;                                // weak_ptr 不加计数
+        std::cout &lt;&lt; "  a.use_count = " &lt;&lt; a.use_count() &lt;&lt; '\n';
+    }
+    return 0;
+}
+</code></pre>
+
+    <div class="callout info">
+      <span class="ci">🧠</span>
+      <div>
+        <span class="ct">为什么优先用 make_unique / make_shared</span>
+        <ul class="tight" style="margin-bottom:0">
+          <li><strong>异常安全</strong>：<code class="inline">f(std::shared_ptr&lt;T&gt;(new T), g())</code> 中如果 <code class="inline">g()</code> 抛异常，<code class="inline">new T</code> 的内存会泄漏（<code class="inline">make_shared</code> 不会）</li>
+          <li><strong>更高效</strong>：<code class="inline">make_shared</code> 一次性分配对象和控制块，少一次内存分配。</li>
+          <li><strong>更简洁</strong>：不用重复写类型名。</li>
+          <li>注意：<code class="inline">make_shared</code> 会让对象内存和控制块<strong>同生共死</strong>，如果有 <code class="inline">weak_ptr</code> 长期存在，对象内存会迟迟无法归还。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 移动语义 ============ -->
+<section class="section" id="move" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Move Semantics</span>
+      <h2>移动语义：把"拷贝"变成"转移"</h2>
+      <p>
+        拷贝一个装了一百万个元素的 <code class="inline">vector</code> 很贵；但如果你只是想要它的数据、不再需要原来那个，那就<strong>没必要复制</strong>——直接把内部的指针交出去就行。这就是移动。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 210" role="img" aria-label="std::move 前后对象内部缓冲区的所有权变化">
+        <defs>
+          <marker id="ar15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+          <marker id="ar16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--mint)" />
+          </marker>
+        </defs>
+
+        <!-- 移动前 -->
+        <text class="t" x="20" y="26">移动前</text>
+        <text class="s" x="20" y="44">auto v2 = v1;   // 拷贝：深拷贝 N 个元素</text>
+        <rect class="box-u" x="20" y="56" width="86" height="38" rx="9"/>
+        <text class="t" x="63" y="80" text-anchor="middle">v1</text>
+        <path class="ln-a" d="M110 75H180" marker-end="url(#ar15)"/>
+        <rect class="box-u" x="184" y="54" width="240" height="42" rx="9"/>
+        <text class="m" x="304" y="80" text-anchor="middle">堆缓冲区 · N 个元素</text>
+
+        <rect class="box" x="20" y="112" width="86" height="38" rx="9"/>
+        <text class="t" x="63" y="136" text-anchor="middle">v2</text>
+        <path class="dash" d="M110 131H180" marker-end="url(#ar16)"/>
+        <rect class="box" x="184" y="110" width="240" height="42" rx="9"/>
+        <text class="s" x="304" y="136" text-anchor="middle">又分配一块，逐元素复制（慢）</text>
+
+        <path class="ln" d="M440 10V200"/>
+
+        <!-- 移动后 -->
+        <text class="t" x="460" y="26">移动后（std::move）</text>
+        <text class="s" x="460" y="44">auto v2 = std::move(v1);   // O(1)，只搬指针</text>
+        <rect class="box" x="460" y="56" width="86" height="38" rx="9"/>
+        <text class="s" x="503" y="80" text-anchor="middle">v1</text>
+        <path class="dash" d="M550 75H620" marker-end="url(#ar16)"/>
+        <rect class="box" x="624" y="54" width="120" height="42" rx="9"/>
+        <text class="s" x="684" y="80" text-anchor="middle">已置空</text>
+
+        <rect class="box-m" x="460" y="112" width="86" height="38" rx="9"/>
+        <text class="t" x="503" y="136" text-anchor="middle">v2</text>
+        <path d="M550 131H620" fill="none" stroke-width="2" marker-end="url(#ar16)" style="stroke:var(--mint)" />
+        <rect class="box-m" x="624" y="110" width="120" height="42" rx="9"/>
+        <text class="m" x="684" y="136" text-anchor="middle">接管原缓冲区</text>
+
+        <text class="s" x="20" y="178">关键！<tspan class="hl">std::move 本身不移动任何东西</tspan>，它只是把左值强制转换成右值引用，</text>
+        <text class="s" x="20" y="196">真正干活的是移动构造函数 / 移动赋值运算符。被移动过的对象处于"有效但未指定"状态，只能重新赋值或销毁，不要假设它是空的。</text>
+      </svg>
+      <figcaption>移动构造的复杂度是 <strong>O(1)</strong>（搬几个指针），拷贝构造是 <strong>O(n)</strong>。这就是为什么 <code class="inline">return</code> 一个大 vector 在 C++11 之后几乎不花针</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+#include &lt;chrono&gt;
+
+class Buffer {
+    char*  data_ = nullptr;
+    size_t size_ = 0;
+public:
+    explicit Buffer(size_t n) : data_(new char[n]), size_(n) {
+        std::cout &lt;&lt; "  构造 " &lt;&lt; size_ &lt;&lt; " 字节\n";
+    }
+
+    // ---- 析构 ----
+    ~Buffer() { delete[] data_; }
+
+    // ---- 拷贝构造：深拷贝，O(n) ----
+    Buffer(const Buffer&amp; o) : data_(new char[o.size_]), size_(o.size_) {
+        std::copy(o.data_, o.data_ + o.size_, data_);
+        std::cout &lt;&lt; "  拷贝构造（慢，O(n)）\n";
+    }
+
+    // ---- 移动构造：只偷指针，O(1) ----
+    Buffer(Buffer&amp;&amp; o) noexcept
+        : data_(o.data_), size_(o.size_) {
+        o.data_ = nullptr;               // ★ 必须让原对象放弃所有权，否则会 double free
+        o.size_ = 0;
+        std::cout &lt;&lt; "  移动构造（快，O(1)）\n";
+    }
+
+    // ---- 拷贝赋值：copy-and-swap，天然异常安全 ----
+    Buffer&amp; operator=(const Buffer&amp; o) {
+        if (this != &amp;o) { Buffer tmp(o); swap(tmp); }
+        return *this;
+    }
+
+    // ---- 移动赋值 ----
+    Buffer&amp; operator=(Buffer&amp;&amp; o) noexcept {
+        if (this != &amp;o) {
+            delete[] data_;                          // 先释放自己的
+            data_ = o.data_; size_ = o.size_;
+            o.data_ = nullptr; o.size_ = 0;
+        }
+        return *this;
+    }
+
+    void swap(Buffer&amp; o) noexcept {
+        std::swap(data_, o.data_);
+        std::swap(size_, o.size_);
+    }
+    size_t size() const { return size_; }
+};
+
+int main() {
+    std::cout &lt;&lt; "[拷贝] 代价与数据量成正比\n";
+    {
+        Buffer a(1'000'000);
+        Buffer b = a;                    // 调用拷贝构造
+    }
+
+    std::cout &lt;&lt; "[移动] 代价是常数\n";
+    {
+        Buffer a(1'000'000);
+        Buffer b = std::move(a);         // 调用移动构造
+    }
+
+    std::cout &lt;&lt; "[返回大对象：编译器会做 RVO / NRVO，连移动都省了]\n";
+    auto makeBig = [] {
+        std::vector&lt;int&gt; v(1'000'000, 7);
+        return v;                        // 不会拷贝，直接在调用方位置构造
+    };
+    auto v = makeBig();
+
+    std::cout &lt;&lt; "[emplace_back vs push_back]\n";
+    std::vector&lt;std::string&gt; vs;
+    vs.reserve(2);
+    vs.push_back("临时字符串");           // 先构造临时对象，再移动进来
+    vs.emplace_back(10, 'x');            // 直接在容器内存里构造，少一次移动
+    std::cout &lt;&lt; "  vs[1] = " &lt;&lt; vs[1] &lt;&lt; '\n';
+
+    std::cout &lt;&lt; "[完美转发：forward 保持参数的左右值属性]\n";
+    auto wrapper = [](auto&amp;&amp; x) {
+        return std::string(std::forward&lt;decltype(x)&gt;(x));
+    };
+    std::string s = "hello";
+    std::cout &lt;&lt; "  " &lt;&lt; wrapper(s) &lt;&lt; " / " &lt;&lt; wrapper(std::string("world")) &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+
+    <div class="callout warn">
+      <span class="ci">⚠️</span>
+      <div>
+        <span class="ct">三个最常见的移动语义错误</span>
+        <ol class="tight" style="margin-bottom:0">
+          <li><strong>移动构造函数忘了把源对象置空</strong> → 两个对象指向同一块内存，析构时 <em>double free</em> 崩溃。</li>
+          <li><strong>对 <code class="inline">const</code> 对象使用 <code class="inline">std::move</code></strong> → <code class="inline">const T&amp;&amp;</code> 匹配不到移动构造，静默退化成拷贝，你以为优化了其实没有。</li>
+          <li><strong>移动之后继续使用源对象</strong> → 状态未指定。唯一的合法操作是赋值或销毁。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 并发 ============ -->
+<section class="section" id="concurrency">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Concurrency</span>
+      <h2>并发：从"能跑"到"跑对"</h2>
+      <p>
+        多线程最大的特点不是"难写"，而是<strong>错误会随机出现、难以复现</strong>。         所以必须从原理上理解数据竞争，而不是靠试。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 246" role="img" aria-label="数据竞争与加锁保护的对比">
+        <defs>
+          <marker id="ar17" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--pink-deep)" />
+          </marker>
+          <marker id="ar18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--mint)" />
+          </marker>
+        </defs>
+
+        <!-- 左：无锁 -->
+        <text class="t" x="20" y="26" style="fill:var(--pink-deep)">✓ 没有同步</text>
+        <rect class="box-p" x="20" y="50" width="86" height="38" rx="9"/>
+        <text class="t" x="63" y="74" text-anchor="middle">线程 A</text>
+        <rect class="box-p" x="20" y="112" width="86" height="38" rx="9"/>
+        <text class="t" x="63" y="136" text-anchor="middle">线程 B</text>
+        <path class="ln-p" d="M110 69C140 69 140 90 168 90" marker-end="url(#ar17)"/>
+        <path class="ln-p" d="M110 131C140 131 140 110 168 110" marker-end="url(#ar17)"/>
+        <rect class="box-p" x="172" y="72" width="150" height="56" rx="10"/>
+        <text class="t" x="247" y="96" text-anchor="middle">counter++</text>
+        <text class="s" x="247" y="114" text-anchor="middle">语 → 放 → 写</text>
+        <text class="s" x="20" y="176">counter++ 其实是三步，不是一条机器指令。</text>
+        <text class="s" x="20" y="194">A 读到 0 还没写回，B 也读到 0，</text>
+        <text class="s" x="20" y="212">两次自增最后只加了 1 —— 结果随机出错。</text>
+        <text class="s" x="20" y="234" style="fill:var(--pink-deep)">这类 bug 在测试环境往往一次都不出现，上线才炸。</text>
+
+        <path class="ln" d="M400 12V236"/>
+
+        <!-- 右：有锁 -->
+        <text class="t" x="424" y="26" style="fill:var(--mint)">✓ 用 mutex 保护</text>
+        <rect class="box-m" x="424" y="50" width="86" height="38" rx="9"/>
+        <text class="t" x="467" y="74" text-anchor="middle">线程 A</text>
+        <rect class="box-m" x="424" y="112" width="86" height="38" rx="9"/>
+        <text class="t" x="467" y="136" text-anchor="middle">线程 B</text>
+        <path class="ln-c" d="M514 69C544 69 544 88 566 88" marker-end="url(#ar18)"/>
+        <path class="ln-c" d="M514 131C544 131 544 112 566 112" marker-end="url(#ar18)"/>
+        <rect class="box-c" x="570" y="72" width="80" height="56" rx="10"/>
+        <text class="m" x="610" y="96" text-anchor="middle">mutex</text>
+        <text class="s" x="610" y="114" text-anchor="middle">串行化</text>
+        <path class="ln-c" d="M654 100H686" marker-end="url(#ar18)"/>
+        <rect class="box-m" x="690" y="78" width="54" height="44" rx="10"/>
+        <text class="s" x="717" y="105" text-anchor="middle">++</text>
+        <text class="s" x="424" y="176">同一时刻只有一个线程能进临界区：</text>
+        <text class="s" x="424" y="194">访问被强制排成队列，结果正确。</text>
+        <text class="s" x="424" y="212">代价是并发度下降 —— 所以临界区要尽量小。</text>
+        <text class="s" x="424" y="234" style="fill:var(--mint)">若只是简单计数，atomic 会比 mutex 快得多。</text>
+      </svg>
+      <figcaption>排查并发问题的顺序：<strong>① 找出所有共享的可变数据 → ② 确认每一处访问都被同一个锁（或原子变量）保护 → ③ 用 ThreadSanitizer 验证</strong></figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+#include &lt;atomic&gt;
+#include &lt;condition_variable&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;chrono&gt;
+
+// ---------- 1. 基础：启动线程并等待 ----------
+void basicThread() {
+    std::vector&lt;std::thread&gt; pool;
+    for (int i = 0; i &lt; 4; ++i)
+        pool.emplace_back([i] { std::cout &lt;&lt; "  线程 " &lt;&lt; i &lt;&lt; " 工作中\n"; });
+    for (auto&amp; t : pool) t.join();          // ★ 必须 join 或 detach，否则 terminate
+}
+
+// ---------- 2. 数据竞争：错误的写法 ----------
+long long counterWrong = 0;
+void addWrong(int n) { for (int i = 0; i &lt; n; ++i) ++counterWrong; }
+
+// ---------- 3. 用 mutex 修正 ----------
+long long counterMutex = 0;
+std::mutex mtx;
+void addMutex(int n) {
+    for (int i = 0; i &lt; n; ++i) {
+        std::lock_guard&lt;std::mutex&gt; lock(mtx);   // 出作用域自动解锁（RAII）
+        ++counterMutex;
+    }
+}
+
+// ---------- 4. 用 atomic 修正（更轻量） ---------
+std::atomic&lt;long long&gt; counterAtomic{0};
+void addAtomic(int n) { for (int i = 0; i &lt; n; ++i) ++counterAtomic; }
+
+// ---------- 5. 生产者—消费者：条件变量 ----------
+template &lt;typename T&gt;
+class BlockingQueue {
+    std::queue&lt;T&gt; q_;
+    std::mutex m_;
+    std::condition_variable cv_;
+    bool closed_ = false;
+public:
+    void push(T value) {
+        {
+            std::lock_guard&lt;std::mutex&gt; lock(m_);
+            q_.push(std::move(value));
+        }
+        cv_.notify_one();                    // ★ 先解锁再通知，减少无谓等待
+    }
+
+    bool pop(T&amp; out) {
+        std::unique_lock&lt;std::mutex&gt; lock(m_);
+        cv_.wait(lock, [this] { return !q_.empty() || closed_; });  // 谓词版，防虚假唤醒
+        if (q_.empty()) return false;
+        out = std::move(q_.front());
+        q_.pop();
+        return true;
+    }
+
+    void close() {
+        { std::lock_guard&lt;std::mutex&gt; lock(m_); closed_ = true; }
+        cv_.notify_all();
+    }
+};
+
+int main() {
+    const int N = 200'000;
+
+    std::cout &lt;&lt; "[1] 基础线程\n";
+    basicThread();
+
+    std::cout &lt;&lt; "[2] 无保护（结果几乎肯定不对）\n";
+    {
+        std::thread a(addWrong, N), b(addWrong, N);
+        a.join(); b.join();
+        std::cout &lt;&lt; "  期望 " &lt;&lt; 2 * N &lt;&lt; "，实际 " &lt;&lt; counterWrong
+                  &lt;&lt; (counterWrong == 2LL * N ? "" : "   → 数据竞争！") &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "[3] mutex 保护\n";
+    {
+        std::thread a(addMutex, N), b(addMutex, N);
+        a.join(); b.join();
+        std::cout &lt;&lt; "  结果 " &lt;&lt; counterMutex &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "[4] atomic\n";
+    {
+        std::thread a(addAtomic, N), b(addAtomic, N);
+        a.join(); b.join();
+        std::cout &lt;&lt; "  结果 " &lt;&lt; counterAtomic.load() &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "[5] 生产者—消费者\n";
+    {
+        BlockingQueue&lt;int&gt; bq;
+        std::thread producer([&amp;] {
+            for (int i = 1; i &lt;= 5; ++i) { bq.push(i * 10); }
+            bq.close();
+        });
+        std::thread consumer([&amp;] {
+            int v;
+            while (bq.pop(v)) std::cout &lt;&lt; "  消费到 " &lt;&lt; v &lt;&lt; '\n';
+        });
+        producer.join();
+        consumer.join();
+    }
+    return 0;
+}
+</code></pre>
+
+    <div class="split" style="margin-top:1.4rem">
+      <div class="callout tip" style="margin:0">
+        <span class="ci">✓</span>
+        <div>
+          <span class="ct">并发安全清单</span>
+          <ul class="tight" style="margin-bottom:0">
+            <li>每个 <code class="inline">thread</code> 都必须 <code class="inline">join</code> 成 <code class="inline">detach</code></li>
+            <li>优先用 <code class="inline">lock_guard</code>，需要手动解锁才用 <code class="inline">unique_lock</code></li>
+            <li>同时锁多个 mutex 用 <code class="inline">std::scoped_lock</code>，避免死错</li>
+            <li><code class="inline">condition_variable</code> 一定要用带谓词的 <code class="inline">wait</code></li>
+            <li>临界区尽可能短，别在锁里做 IO 或耗时计算</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn" style="margin:0">
+        <span class="ci">🚨</span>
+        <div>
+          <span class="ct">常见误解</span>
+          <ul class="tight" style="margin-bottom:0">
+            <li>"加个 volatile 就线程安全了" —— <strong>错</strong>，volatile 不提供原子性和内存序</li>
+            <li>"两个线程读同一个变量也危险" —— 只读且没人写是安全的</li>
+            <li>"原子变量就能解决一切" —— 多个原子变量之间仍需注意顺序</li>
+            <li>"我的机器上跑对了很多次" —— 不代表没有竞争</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 构建 ============ -->
+<section class="section" id="build" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Build System</span>
+      <h2>CMake：让代码在任何机器上都能构建</h2>
+      <p>
+        手敲 <code class="inline">g++ a.cpp b.cpp -o app</code> 只适合单文件练习。         只要有 3 个以上源文件、或者要用第三方库，就该上 CMake 了。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 200" role="img" aria-label="CMake 从源码到可执行文件的构建流程">
+        <defs>
+          <marker id="ar19" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+
+        <rect class="box-c" x="24" y="62" width="122" height="62" rx="12"/>
+        <text class="t" x="85" y="88" text-anchor="middle">源码</text>
+        <text class="s" x="85" y="108" text-anchor="middle">*.cpp / *.h</text>
+
+        <path class="ln-a" d="M150 93H166" marker-end="url(#ar19)"/>
+
+        <rect class="box-u" x="170" y="62" width="122" height="62" rx="12"/>
+        <text class="t" x="231" y="88" text-anchor="middle">CMakeLists</text>
+        <text class="s" x="231" y="108" text-anchor="middle">声明目标与依赖</text>
+
+        <path class="ln-a" d="M296 93H312" marker-end="url(#ar19)"/>
+
+        <rect class="box-p" x="316" y="62" width="122" height="62" rx="12"/>
+        <text class="t" x="377" y="88" text-anchor="middle">配置 &amp; 生成</text>
+        <text class="s" x="377" y="108" text-anchor="middle">cmake -B build</text>
+
+        <path class="ln-a" d="M442 93H458" marker-end="url(#ar19)"/>
+
+        <rect class="box" x="462" y="62" width="122" height="62" rx="12"/>
+        <text class="t" x="523" y="88" text-anchor="middle">编译链接</text>
+        <text class="s" x="523" y="108" text-anchor="middle">cmake --build build</text>
+
+        <path class="ln-a" d="M588 93H604" marker-end="url(#ar19)"/>
+
+        <rect class="box-m" x="608" y="62" width="128" height="62" rx="12"/>
+        <text class="t" x="672" y="88" text-anchor="middle">可执行文件</text>
+        <text class="s" x="672" y="108" text-anchor="middle">app / 测试程序</text>
+
+        <text class="s" x="24" y="38">① ② ③ ④ ⑤ —— CMake 不直接编译代码，它只是"生成构建脚本"的元工具</text>
+        <text class="s" x="24" y="158">后端生成器可以是：Visual Studio 解决方案（.sln）、Ninja、Unix Makefiles、Xcode …— 同一件 CMakeLists.txt 到处都能用</text>
+        <text class="s" x="24" y="180">这就是它比"手写 Makefile"强的地方：跨平台、跨编译器、跨 IDE</text>
+      </svg>
+      <figcaption>记住这个心智模型（<strong>CMakeLists.txt 不是用来编译的，而是用来"描述项目结构"的</strong>）。真正编译的是它生成出来的东西</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cmake"><code>
+# ================ CMakeLists.txt（放在项目根目录） ===============
+cmake_minimum_required(VERSION 3.20)
+
+project(CodeBloom
+    VERSION 1.0.0
+    DESCRIPTION "C++ 学习示例项目"
+    LANGUAGES CXX)
+
+# ---- 全局 C++ 标准 ----
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)          # 用 -std=c++17 而不是 -std=gnu++17
+
+# ---- 默认构建类型（多配置生成器如 VS 会忽略这一行）----
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
+endif()
+
+# ---- 把警告当回事：新项目建议一路开到 -Werror ----
+if(MSVC)
+    add_compile_options(/W4 /permissive- /Zc:__cplusplus)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# ================ 一个库：把逻辑代码收进去 ================
+# 现代 CMake 的核心思想：一切都是 target（目标），依赖挂在 target 上
+add_library(core STATIC
+    src/math_utils.cpp
+    src/string_utils.cpp)
+
+# 头文件目录只对自己和链接它的人生效（PUBLIC）
+target_include_directories(core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# ================ 一个可执行文件 ================
+add_executable(app src/main.cpp)
+target_link_libraries(app PRIVATE core)
+
+# ================ 单元测试 ================
+enable_testing()
+
+# 方式一：用 FetchContent 自动拉取 GoogleTest（首次配置需要联网）
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        v1.14.0)
+
+# Windows 下让 gtest 用动态运行时，避免 CRT 冲突
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(unit_tests tests/test_math_utils.cpp)
+target_link_libraries(unit_tests PRIVATE core GTest::gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(unit_tests)
+</code></pre>
+
+    <p>对应的目录结构应该是这样：</p>
+
+<pre class="code" data-lang="text"><code>
+CodeBloom/
+├── CMakeLists.txt
+├── include/
+│   ├── math_utils.h
+─   └── string_utils.h
+├── src/
+│   ├── math_utils.cpp
+│   ├── string_utils.cpp
+─   └── main.cpp
+├── tests/
+─   └── test_math_utils.cpp
+├── third_party/            # 第三方库源码（可选）
+├── build/                  # 构建产物，加进 .gitignore
+└── .gitignore
+</code></pre>
+
+    <div class="split" style="margin-top:1.2rem">
+      <div class="card">
+        <h3>常用命令（背下来）</h3>
+<pre class="code" data-lang="bash"><code>
+# 配置（只跑一次，改 CMakeLists 后再跑）
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+
+# 编译
+cmake --build build
+
+# 编译并并行（用满所有核心）
+cmake --build build --parallel
+
+# 只重新编译某个目标
+cmake --build build --target app
+
+# 跑测试
+cd build &amp;&amp; ctest --output-on-failure
+
+# 切到 Release（优化 + 去断言）
+cmake -B build-rel -DCMAKE_BUILD_TYPE=Release
+cmake --build build-rel --parallel
+</code></pre>
+      </div>
+      <div class="card">
+        <h3>Windows 下指定编译器</h3>
+<pre class="code" data-lang="bash"><code>
+# 用 Visual Studio 2022 生成器（会生成 .sln）
+cmake -B build -G "Visual Studio 17 2022" -A x64
+
+# 用 MinGW-w64（需要 gcc / g++ 在 PATH 里）
+cmake -B build -G "MinGW Makefiles"
+
+# 用 Ninja（推荐，最快）
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
+
+# 手动指定编译器
+cmake -B build -DCMAKE_CXX_COMPILER=g++
+
+# 看实际用了哪些编译选项（排查问题神器）
+cmake --build build --verbose
+</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 测试与调试 ============ -->
+<section class="section" id="test">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Test &amp; Debug</span>
+      <h2>测试与调试：把 bug 挡在提交之前</h2>
+      <p>
+        一个真实规律：<strong>写测试花的时间，永远少于手工点按钮测出 bug 再回头定位的时间。</strong>
+        尤其是 C++ —— 内存错误往往在崩的那一刻早已远离了出错的那一刻。       </p>
+    </div>
+
+    <h3>6.1 单元测试</h3>
+<pre class="code" data-lang="cpp"><code>
+// ================ tests/test_math_utils.cpp ================
+#include &lt;gtest/gtest.h&gt;
+#include "math_utils.h"
+#include &lt;vector&gt;
+
+// ---- 基本断言 ----
+TEST(MathUtils, GcdBasic) {
+    EXPECT_EQ(gcd(12, 18), 6);
+    EXPECT_EQ(gcd(17, 5), 1);
+    EXPECT_EQ(gcd(0, 9), 9);            // 边界，  与任何数
+}
+
+TEST(MathUtils, FastPower) {
+    EXPECT_EQ(power(2, 10), 1024);
+    EXPECT_EQ(power(3, 0), 1);          // 边界：指数为 0
+    EXPECT_EQ(power(5, 1), 5);
+}
+
+// ---- 用参数化测试批量覆盖 ----
+class SortTest : public ::testing::TestWithParam&lt;std::vector&lt;int&gt;&gt; {};
+
+TEST_P(SortTest, SortsCorrectly) {
+    auto input = GetParam();
+    auto expected = input;
+    std::sort(expected.begin(), expected.end());
+    EXPECT_EQ(mySort(input), expected);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VariousInputs, SortTest,
+    ::testing::Values(
+        std::vector&lt;int&gt;{},                    // 空数组
+        std::vector&lt;int&gt;{1},                   // 单元素
+        std::vector&lt;int&gt;{2, 2, 2},             // 全相同
+        std::vector&lt;int&gt;{1, 2, 3},             // 已有序
+        std::vector&lt;int&gt;{3, 2, 1},             // 逆序
+        std::vector&lt;int&gt;{5, -1, 0, 3, -7}));   // 含负数
+
+// ---- 测试异常 ----
+TEST(MathUtils, DivideByZeroThrows) {
+    EXPECT_THROW(divide(1, 0), std::invalid_argument);
+    EXPECT_NO_THROW(divide(1, 2));
+}
+</code></pre>
+
+    <div class="split" style="margin-top:1.2rem">
+      <div class="card">
+        <h3>三个轻量替代方案</h3>
+        <ul class="tight" style="margin:0">
+          <li><strong>doctest</strong> —— 单头文件，编译极快，语法几乎和 GoogleTest 一样。适合小项目。</li>
+          <li><strong>Catch2</strong> —— 单头文件（v2），断言可以写成自然语言风格。</li>
+          <li><strong>MSVC 自带的 C++ 测试框架</strong> —— 在 Visual Studio 里新建项直接选"本机单元测试"，零配置。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>测什么</h3>
+        <ul class="tight" style="margin:0">
+          <li><strong>边界值</strong>， 。 、空、最大值、最小值</li>
+          <li><strong>特殊情况</strong>：全相同、已排序、逆序、负数</li>
+          <li><strong>异常路径</strong>：非法输入是否正确抛出</li>
+          <li><strong>不测</strong>：私有实现细节（测行为，不测实现）</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">6.2 Sanitizer：让隐藏的内存错误立刻暴露</h3>
+    <p>
+      这是 C++ 开发中性价比最高的一个工具。它会拖慢程序 2～3 倍，但能抓住<strong>越界、悬垂指针、       内存泄漏、数据竞争、未定义行为</strong>——这些都是"平时没事、偶发崩溃"的元凶。     </p>
+
+<pre class="code" data-lang="bash"><code>
+# ============ GCC / Clang：编译时加开关即可 ============
+
+# AddressSanitizer：越界、悬垂指针、double free、内存泄漏
+g++ -std=c++17 -g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer main.cpp -o app
+
+# UndefinedBehaviorSanitizer：有符号溢出、除零、空指针解引用
+g++ -std=c++17 -g -fsanitize=undefined main.cpp -o app
+
+# ThreadSanitizer：数据竞争（注意不能与 ASan 同时用）
+g++ -std=c++17 -g -fsanitize=thread main.cpp -o app -pthread
+
+# 泄漏检测更详细（Linux）
+ASAN_OPTIONS=detect_leaks=1 ./app
+
+# ============ MSVC：在 Visual Studio 里开 ============
+# 项目属性 → C/C++ → 常规 → 启用地址擦除器 AddressSanitizer) → 是 (/fsanitize=address)
+# 或在 CMake 里：
+#   if(MSVC)
+#       add_compile_options(/fsanitize=address)
+#       add_link_options(/fsanitize=address)
+#   endif()
+</code></pre>
+
+    <div class="callout warn">
+      <span class="ci">🎯</span>
+      <div>
+        <span class="ct">一个真实案例：为什么 ASan 值得用</span>
+        <p style="margin:0">
+          越界写一个栈数组，可能覆盖掉相邻变量里的一个字节。程序不会立刻崩，           而是在<strong>几百行之后</strong>用一个莫名其妙的值算出错误结果。           靠 printf 找这种 bug 可能要花一整天；开了 ASan，它会在越界发生的那一行直接报出           <code class="inline">stack-buffer-overflow</code> 和完整的调用栈。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">6.3 断点调试：比 <code class="inline">cout</code> 高效得多</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>操作</th><th>VS Code</th><th>Visual Studio</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td>设置 / 取消断点</td><td><kbd>F9</kbd></td><td><kbd>F9</kbd></td><td>在某一行的红点处暂停</td></tr>
+          <tr><td>开始 / 继续调试</td><td><kbd>F5</kbd></td><td><kbd>F5</kbd></td><td>编译并以调试器启动</td></tr>
+          <tr><td>逐过程（不进函数）</td><td><kbd>F10</kbd></td><td><kbd>F10</kbd></td><td>执行一行，跳过函数内部</td></tr>
+          <tr><td>逐语句（进函数）</td><td><kbd>F11</kbd></td><td><kbd>F11</kbd></td><td>执行一行，进入被调用函数</td></tr>
+          <tr><td>跳出当前函数</td><td><kbd>Shift</kbd>+<kbd>F11</kbd></td><td><kbd>Shift</kbd>+<kbd>F11</kbd></td><td>执行到当前函数返回</td></tr>
+          <tr><td>条件断点</td><td>右键断点 → 编辑断点</td><td>右键断点 → 条件</td><td>只在 <code class="inline">i == 500</code> 时停下</td></tr>
+          <tr><td>观察变量</td><td>左侧"监视"面板</td><td>监视窗口</td><td>看值随时间的变化</td></tr>
+          <tr><td>查看调用栈</td><td>左侧"调用堆栈"面板</td><td>调用堆栈窗口</td><td>看"我是被谁调用的" </td></tr>
+          <tr><td>内存查看</td><td>调试控制台 <code class="inline">-exec x/16xb ptr</code></td><td>内存窗口</td><td>直接看原始字节</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="ci">💡</span>
+      <div>
+        <span class="ct">调试与发布必须用不同的构建类型</span>
+        <p style="margin:0">
+          <strong>Debug</strong>：关优化（<code class="inline">-O0</code> / <code class="inline">/Od</code>）、带调试符号（<code class="inline">-g</code> / <code class="inline">/Zi</code>）、断言有效。           断点靠它才能准确命中。<br>
+          <strong>Release</strong>：开优化（<code class="inline">-O2</code> / <code class="inline">/O2</code>）、<code class="inline">NDEBUG</code> 关闭断言、           性能测试必须用它，而且<strong>永远不要用 Release 调 bug</strong>——编译器会把代码重排得让你看不懂。         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 项目 ============ -->
+<section class="section" id="project" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Projects</span>
+      <h2>做点什么：从练习到作品</h2>
+      <p>
+        看一百篇教程，不如自己完整做完一个项目。下面按难度排序：         <strong>每一个都建议配上 CMake、Git 和至少几个单元测试</strong>——         这才是"工程能力"的实际体现。       </p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th style="width:60px">难度</th><th>项目</th><th>能练到什么</th><th>推荐时长</th></tr></thead>
+        <tbody>
+          <tr><td>🟢</td><td>命令行待办清单（Todo CLI）</td><td>文件读写、字符串处理、类的设计</td><td>1～2 天</td></tr>
+          <tr><td>🟢</td><td>矩阵运算库</td><td>运算符重载、模板、移动语义</td><td>2～3 天</td></tr>
+          <tr><td>🟡</td><td>学生成绩管理系统</td><td>STL 容器、排序、异常处理、文件持久化</td><td>3～4 天</td></tr>
+          <tr><td>🟡</td><td>简易计算器 / 表达式求值</td><td>栈、词法分析、递归下降解析</td><td>3～4 天</td></tr>
+          <tr><td>🟡</td><td>贪吃蛇 / 俄罗斯方块（控制台）</td><td>游戏循环、状态机、输入处理</td><td>1 周</td></tr>
+          <tr><td>🟡</td><td>JSON 解析器</td><td>递归下降、variant、错误处理、单元测试</td><td>1～2 周</td></tr>
+          <tr><td>🔴</td><td>线程池 + 任务队列</td><td>thread、mutex、condition_variable、future</td><td>1～2 周</td></tr>
+          <tr><td>🔴</td><td>简易 HTTP 服务器（socket）</td><td>网络编程、并发、协议解析</td><td>2～3 周</td></tr>
+          <tr><td>🔴</td><td>迷你数据库 / KV 存储</td><td>B+ 树或 LSM 树、内存管理、持久化</td><td>3～4 周</td></tr>
+          <tr><td>🔴</td><td>简易编译器（如 Mini-Lisp）</td><td>词法、语法、AST、求值器</td><td>3～4 周</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:1.6rem">
+      <div class="card">
+        <div class="icon-badge pink">🌿</div>
+        <h3>Git 工作测</h3>
+        <ul class="tight" style="margin:0">
+          <li>每个功能开一个分放</li>
+          <li>提交信息写清楚"做了什么、为什么" </li>
+          <li><code class="inline">.gitignore</code> 里加上 <code class="inline">build/</code></li>
+          <li>README 写清怎么构建、怎么运行</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon-badge cyan">🔧</div>
+        <h3>代码质量</h3>
+        <ul class="tight" style="margin:0">
+          <li>统一命名风格（推荐 <code class="inline">snake_case</code> 或团队约定）</li>
+          <li>头文件用 include guard 成 <code class="inline">#pragma once</code></li>
+          <li>开后 <code class="inline">-Wall -Wextra</code>，把警告清零</li>
+          <li>用 clang-format 统一格式</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon-badge mint">📖</div>
+        <h3>读源码</h3>
+        <ul class="tight" style="margin:0">
+          <li>从标准库实现看起：<code class="inline">std::vector</code>、<code class="inline">std::string</code>，</li>
+          <li>再看小而美的开源库：fmt、spdlog、doctest、nlohmann/json</li>
+          <li>读的时候问"他为什么这么写"</li>
+          <li>看不懂就写个最小例子跑一遍</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 资源 ============ -->
+<section class="section" id="res">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">08 · Resources</span>
+      <h2>本阶段资源</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h3 style="font-size:1rem">📚 权威文档与书类</h3>
+        <div class="res-list">
+          <a class="res" href="https://en.cppreference.com/w/" target="_blank" rel="noopener">
+            <span class="ic doc">cpp</span>
+            <span class="body"><span class="title">cppreference</span><span class="desc">最权威的 C++ 标准库与语言参考，遇到任何 API 先查这里</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://learn.microsoft.com/zh-cn/cpp/cpp/welcome-back-to-cpp-modern-cpp" target="_blank" rel="noopener">
+            <span class="ic doc">MS</span>
+            <span class="body"><span class="title">Microsoft Learn · 欢迎回到 C++（现代 C++）</span><span class="desc">官方整理的重点特性导览，有中文版，篇幅短，适合快速建立全智</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://learncpp.com/" target="_blank" rel="noopener">
+            <span class="ic book">L</span>
+            <span class="body"><span class="title">LearnCpp.com</span><span class="desc">英文最佳入门教程，章节编排系统，覆盖到 C++17/20</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://github.com/isocpp/CppCoreGuidelines" target="_blank" rel="noopener">
+            <span class="ic git">G</span>
+            <span class="body"><span class="title">C++ Core Guidelines</span><span class="desc">Bjarne Stroustrup 与 Herb Sutter 主编的现代 C++ 规范，想知道"为什么这么写"就读定</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem">🎬 视频与工具</h3>
+        <div class="res-list">
+          <a class="res" href="https://www.bilibili.com/video/BV18B4y187uL/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">现代 C++ 特性专题讲解</span><span class="desc">移动语义、智能指针是公认最抽象的难点，集中看几个不同人的讲解会豁然开有</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1g5411Z72H/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">C++ 多线程与并发编程</span><span class="desc">线程池、条件变量、内存序的系统讲解</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1xa4y1R7vT/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">CMake 入门到项目实战</span><span class="desc">配合本页的 CMakeLists.txt 一起看，边看边放</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://cmake.org/documentation/" target="_blank" rel="noopener">
+            <span class="ic doc">CM</span>
+            <span class="body"><span class="title">CMake 官方文档</span><span class="desc">命令速查，遇到不认识的函数直接搜</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://godbolt.org/" target="_blank" rel="noopener">
+            <span class="ic prac">CE</span>
+            <span class="body"><span class="title">Compiler Explorer（godbolt）</span><span class="desc">在线看编译器生成的汇编，理解"这行代码到底变成了什么"</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://clang.llvm.org/docs/ClangFormat.html" target="_blank" rel="noopener">
+            <span class="ic doc">CF</span>
+            <span class="body"><span class="title">clang-format 文档</span><span class="desc">自动化代码格式化，和团队保持一致</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-lab" id="lab">
+      <script type="application/json" class="lab-spec">
+      {
+        "title": "自定义比较器排序",
+        "statement": "第一行读入整数 n（1 <= n <= 1000），接下来 n 行每行一个名字（不含空格，长度不超过 20）和一个整数分数（0 <= 分数 <= 100）。按分数从高到低排序；分数相同的按名字字典序从小到大。输出 n 行，每行「名字 分数」。",
+        "template": "#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\nstruct Student {\n    string name;\n    int score;\n};\n\nint main() {\n    int n;\n    if (!(cin >> n)) return 0;\n    vector<Student> v(n);\n    for (int i = 0; i < n; i++) cin >> v[i].name >> v[i].score;\n    \n    return 0;\n}\n",
+        "tests": [
+          { "name": "用例 1", "input": "3\nAlice 90\nBob 95\nCindy 90\n", "output": "Bob 95\nAlice 90\nCindy 90\n" },
+          { "name": "同分同名次", "input": "4\ndd 70\naa 70\ncc 70\nbb 70\n", "output": "aa 70\nbb 70\ncc 70\ndd 70\n" },
+          { "name": "单元素", "input": "1\nZhang 88\n", "output": "Zhang 88\n" }
+        ],
+        "hints": [
+          "给 std::sort 传第三个参数：一个 lambda [](const Student& a, const Student& b) { return ...; }，注意「分数相同按名字升序」要写进同一个比较器里。",
+          "string 直接用 < 比较就是字典序，不用自己逐位比。",
+          "stable_sort 也能保住同分的输入顺序，但这里要求按名字排，所以还是得写完整比较器。"
+        ]
+      }
+      </script>
+    </div>
+
+    <div class="callout pink" style="margin-top:1.8rem">
+      <span class="ci">i</span>
+      <div>
+        <span class="ct">小 C 的收获</span>
+        <p style="margin:0">
+          这一阶段不像前面那样有清晰的"学完就打勾"的边界，它会一直伴随着你。我的建议是：<strong>不要等"学完现代 C++"再动手做项目</strong>——恰恰相反，去做项目，在需要的时候回来查 <code class="inline">std::optional</code> 怎么用、这个 <code class="inline">shared_ptr</code> 该不该换成 <code class="inline">unique_ptr</code>。语言特性是工具，项目才是目的。         </p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem">
+      <a class="btn btn-ghost" href="algorithms.html">→ 阶段四：算法与数据结构</a>
+      <a class="btn btn-primary" href="tools.html">去配好开发环境 →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:28em">
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/img/favicon.svg" alt="" style="width:26px">
+          <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+        </div>
+        <p style="margin:0;font-size:.85rem">个人学习路线整理，非官方站点。所有资源链接均指向原始平台，内容版权归各自作者所有。</p>
+      </div>
+      <div>
+        <h4>学习路径</h4>
+        <div class="footer-links">
+          <a href="basics.html">② C++ 基础</a>
+          <a href="oop-stl.html">③ 面向对象 · STL</a>
+          <a href="algorithms.html">④ 算法与数据结构</a>
+          <a href="advanced.html">⑤ 进阶与实战</a>
+        </div>
+      </div>
+      <div>
+        <h4>本页跳转</h4>
+        <div class="footer-links">
+          <a href="#modern">现代 C++</a>
+          <a href="#raii">智能指针 · RAII</a>
+          <a href="#concurrency">并发</a>
+          <a href="#build">CMake</a>
+          <a href="#test">测试与调试</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:1.6rem 0 0;font-size:.8rem;text-align:center;opacity:.8">
+      © <span id="year">2026</span> Code Bloom · 手工搭建
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/judge.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

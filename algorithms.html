@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>算法与数据结构 · 阶段四 | Code Bloom</title>
+<meta name="description" content="算法与数据结构学习路径：复杂度分析、线性表、栈队列、树与堆、哈希、排序、双指针、二分、贪心、DFS/BFS、回溯、动态规划、图论，含图解、模板与刷题路线。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/judge.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/favicon.svg" alt="">
+      <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="basics.html">C++ 基础</a>
+      <a href="oop-stl.html">面向对象 · STL</a>
+      <a href="algorithms.html">算法与数据结构</a>
+      <a href="advanced.html">进阶与实战</a>
+      <a href="tools.html">环境搭建</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="展开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container">
+    <p class="crumb"><a href="index.html">首页</a> / 阶段四</p>
+    <span class="badge pink">阶段 ④ · 约 8～12 周 · 核心阶段</span>
+    <h1>数据结构与算法</h1>
+    <p class="lead">
+      这是整条路线中<strong>投入产出比最高、也最容易半途而废</strong>的一段。最有效的学法只有一条：<strong>学一个结构 / 思想，立刻去刷对应的题。</strong>
+      只看不写，等于没学。     </p>
+    <div class="chips">
+      <a href="#checklist">学习清单</a>
+      <a href="#complexity">复杂度分析</a>
+      <a href="#ds">数据结构</a>
+      <a href="#sort">排序</a>
+      <a href="#ideas">算法思想</a>
+      <a href="#template">模板库</a>
+      <a href="#lab">编程练习</a>
+      <a href="#route">刷题路线</a>
+      <a href="#res">资源</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 清单 ============ -->
+<section class="section-sm" id="checklist">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Checklist</span>
+      <h2>本阶段学习清单</h2>
+    </div>
+    <div class="progress-box" data-progress-box>
+      <span class="label">本阶段进度</span>
+      <span class="progress-track"><span class="progress-fill"></span></span>
+      <span class="progress-num">0 / 0</span>
+      <button class="reset-btn" type="button">清空</button>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>数据结构</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="a01" data-id="a01"><label for="a01">时间 / 空间复杂度的计算方法，会数循环</label></li>
+          <li><input type="checkbox" id="a02" data-id="a02"><label for="a02">数组、链表的区别与手写实现</label></li>
+          <li><input type="checkbox" id="a03" data-id="a03"><label for="a03">栈与队列，单调栈 / 单调队列思想</label></li>
+          <li><input type="checkbox" id="a04" data-id="a04"><label for="a04">二叉树：遍历、深度、层序、结构判断</label></li>
+          <li><input type="checkbox" id="a05" data-id="a05"><label for="a05">二叉搜索树的性质与操作</label></li>
+          <li><input type="checkbox" id="a06" data-id="a06"><label for="a06">堆与优先队列，Top-K 问题</label></li>
+          <li><input type="checkbox" id="a07" data-id="a07"><label for="a07">哈希表原理：哈希函数与冲突处理</label></li>
+          <li><input type="checkbox" id="a08" data-id="a08"><label for="a08">并查集（Union-Find）</label></li>
+          <li><input type="checkbox" id="a09" data-id="a09"><label for="a09">前缀和、差分、树状数组 / 线段树（选学）</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>算法思想</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="a10" data-id="a10"><label for="a10">双指针、滑动窗口</label></li>
+          <li><input type="checkbox" id="a11" data-id="a11"><label for="a11">二分查找的三种模板与边界处理</label></li>
+          <li><input type="checkbox" id="a12" data-id="a12"><label for="a12">排序算法：快排、归并、堆排及其复杂度</label></li>
+          <li><input type="checkbox" id="a13" data-id="a13"><label for="a13">贪心：什么时候贪心是对的</label></li>
+          <li><input type="checkbox" id="a14" data-id="a14"><label for="a14">DFS / BFS，树的递归与图的遍历</label></li>
+          <li><input type="checkbox" id="a15" data-id="a15"><label for="a15">回溯：排列、组合、子集、剪构</label></li>
+          <li><input type="checkbox" id="a16" data-id="a16"><label for="a16">动态规划：状态定义、转移方程、初始化、遍历顺序</label></li>
+          <li><input type="checkbox" id="a17" data-id="a17"><label for="a17">背包问题， 1 背包 / 完全背包：</label></li>
+          <li><input type="checkbox" id="a18" data-id="a18"><label for="a18">图论：最短路、拓扑排序、最小生成树（选学）</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>工程能力</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="a19" data-id="a19"><label for="a19">拿到题目能先说出"暴力解法 + 复杂度" </label></li>
+          <li><input type="checkbox" id="a20" data-id="a20"><label for="a20">看到数据范围能倒推出需要的复杂度</label></li>
+          <li><input type="checkbox" id="a21" data-id="a21"><label for="a21">会写对拍 / 构造边界数据自查</label></li>
+          <li><input type="checkbox" id="a22" data-id="a22"><label for="a22">建立自己的代码模板库</label></li>
+          <li><input type="checkbox" id="a23" data-id="a23"><label for="a23">坚持写题解，能讲清"为什么这么做"</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 复杂度 ============ -->
+<section class="section" id="complexity" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Complexity</span>
+      <h2>复杂度分析：一切判断的基础</h2>
+      <p>
+        为什么复杂度是第一步？因为<strong>它决定了你的算法能不能过</strong>。         看到 n ≤ 10⁵，你就知道 O(n²) 会超时；看到 n ≤ 20，你就知道可以放心写指数级搜索。         这一步判断，比写出代码本身更重要。       </p>
+    </div>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 780 312" role="img" aria-label="不同时间复杂度随 n 增长的速度对比">
+        <path class="ln" d="M56 20V252H570"/>
+        <path class="dash" d="M56 194H570M56 136H570M56 78H570"/>
+        <text class="s" x="20" y="34">运算次数</text>
+        <text class="s" x="540" y="272">n 的规模 →</text>
+
+        <!-- O(1) -->
+        <path d="M60 249H560" fill="none" stroke-width="2.6" style="stroke:var(--mint)" />
+        <!-- O(log n) -->
+        <path d="M60 239L160 233.5L260 228L360 222.5L460 217L560 211.5" fill="none" stroke-width="2.6" style="stroke:var(--cyan)" />
+        <!-- O(n) -->
+        <path d="M60 244.5L160 239L260 228L360 206L460 162L560 74" fill="none" stroke-width="2.6" style="stroke:var(--purple)" />
+        <!-- O(n log n) -->
+        <path d="M60 250L160 239L260 206L360 118L392 34" fill="none" stroke-width="2.6" style="stroke:var(--pink)" />
+        <!-- O(n^2) -->
+        <path d="M60 244.5L160 228L260 162L323 34" fill="none" stroke-width="2.6" stroke-dasharray="7 4" style="stroke:var(--pink-deep)" />
+
+        <!-- x 轴刻序 -->
+        <text class="s" x="60"  y="272" text-anchor="middle">1</text>
+        <text class="s" x="160" y="272" text-anchor="middle">2</text>
+        <text class="s" x="260" y="272" text-anchor="middle">4</text>
+        <text class="s" x="360" y="272" text-anchor="middle">8</text>
+        <text class="s" x="460" y="272" text-anchor="middle">16</text>
+        <text class="s" x="560" y="272" text-anchor="middle">32</text>
+
+        <!-- 爆炸标注 -->
+        <text class="s" x="330" y="30" style="fill:var(--pink-deep)">→ 超出可接受范围</text>
+
+        <!-- 图例 -->
+        <rect class="box" x="588" y="28" width="182" height="164" rx="12"/>
+        <text class="t" x="602" y="50" style="font-size:11.5px">复杂度增长对比</text>
+
+        <path d="M602 70H630" stroke-width="3" style="stroke:var(--mint)" />
+        <text class="m" x="638" y="74">O(1) 常数</text>
+        <text class="s" x="638" y="88">数组下标访问</text>
+
+        <path d="M602 106H630" stroke-width="3" style="stroke:var(--cyan)" />
+        <text class="m" x="638" y="110">O(log n) 对数</text>
+        <text class="s" x="638" y="124">二分查找</text>
+
+        <path d="M602 142H630" stroke-width="3" style="stroke:var(--purple)" />
+        <text class="m" x="638" y="146">O(n) 线性</text>
+        <text class="s" x="638" y="160">一次遍历</text>
+
+        <path d="M602 172H630" stroke-width="3" style="stroke:var(--pink)" />
+        <text class="m" x="638" y="176">O(n log n)</text>
+        <text class="s" x="638" y="188">排序</text>
+
+        <text class="s" x="588" y="222" style="fill:var(--pink-deep)">O(n²) 双重循环 —— 虚线</text>
+        <text class="s" x="588" y="240">n = 10⁵ 时约需 10¹⁰ 次运算，</text>
+        <text class="s" x="588" y="256">远超 1 秒能承受的量级（约 10⁸）</text>
+      </svg>
+      <figcaption>记住这个经验值：<strong>1 秒大约能跑 10⁸ 次简单运算</strong>。据此可以反推：n = 10⁵ → 需要 O(n log n) 成 O(n)；n = 10³ → O(n²) 可行；n = 20 → 指数级搜索可行</figcaption>
+    </figure>
+
+    <div class="split">
+      <div class="card">
+        <h3>怎么数复杂度</h3>
+        <ul class="tight">
+          <li><strong>只看最高次项，丢掉常数。</strong>3n² + 100n + 5 → O(n²)</li>
+          <li><strong>嵌套循环相乘，并列循环相加。</strong></li>
+          <li><strong>循环变量成倍变化 → log 级。</strong><code class="inline">while (n) n /= 2;</code> 是 O(log n)</li>
+          <li><strong>递归看调用树。</strong>每个节点的工作量 × 节点数。</li>
+          <li><strong>均摊分析。</strong><code class="inline">push_back</code> 单次最坏 O(n)，但均摊是 O(1)。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>数据范围反推复杂度（做题直觉）</h3>
+        <div class="table-scroll" style="margin:0">
+          <table style="min-width:auto">
+            <thead><tr><th>n 的范围</th><th>可以接受的复杂度</th><th>典型算法</th></tr></thead>
+            <tbody>
+              <tr><td>n ≤ 10</td><td>O(n!) / O(2ⁿ)</td><td>全排列、暴搜</td></tr>
+              <tr><td>n ≤ 20</td><td>O(2ⁿ)</td><td>状压 DP、子集枚举</td></tr>
+              <tr><td>n ≤ 100</td><td>O(n³)</td><td>Floyd、区间 DP</td></tr>
+              <tr><td>n ≤ 5000</td><td>O(n²)</td><td>朴素 DP、双重循环</td></tr>
+              <tr><td>n ≤ 10⁵</td><td>O(n log n)</td><td>排序、二分、堆</td></tr>
+              <tr><td>n ≤ 10⁶</td><td>O(n)</td><td>双指针、前缀和</td></tr>
+              <tr><td>n ≤ 10¹⁸</td><td>O(log n)</td><td>快速幂、矩阵快速幂、数计</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 数据结构 ============ -->
+<section class="section" id="ds">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">02 · Data Structures</span>
+      <h2>数据结构：先理解"它解决什么问题"</h2>
+      <p>不要背实现。每学一个结构，先问自己（<strong>它在什么场景下比别的结构更快？</strong>）</p>
+    </div>
+
+    <h3>2.1 数组 vs 链表：连续与离散</h3>
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 290" role="img" aria-label="数组与链表的存储结构对比">
+        <defs>
+          <marker id="ar9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple-deep)" />
+          </marker>
+        </defs>
+
+        <text class="t" x="20" y="26">数组：一整块连续内存</text>
+        <g>
+          <rect class="cell-hi2" x="60" y="40" width="72" height="46"/>
+          <text class="t" x="96" y="69" text-anchor="middle">10</text>
+          <rect class="cell-hi2" x="132" y="40" width="72" height="46"/>
+          <text class="t" x="168" y="69" text-anchor="middle">20</text>
+          <rect class="cell-hi2" x="204" y="40" width="72" height="46"/>
+          <text class="t" x="240" y="69" text-anchor="middle">30</text>
+          <rect class="cell-hi2" x="276" y="40" width="72" height="46"/>
+          <text class="t" x="312" y="69" text-anchor="middle">40</text>
+          <rect class="cell-hi2" x="348" y="40" width="72" height="46"/>
+          <text class="t" x="384" y="69" text-anchor="middle">50</text>
+          <rect class="cell-hi2" x="420" y="40" width="72" height="46"/>
+          <text class="t" x="456" y="69" text-anchor="middle">60</text>
+        </g>
+        <text class="s" x="60"  y="102" text-anchor="middle">[0]</text>
+        <text class="s" x="132" y="102" text-anchor="middle">[1]</text>
+        <text class="s" x="204" y="102" text-anchor="middle">[2]</text>
+        <text class="s" x="276" y="102" text-anchor="middle">[3]</text>
+        <text class="s" x="348" y="102" text-anchor="middle">[4]</text>
+        <text class="s" x="420" y="102" text-anchor="middle">[5]</text>
+        <text class="m" x="520" y="60">地址 = 首地址 + i × 元素大小</text>
+        <text class="s" x="520" y="80">→ 下标访问 O(1)（真正的常数时间）</text>
+        <text class="s" x="60" y="130">✓ 中间插入 / 删除需要整体搬移，O(n)</text>
+
+        <path class="dash" d="M20 148H700"/>
+
+        <text class="t" x="20" y="176">链表：内存里东一块西一块，靠指针串起来</text>
+        <g>
+          <rect class="cell-hi3" x="60" y="194" width="96" height="46"/>
+          <text class="m" x="86" y="222">10</text>
+          <path class="ln-c" d="M134 217H150"/>
+          <text class="m" x="136" y="211" style="font-size:9px">next</text>
+
+          <rect class="cell-hi3" x="210" y="194" width="96" height="46"/>
+          <text class="m" x="236" y="222">20</text>
+          <path class="ln-c" d="M284 217H300"/>
+
+          <rect class="cell-hi3" x="400" y="194" width="96" height="46"/>
+          <text class="m" x="426" y="222">30</text>
+          <path class="ln-c" d="M474 217H490"/>
+
+          <rect class="cell-hi3" x="560" y="194" width="96" height="46"/>
+          <text class="m" x="586" y="222">NULL</text>
+        </g>
+        <path class="ln-a" d="M156 217H206" marker-end="url(#ar9)"/>
+        <path class="ln-a" d="M306 217H396" marker-end="url(#ar9)"/>
+        <path class="ln-a" d="M496 217H556" marker-end="url(#ar9)"/>
+
+        <text class="s" x="60" y="266">✓ 已知前驱节点时，插入 / 删除只要改两个指针，O(1)</text>
+        <text class="s" x="60" y="284" style="fill:var(--pink-deep)">✓ 想访问第 k 个元素，必须从头一路 next 过去，O(n)</text>
+      </svg>
+      <figcaption>数组快在"随机访问"，链表快在"定点增删"。刷题里 90% 的情况用 <code class="inline">vector</code> 就够——它的常数因子小得多</figcaption>
+    </figure>
+
+    <h3 style="margin-top:2rem">2.2 二叉树：DFS 与 BFS 的遍历顺序</h3>
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 720 400" role="img" aria-label="二叉树的深度优先遍历与广度优先遍历顺序对比 >
+        <!-- 树结构 -->
+        <path class="ln" d="M360 78L240 128M360 78L480 128M240 128L170 178M240 128L310 178M480 128L410 178M480 128L550 178"/>
+        <circle cx="360" cy="56" r="22" class="box-u"/>
+        <text class="t" x="360" y="62" text-anchor="middle">1</text>
+        <circle cx="240" cy="128" r="22" class="box-u"/>
+        <text class="t" x="240" y="134" text-anchor="middle">2</text>
+        <circle cx="480" cy="128" r="22" class="box-u"/>
+        <text class="t" x="480" y="134" text-anchor="middle">3</text>
+        <circle cx="170" cy="178" r="22" class="box-u"/>
+        <text class="t" x="170" y="184" text-anchor="middle">4</text>
+        <circle cx="310" cy="178" r="22" class="box-u"/>
+        <text class="t" x="310" y="184" text-anchor="middle">5</text>
+        <circle cx="410" cy="178" r="22" class="box-u"/>
+        <text class="t" x="410" y="184" text-anchor="middle">6</text>
+        <circle cx="550" cy="178" r="22" class="box-u"/>
+        <text class="t" x="550" y="184" text-anchor="middle">7</text>
+
+        <text class="s" x="360" y="26" text-anchor="middle" style="font-size:11px">深度 = 3 的满二叉树</text>
+        <text class="s" x="620" y="60">展 1</text>
+        <text class="s" x="620" y="132">展 2</text>
+        <text class="s" x="620" y="182">展 3</text>
+
+        <path class="dash" d="M20 216H700"/>
+
+        <!-- DFS -->
+        <text class="t" x="20" y="242">DFS 深度优先（前序）— 一条路走到黑，用递归或栈</text>
+        <g>
+          <rect class="cell-hi" x="20" y="254" width="52" height="38"/>
+          <text class="t" x="46" y="278" text-anchor="middle">1</text>
+          <rect class="cell-hi" x="76" y="254" width="52" height="38"/>
+          <text class="t" x="102" y="278" text-anchor="middle">2</text>
+          <rect class="cell-hi" x="132" y="254" width="52" height="38"/>
+          <text class="t" x="158" y="278" text-anchor="middle">4</text>
+          <rect class="cell-hi" x="188" y="254" width="52" height="38"/>
+          <text class="t" x="214" y="278" text-anchor="middle">5</text>
+          <rect class="cell-hi" x="244" y="254" width="52" height="38"/>
+          <text class="t" x="270" y="278" text-anchor="middle">3</text>
+          <rect class="cell-hi" x="300" y="254" width="52" height="38"/>
+          <text class="t" x="326" y="278" text-anchor="middle">6</text>
+          <rect class="cell-hi" x="356" y="254" width="52" height="38"/>
+          <text class="t" x="382" y="278" text-anchor="middle">7</text>
+        </g>
+        <text class="s" x="430" y="278">访问顺序：根 → 左子标 → 右子栈</text>
+
+        <!-- BFS -->
+        <text class="t" x="20" y="322">BFS 广度优先（层序）— 一圈一圈往外扩，用队列</text>
+        <g>
+          <rect class="cell-hi3" x="20" y="334" width="52" height="38"/>
+          <text class="t" x="46" y="358" text-anchor="middle">1</text>
+          <rect class="cell-hi3" x="76" y="334" width="52" height="38"/>
+          <text class="t" x="102" y="358" text-anchor="middle">2</text>
+          <rect class="cell-hi3" x="132" y="334" width="52" height="38"/>
+          <text class="t" x="158" y="358" text-anchor="middle">3</text>
+          <rect class="cell-hi3" x="188" y="334" width="52" height="38"/>
+          <text class="t" x="214" y="358" text-anchor="middle">4</text>
+          <rect class="cell-hi3" x="244" y="334" width="52" height="38"/>
+          <text class="t" x="270" y="358" text-anchor="middle">5</text>
+          <rect class="cell-hi3" x="300" y="334" width="52" height="38"/>
+          <text class="t" x="326" y="358" text-anchor="middle">6</text>
+          <rect class="cell-hi3" x="356" y="334" width="52" height="38"/>
+          <text class="t" x="382" y="358" text-anchor="middle">7</text>
+        </g>
+        <text class="s" x="430" y="358">访问顺序：第 1 层 → 第 2 层 → 第 3 层</text>
+      </svg>
+      <figcaption>DFS 用<strong>栈</strong>（或递归），BFS 用<strong>队列</strong>。求「最短步数」用 BFS；求「所有方案 / 连通块」用 DFS</figcaption>
+    </figure>
+
+    <div class="callout info">
+      <span class="ci">📐</span>
+      <div>
+        <span class="ct">二叉树必须背下来的三个性质</span>
+        <ul class="tight" style="margin-bottom:0">
+          <li>第 i 层最多有 <strong>2^(i-1)</strong> 个节点；深度为 k 的二叉树最多有 <strong>2^k − 1</strong> 个节点。</li>
+          <li>叶子数为 n₀，度为 2 的节点数为 n₂，则恒本 <strong>n₀ = n₂ + 1</strong>。</li>
+          <li>完全二叉树用<strong>数组</strong>存储时，下标 i 的左右孩子是 <strong>2i+1 和 2i+2</strong>（从 0 开始）——这就是堆的基础。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem">2.3 栈、队列与堆：三个"顺序"工具</h3>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>栈 Stack <span class="badge">LIFO</span></h3>
+        <p style="font-size:.92rem;color:var(--muted)">后进先出。典型用途：括号匹配、表达式求值、DFS、函数调用栈、单调栈求「下一个更大元素」。</p>
+      </div>
+      <div class="card">
+        <h3>队列 Queue <span class="badge">FIFO</span></h3>
+        <p style="font-size:.92rem;color:var(--muted)">先进先出。典型用途：BFS 层序遍历、任务调度、滑动窗口最大值（单调队列）。</p>
+      </div>
+      <div class="card">
+        <h3>堆 Heap <span class="badge">优先</span></h3>
+        <p style="font-size:.92rem;color:var(--muted)">每次都能 O(1) 拿到最值，O(log n) 插入删除。典型用途：Top-K、Dijkstra、合并 K 个有序链表。</p>
+      </div>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;stack&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+// 经典应用：用栈判断括号是否匹配
+bool isValid(const std::string&amp; s) {
+    std::stack&lt;char&gt; st;
+    for (char c : s) {
+        if (c == '(' || c == '[' || c == '{') {
+            st.push(c);
+        } else {
+            if (st.empty()) return false;
+            char top = st.top();
+            st.pop();
+            if ((c == ')' &amp;&amp; top != '(') ||
+                (c == ']' &amp;&amp; top != '[') ||
+                (c == '}' &amp;&amp; top != '{')) return false;
+        }
+    }
+    return st.empty();
+}
+
+// 经典应用：小根堆求 Top-K 最大的元素
+std::vector&lt;int&gt; topK(const std::vector&lt;int&gt;&amp; nums, int k) {
+    std::priority_queue&lt;int, std::vector&lt;int&gt;, std::greater&lt;int&gt;&gt; pq;  // 小根堆
+    for (int x : nums) {
+        pq.push(x);
+        if ((int)pq.size() &gt; k) pq.pop();   // 只保留最大的 k 个
+    }
+    std::vector&lt;int&gt; res;
+    while (!pq.empty()) { res.push_back(pq.top()); pq.pop(); }
+    return res;
+}
+
+int main() {
+    std::cout &lt;&lt; std::boolalpha &lt;&lt; isValid("{[()]}") &lt;&lt; '\n';   // true
+    std::cout &lt;&lt; isValid("([)]") &lt;&lt; '\n';                      // false
+
+    for (int x : topK({3, 1, 5, 9, 7, 2, 8}, 3)) std::cout &lt;&lt; x &lt;&lt; ' ';
+    std::cout &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+
+    <h3 style="margin-top:2rem">2.4 并查集：判断"是不是一伙的"</h3>
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;numeric&gt;
+
+class DSU {
+    std::vector&lt;int&gt; parent_, rank_;
+public:
+    explicit DSU(int n) : parent_(n), rank_(n, 0) {
+        std::iota(parent_.begin(), parent_.end(), 0);   // 每个元素自成一个集合
+    }
+
+    // 路径压缩：查找时顺便把整条链压平，之后接这 O(1)
+    int find(int x) {
+        if (parent_[x] != x) parent_[x] = find(parent_[x]);
+        return parent_[x];
+    }
+
+    // 按秩合并：把矮树挂到高树下，避免退化成链
+    bool unite(int a, int b) {
+        int ra = find(a), rb = find(b);
+        if (ra == rb) return false;              // 已经在同一集合
+        if (rank_[ra] &lt; rank_[rb]) std::swap(ra, rb);
+        parent_[rb] = ra;
+        if (rank_[ra] == rank_[rb]) ++rank_[ra];
+        return true;
+    }
+
+    bool same(int a, int b) { return find(a) == find(b); }
+};
+
+int main() {
+    DSU d(6);
+    d.unite(0, 1);
+    d.unite(1, 2);
+    d.unite(3, 4);
+
+    std::cout &lt;&lt; std::boolalpha
+              &lt;&lt; d.same(0, 2) &lt;&lt; '\n'   // true， /1/2 连通
+              &lt;&lt; d.same(0, 3) &lt;&lt; '\n';  // false
+    return 0;
+}
+</code></pre>
+  </div>
+</section>
+
+<!-- ============ 排序 ============ -->
+<section class="section" id="sort" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Sorting</span>
+      <h2>排序：理解思想比背代码重要</h2>
+      <p>面试手写排序的概率不低，但更重要的是理解<strong>分治、交换、归并</strong>这三种思想——它们会反复出现在别的问题里。</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>算法</th><th>平均</th><th>最坏</th><th>空间</th><th>稳定</th><th>核心思想</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>冒泡排序</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>✓</td><td>相邻交换，每轮冒一个最大值</td></tr>
+          <tr><td>选择排序</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>✓</td><td>每轮选最小的放到前面</td></tr>
+          <tr><td>插入排序</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>✓</td><td>像打牌插牌；近乎有序时接这 O(n)</td></tr>
+          <tr><td><strong>快速排序</strong></td><td>O(n log n)</td><td><strong>O(n²)</strong></td><td>O(log n)</td><td>✓</td><td>分治 + 分区（pivot）</td></tr>
+          <tr><td><strong>归并排序</strong></td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>✓</td><td>分治 + 合并两个有序数组</td></tr>
+          <tr><td>堆排序</td><td>O(n log n)</td><td>O(n log n)</td><td>O(1)</td><td>✓</td><td>建堆后反复取堆顶</td></tr>
+          <tr><td>计数排序</td><td>O(n + k)</td><td>O(n + k)</td><td>O(k)</td><td>✓</td><td>数据范围小时的非比较排序</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="ci">⚠️</span>
+      <div>
+        <span class="ct">快排为什么要随机选 pivot</span>
+        <p style="margin:0">
+          如果每次都固定取第一个元素作 pivot，那么<strong>面对已经有序的数组会退化成 O(n²)</strong>——           输入本来就排好序是很常见的情况。随机选取（或三数取中）能把"被最坏数据卡住"的概率降到几乎为零。           <code class="inline">std::sort</code> 内部用的是 <strong>IntroSort</strong>（快排 + 堆排 + 插入排序的混合），最坏也是 O(n log n)。         </p>
+      </div>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;random&gt;
+
+// 快速排序：分区 + 递归
+int partition(std::vector&lt;int&gt;&amp; a, int lo, int hi) {
+    // 随机选 pivot 并换到末尾，避免被有序数据卡成 O(n^2)
+    static std::mt19937 rng(20260419);
+    int p = lo + (int)(rng() % (hi - lo + 1));
+    std::swap(a[p], a[hi]);
+
+    int pivot = a[hi];
+    int i = lo;                       // i 指向"已确定小于 pivot"的下一标
+    for (int j = lo; j &lt; hi; ++j) {
+        if (a[j] &lt; pivot) std::swap(a[i++], a[j]);
+    }
+    std::swap(a[i], a[hi]);           // pivot 归位
+    return i;
+}
+
+void quickSort(std::vector&lt;int&gt;&amp; a, int lo, int hi) {
+    if (lo &gt;= hi) return;
+    int mid = partition(a, lo, hi);
+    quickSort(a, lo, mid - 1);
+    quickSort(a, mid + 1, hi);
+}
+
+// 归并排序：分治 + 合并（稳定）
+void mergeSort(std::vector&lt;int&gt;&amp; a, int lo, int hi, std::vector&lt;int&gt;&amp; tmp) {
+    if (lo &gt;= hi) return;
+    int mid = lo + (hi - lo) / 2;
+    mergeSort(a, lo, mid, tmp);
+    mergeSort(a, mid + 1, hi, tmp);
+
+    int i = lo, j = mid + 1, k = lo;
+    while (i &lt;= mid &amp;&amp; j &lt;= hi)
+        tmp[k++] = (a[i] &lt;= a[j]) ? a[i++] : a[j++];   // &lt;= 保证稳定态
+    while (i &lt;= mid) tmp[k++] = a[i++];
+    while (j &lt;= hi)  tmp[k++] = a[j++];
+    for (int t = lo; t &lt;= hi; ++t) a[t] = tmp[t];
+}
+
+int main() {
+    std::vector&lt;int&gt; v = {5, 2, 9, 1, 7, 3, 8, 6, 4};
+    auto v2 = v;
+
+    quickSort(v, 0, (int)v.size() - 1);
+    std::vector&lt;int&gt; tmp(v2.size());
+    mergeSort(v2, 0, (int)v2.size() - 1, tmp);
+
+    for (int x : v)  std::cout &lt;&lt; x &lt;&lt; ' ';  std::cout &lt;&lt; '\n';
+    for (int x : v2) std::cout &lt;&lt; x &lt;&lt; ' ';  std::cout &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+  </div>
+</section>
+
+<!-- ============ 算法思想 ============ -->
+<section class="section" id="ideas">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Techniques</span>
+      <h2>算法思想：把题目翻译成已知的模型</h2>
+      <p>
+        刷题的本质是<strong>模式识别</strong>。看到"有序数组 + 找目标"想到二分，         看到"连续子数组"想到滑窗或前缀和，看到"求方案数 / 最值且能分阶段"想到 DP。       </p>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card"><div class="icon-badge pink">→</div><h3 style="font-size:.98rem">双指针</h3><p style="font-size:.88rem;color:var(--muted);margin:0">有序数组的两数之和、三数之和、去重、滑动窗口</p></div>
+      <div class="card"><div class="icon-badge">Σ</div><h3 style="font-size:.98rem">前缀和</h3><p style="font-size:.88rem;color:var(--muted);margin:0">区间和 O(1)、差分数组做区间修改</p></div>
+      <div class="card"><div class="icon-badge cyan">⌘</div><h3 style="font-size:.98rem">二分查找</h3><p style="font-size:.88rem;color:var(--muted);margin:0">有序查找、二分答案（最小化最大值）</p></div>
+      <div class="card"><div class="icon-badge mint">🌳</div><h3 style="font-size:.98rem">DFS / BFS</h3><p style="font-size:.88rem;color:var(--muted);margin:0">连通块、路径、层序遍历、最短步数</p></div>
+      <div class="card"><div class="icon-badge amber">→</div><h3 style="font-size:.98rem">回溯</h3><p style="font-size:.88rem;color:var(--muted);margin:0">排列组合、子集、N 皇后、数独</p></div>
+      <div class="card"><div class="icon-badge pink">💰</div><h3 style="font-size:.98rem">贪心</h3><p style="font-size:.88rem;color:var(--muted);margin:0">区间调度、跳跃游戏、找集</p></div>
+      <div class="card"><div class="icon-badge">📊</div><h3 style="font-size:.98rem">动态规划</h3><p style="font-size:.88rem;color:var(--muted);margin:0">背包、最长子序列、编辑距离、区间 DP</p></div>
+      <div class="card"><div class="icon-badge cyan">🕸️</div><h3 style="font-size:.98rem">图论</h3><p style="font-size:.88rem;color:var(--muted);margin:0">最短路、拓扑排序、最小生成树</p></div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">4.1 二分查找：最容易写错的 10 行代码</h3>
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="二分查找在有序数组中不断缩小搜索区间">
+        <text class="t" x="20" y="24">目标：在有序数组中找到 13（值为 13 的元素在下标 6）</text>
+
+        <!-- 第 1 表 -->
+        <text class="s" x="60" y="52">第 1 次：L=0，R=9，mid=4 → a[4]=9 &lt; 13，说明答案在右半 → L = mid + 1</text>
+        <g>
+          <rect class="cell" x="60"  y="60" width="58" height="34" opacity=".38"/><text class="s" x="89"  y="82" text-anchor="middle">1</text>
+          <rect class="cell" x="120" y="60" width="58" height="34" opacity=".38"/><text class="s" x="149" y="82" text-anchor="middle">3</text>
+          <rect class="cell" x="180" y="60" width="58" height="34" opacity=".38"/><text class="s" x="209" y="82" text-anchor="middle">5</text>
+          <rect class="cell" x="240" y="60" width="58" height="34" opacity=".38"/><text class="s" x="269" y="82" text-anchor="middle">7</text>
+          <rect class="cell-hi" x="300" y="60" width="58" height="34"/><text class="t" x="329" y="83" text-anchor="middle">9</text>
+          <rect class="cell" x="360" y="60" width="58" height="34"/><text class="s" x="389" y="82" text-anchor="middle">11</text>
+          <rect class="cell" x="420" y="60" width="58" height="34"/><text class="s" x="449" y="82" text-anchor="middle">13</text>
+          <rect class="cell" x="480" y="60" width="58" height="34"/><text class="s" x="509" y="82" text-anchor="middle">15</text>
+          <rect class="cell" x="540" y="60" width="58" height="34"/><text class="s" x="569" y="82" text-anchor="middle">17</text>
+          <rect class="cell" x="600" y="60" width="58" height="34"/><text class="s" x="629" y="82" text-anchor="middle">19</text>
+        </g>
+        <text class="s" x="60" y="108" style="fill:var(--purple)">L→</text>
+        <text class="s" x="322" y="108" style="fill:var(--pink-deep)">M→</text>
+        <text class="s" x="620" y="108" style="fill:var(--purple)">↑R</text>
+
+        <!-- 第 2 表 -->
+        <text class="s" x="60" y="142">第 2 次：L=5，R=9，mid=7 → a[7]=15 &gt; 13，说明答案在左半 → R = mid − 1</text>
+        <g>
+          <rect class="cell" x="60"  y="150" width="58" height="34" opacity=".22"/><text class="s" x="89"  y="172" text-anchor="middle">1</text>
+          <rect class="cell" x="120" y="150" width="58" height="34" opacity=".22"/><text class="s" x="149" y="172" text-anchor="middle">3</text>
+          <rect class="cell" x="180" y="150" width="58" height="34" opacity=".22"/><text class="s" x="209" y="172" text-anchor="middle">5</text>
+          <rect class="cell" x="240" y="150" width="58" height="34" opacity=".22"/><text class="s" x="269" y="172" text-anchor="middle">7</text>
+          <rect class="cell" x="300" y="150" width="58" height="34" opacity=".22"/><text class="s" x="329" y="172" text-anchor="middle">9</text>
+          <rect class="cell" x="360" y="150" width="58" height="34"/><text class="s" x="389" y="172" text-anchor="middle">11</text>
+          <rect class="cell" x="420" y="150" width="58" height="34"/><text class="s" x="449" y="172" text-anchor="middle">13</text>
+          <rect class="cell-hi" x="480" y="150" width="58" height="34"/><text class="t" x="509" y="173" text-anchor="middle">15</text>
+          <rect class="cell" x="540" y="150" width="58" height="34"/><text class="s" x="569" y="172" text-anchor="middle">17</text>
+          <rect class="cell" x="600" y="150" width="58" height="34"/><text class="s" x="629" y="172" text-anchor="middle">19</text>
+        </g>
+        <text class="s" x="364" y="198" style="fill:var(--purple)">L→</text>
+        <text class="s" x="502" y="198" style="fill:var(--pink-deep)">M→</text>
+        <text class="s" x="620" y="198" style="fill:var(--purple)">↑R</text>
+
+        <!-- 第 3 表 -->
+        <text class="s" x="60" y="232">第 3 次：L=5，R=6，mid=5 → a[5]=11 &lt; 13 → L = 6 → a[6] = 13 🎉 找到</text>
+        <g>
+          <rect class="cell" x="360" y="240" width="58" height="34"/>
+          <text class="s" x="389" y="262" text-anchor="middle">11</text>
+          <rect class="cell-m" x="420" y="240" width="58" height="34"/>
+          <text class="t" x="449" y="263" text-anchor="middle" style="fill:var(--mint)">13</text>
+        </g>
+        <text class="s" x="500" y="262" style="fill:var(--mint)">✓ 命中</text>
+        <text class="s" x="60" y="262">区间已缩到只前 [5, 6]</text>
+
+        <text class="s" x="60" y="292" style="fill:var(--pink-deep)">只用了 3 次比较就定位成功；线性扫描需要17 次。n 越大差距越夸张：n=10⁵ 只需 20 次</text>
+      </svg>
+      <figcaption>二分的三个致命细节：<strong>① <code class="inline">mid</code> 用 <code class="inline">lo + (hi-lo)/2</code> 防溢出；② 循环条件是 <code class="inline">&lt;=</code> 还是 <code class="inline">&lt;</code> 取决于区间定义；③ 边界更新是 <code class="inline">mid±1</code> 还是 <code class="inline">mid</code> 必须一致</strong></figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+// ---------- 模板一：有序数组中查找目标值（闭区间写法）----------
+int binarySearch(const std::vector&lt;int&gt;&amp; a, int target) {
+    int lo = 0, hi = (int)a.size() - 1;      // 闭区间 [lo, hi]
+    while (lo &lt;= hi) {                       // 区间为空时 lo > hi
+        int mid = lo + (hi - lo) / 2;        // 防溢出，不要写 (lo+hi)/2
+        if (a[mid] == target) return mid;
+        if (a[mid] &lt; target)  lo = mid + 1;
+        else                  hi = mid - 1;
+    }
+    return -1;
+}
+
+// ---------- 模板二：查找第一个 &gt;= target 的位置（下界） ---------
+int lowerBound(const std::vector&lt;int&gt;&amp; a, int target) {
+    int lo = 0, hi = (int)a.size();          // 左闭右开 [lo, hi)
+    while (lo &lt; hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (a[mid] &lt; target) lo = mid + 1;
+        else                 hi = mid;       // 收缩到 mid，不跳过
+    }
+    return lo;   // 第一个 &gt;= target 的下标；可能等于 a.size() 表示没找到
+}
+
+// ---------- 模板三：二分答案 —— 最小化最大值 / 最大化最小值 ----------
+// 例：把 n 个数分成 k 段使"最大的段和"最小
+bool canSplit(const std::vector&lt;int&gt;&amp; a, int k, long long limit) {
+    int cnt = 1; long long sum = 0;
+    for (int x : a) {
+        if (x &gt; limit) return false;
+        if (sum + x &gt; limit) { ++cnt; sum = x; }
+        else                 sum += x;
+    }
+    return cnt &lt;= k;
+}
+
+long long minMaxSegment(const std::vector&lt;int&gt;&amp; a, int k) {
+    long long lo = 0, hi = 0;
+    for (int x : a) hi += x;
+    while (lo &lt; hi) {
+        long long mid = lo + (hi - lo) / 2;
+        if (canSplit(a, k, mid)) hi = mid;   // 可行 → 试试更小的
+        else                     lo = mid + 1;
+    }
+    return lo;
+}
+
+int main() {
+    std::vector&lt;int&gt; a = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
+    std::cout &lt;&lt; binarySearch(a, 13) &lt;&lt; '\n';       // 6
+    std::cout &lt;&lt; lowerBound(a, 12) &lt;&lt; '\n';         // 6（第一个 &gt;= 12 的是 13）
+
+    std::vector&lt;int&gt; nums = {7, 2, 5, 10, 8};
+    std::cout &lt;&lt; minMaxSegment(nums, 2) &lt;&lt; '\n';    // 18
+    return 0;
+}
+</code></pre>
+
+    <h3 style="margin-top:2.4rem">4.2 动态规划：把大问题拆成能复用的小问题</h3>
+    <p>
+      DP 的四个步骤，任何题都按这个顺序想：       <strong>① 定义状态</strong>（dp[i] 表示什么）→ <strong>② 写转移方程</strong> →       <strong>③ 确定初始条件</strong> → <strong>④ 确定遍历顺序</strong>。       卡住的时候，通常都是第 ① 步没想清楚。     </p>
+
+    <figure class="dgm">
+      <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="0-1 背包问题的动态规划填表过程 >
+        <defs>
+          <marker id="ar10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--pink-deep)" />
+          </marker>
+          <marker id="ar11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0L10 5L0 10z" style="fill:var(--purple)" />
+          </marker>
+        </defs>
+
+        <text class="t" x="20" y="26">0-1 背包：  件物品，重量 [2,3,4]，价值 [3,4,5]，背包容量 5</text>
+
+        <!-- 表头 -->
+        <text class="s" x="180" y="52" text-anchor="end">物品 i ， 容量 j</text>
+        <text class="t" x="231" y="52" text-anchor="middle">0</text>
+        <text class="t" x="293" y="52" text-anchor="middle">1</text>
+        <text class="t" x="355" y="52" text-anchor="middle">2</text>
+        <text class="t" x="417" y="52" text-anchor="middle">3</text>
+        <text class="t" x="479" y="52" text-anchor="middle">4</text>
+        <text class="t" x="541" y="52" text-anchor="middle">5</text>
+
+        <!-- i=0 -->
+        <text class="m" x="180" y="111" text-anchor="end">i=0 无物品</text>
+        <rect class="cell" x="200" y="90" width="62" height="34"/><text class="s" x="231" y="112" text-anchor="middle">0</text>
+        <rect class="cell" x="262" y="90" width="62" height="34"/><text class="s" x="293" y="112" text-anchor="middle">0</text>
+        <rect class="cell" x="324" y="90" width="62" height="34"/><text class="s" x="355" y="112" text-anchor="middle">0</text>
+        <rect class="cell" x="386" y="90" width="62" height="34"/><text class="s" x="417" y="112" text-anchor="middle">0</text>
+        <rect class="cell" x="448" y="90" width="62" height="34"/><text class="s" x="479" y="112" text-anchor="middle">0</text>
+        <rect class="cell" x="510" y="90" width="62" height="34"/><text class="s" x="541" y="112" text-anchor="middle">0</text>
+
+        <!-- i=1 w=2 v=3 -->
+        <text class="m" x="180" y="147" text-anchor="end">i=1 w=2 v=3</text>
+        <rect class="cell" x="200" y="126" width="62" height="34"/><text class="s" x="231" y="148" text-anchor="middle">0</text>
+        <rect class="cell" x="262" y="126" width="62" height="34"/><text class="s" x="293" y="148" text-anchor="middle">0</text>
+        <rect class="cell-hi3" x="324" y="126" width="62" height="34"/><text class="t" x="355" y="148" text-anchor="middle">3</text>
+        <rect class="cell" x="386" y="126" width="62" height="34"/><text class="s" x="417" y="148" text-anchor="middle">3</text>
+        <rect class="cell" x="448" y="126" width="62" height="34"/><text class="s" x="479" y="148" text-anchor="middle">3</text>
+        <rect class="cell" x="510" y="126" width="62" height="34"/><text class="s" x="541" y="148" text-anchor="middle">3</text>
+
+        <!-- i=2 w=3 v=4 -->
+        <text class="m" x="180" y="183" text-anchor="end">i=2 w=3 v=4</text>
+        <rect class="cell" x="200" y="162" width="62" height="34"/><text class="s" x="231" y="184" text-anchor="middle">0</text>
+        <rect class="cell" x="262" y="162" width="62" height="34"/><text class="s" x="293" y="184" text-anchor="middle">0</text>
+        <rect class="cell" x="324" y="162" width="62" height="34"/><text class="s" x="355" y="184" text-anchor="middle">3</text>
+        <rect class="cell" x="386" y="162" width="62" height="34"/><text class="s" x="417" y="184" text-anchor="middle">4</text>
+        <rect class="cell" x="448" y="162" width="62" height="34"/><text class="s" x="479" y="184" text-anchor="middle">4</text>
+        <rect class="cell-hi" x="510" y="162" width="62" height="34"/><text class="t" x="541" y="184" text-anchor="middle" style="fill:var(--pink-deep)">7</text>
+
+        <!-- i=3 w=4 v=5 -->
+        <text class="m" x="180" y="219" text-anchor="end">i=3 w=4 v=5</text>
+        <rect class="cell" x="200" y="198" width="62" height="34"/><text class="s" x="231" y="220" text-anchor="middle">0</text>
+        <rect class="cell" x="262" y="198" width="62" height="34"/><text class="s" x="293" y="220" text-anchor="middle">0</text>
+        <rect class="cell" x="324" y="198" width="62" height="34"/><text class="s" x="355" y="220" text-anchor="middle">3</text>
+        <rect class="cell" x="386" y="198" width="62" height="34"/><text class="s" x="417" y="220" text-anchor="middle">4</text>
+        <rect class="cell" x="448" y="198" width="62" height="34"/><text class="s" x="479" y="220" text-anchor="middle">5</text>
+        <rect class="cell-m" x="510" y="198" width="62" height="34"/><text class="t" x="541" y="220" text-anchor="middle" style="fill:var(--mint)">7</text>
+
+        <!-- 箭头 -->
+        <path class="ln-p" d="M541 158V166" marker-end="url(#ar10)"/>
+        <path class="ln-a" d="M366 152C400 160 470 162 528 168" marker-end="url(#ar11)"/>
+        <text class="s" x="600" y="150" style="fill:var(--purple)">dp[i-1][j]</text>
+        <text class="s" x="600" y="170" style="fill:var(--pink-deep)">dp[i-1][j-w]</text>
+
+        <!-- 说明 -->
+        <rect class="box" x="20" y="240" width="720" height="50" rx="12"/>
+        <text class="m" x="36" y="262">dp[i][j] = max( dp[i-1][j],               // 不选第 i 代</text>
+        <text class="m" x="36" y="282">                dp[i-1][j - w[i]] + v[i] )   // 选第 i 件（前提 j &gt;= w[i]）</text>
+      </svg>
+      <figcaption>DP 表的每一次填写都只依赖<strong>上一行</strong>的某个格子。理解这一点，就能写出滚动数组（把二维压成一维，空间从 O(nW) 降到 O(W)）</figcaption>
+    </figure>
+
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+
+// ---------- 入门：爬楼梯 / 斐波那契 ----------
+int climbStairs(int n) {
+    if (n &lt;= 2) return n;
+    std::vector&lt;int&gt; dp(n + 1);
+    dp[1] = 1; dp[2] = 2;
+    for (int i = 3; i &lt;= n; ++i)
+        dp[i] = dp[i - 1] + dp[i - 2];   // 状态转移
+    return dp[n];
+}
+
+// ---------- 经典， -1 背包（二维写法，便于理解） ---------
+int knapsack2D(const std::vector&lt;int&gt;&amp; w, const std::vector&lt;int&gt;&amp; v, int W) {
+    int n = (int)w.size();
+    std::vector&lt;std::vector&lt;int&gt;&gt; dp(n + 1, std::vector&lt;int&gt;(W + 1, 0));
+
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 0; j &lt;= W; ++j) {
+            dp[i][j] = dp[i - 1][j];                       // 不选
+            if (j &gt;= w[i - 1])
+                dp[i][j] = std::max(dp[i][j], dp[i - 1][j - w[i - 1]] + v[i - 1]);
+        }
+    }
+    return dp[n][W];
+}
+
+// ---------- 0-1 背包：滚动数组（一维，注意倒序遍历！）----------
+int knapsack1D(const std::vector&lt;int&gt;&amp; w, const std::vector&lt;int&gt;&amp; v, int W) {
+    std::vector&lt;int&gt; dp(W + 1, 0);
+    for (size_t i = 0; i &lt; w.size(); ++i)
+        for (int j = W; j &gt;= w[i]; --j)         // ★ 倒序：保证每件物品只用一次
+            dp[j] = std::max(dp[j], dp[j - w[i]] + v[i]);
+    return dp[W];
+}
+
+// ---------- 最长递增子序列 LIS ----------
+int lengthOfLIS(const std::vector&lt;int&gt;&amp; nums) {
+    std::vector&lt;int&gt; dp(nums.size(), 1);        // dp[i]：以 nums[i] 结尾的 LIS 长度
+    int best = 0;
+    for (size_t i = 0; i &lt; nums.size(); ++i) {
+        for (size_t j = 0; j &lt; i; ++j)
+            if (nums[j] &lt; nums[i]) dp[i] = std::max(dp[i], dp[j] + 1);
+        best = std::max(best, dp[i]);
+    }
+    return best;                                // 这个 O(n^2) 版本，还能用二分优化到 O(n log n)
+}
+
+// ---------- 编辑距离 ----------
+int editDistance(const std::string&amp; a, const std::string&amp; b) {
+    int n = (int)a.size(), m = (int)b.size();
+    std::vector&lt;std::vector&lt;int&gt;&gt; dp(n + 1, std::vector&lt;int&gt;(m + 1));
+    for (int i = 0; i &lt;= n; ++i) dp[i][0] = i;   // 删成空串
+    for (int j = 0; j &lt;= m; ++j) dp[0][j] = j;   // 从空串插入
+    for (int i = 1; i &lt;= n; ++i)
+        for (int j = 1; j &lt;= m; ++j) {
+            if (a[i - 1] == b[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+            else dp[i][j] = 1 + std::min({dp[i - 1][j],      // 删除
+                                          dp[i][j - 1],      // 插入
+                                          dp[i - 1][j - 1]});// 替换
+        }
+    return dp[n][m];
+}
+
+int main() {
+    std::cout &lt;&lt; climbStairs(10) &lt;&lt; '\n';                     // 89
+    std::cout &lt;&lt; knapsack2D({2, 3, 4}, {3, 4, 5}, 5) &lt;&lt; '\n';  // 7
+    std::cout &lt;&lt; knapsack1D({2, 3, 4}, {3, 4, 5}, 5) &lt;&lt; '\n';  // 7
+    std::cout &lt;&lt; lengthOfLIS({10, 9, 2, 5, 3, 7, 101, 18}) &lt;&lt; '\n';  // 4
+    std::cout &lt;&lt; editDistance("kitten", "sitting") &lt;&lt; '\n';    // 3
+    return 0;
+}
+</code></pre>
+
+    <div class="callout warn">
+      <span class="ci">🔑</span>
+      <div>
+        <span class="ct">一维背包为什么必须倒序遍历</span>
+        <p style="margin:0">
+          因为 <code class="inline">dp[j]</code> 需要的是<strong>上一轮（未放入当前物品）</strong>的 <code class="inline">dp[j-w]</code>。           正序遍历时，<code class="inline">dp[j-w]</code> 已经被本轮更新过了，等于同一件物品被放了多次——           那样求出来的其实是<strong>完全背包</strong>的答案。这个小细节几乎是 DP 题的必考陷阱。         </p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.4rem">4.3 DFS / BFS / 回溯：搜索三大件</h3>
+<pre class="code" data-lang="cpp"><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;string&gt;
+
+// ---------- DFS：网格中的连通块（岛屿数量）----------
+void dfs(std::vector&lt;std::vector&lt;char&gt;&gt;&amp; grid, int r, int c) {
+    int n = (int)grid.size(), m = (int)grid[0].size();
+    if (r &lt; 0 || r &gt;= n || c &lt; 0 || c &gt;= m || grid[r][c] != '1') return;
+
+    grid[r][c] = '0';                       // 标记已访问（原地修改，省一个 visited 数组）
+    dfs(grid, r + 1, c);
+    dfs(grid, r - 1, c);
+    dfs(grid, r, c + 1);
+    dfs(grid, r, c - 1);
+}
+
+int numIslands(std::vector&lt;std::vector&lt;char&gt;&gt; grid) {
+    int cnt = 0;
+    for (int i = 0; i &lt; (int)grid.size(); ++i)
+        for (int j = 0; j &lt; (int)grid[0].size(); ++j)
+            if (grid[i][j] == '1') { dfs(grid, i, j); ++cnt; }
+    return cnt;
+}
+
+// ---------- BFS：无权图最短步数（求最短一定用 BFS） ---------
+int bfsShortest(int n, const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; adj, int start, int target) {
+    std::vector&lt;int&gt; dist(n, -1);
+    std::queue&lt;int&gt; q;
+    dist[start] = 0;
+    q.push(start);
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        if (u == target) return dist[u];
+        for (int v : adj[u]) {
+            if (dist[v] == -1) {            // 未访问过才入队，保证每个点只进一次
+                dist[v] = dist[u] + 1;
+                q.push(v);
+            }
+        }
+    }
+    return -1;
+}
+
+// ---------- 回溯：全排列（三个动作：选择 → 递归 → 撤销） ---------
+void permute(std::vector&lt;int&gt;&amp; nums, int k, std::vector&lt;std::vector&lt;int&gt;&gt;&amp; res) {
+    if (k == (int)nums.size()) { res.push_back(nums); return; }
+    for (int i = k; i &lt; (int)nums.size(); ++i) {
+        std::swap(nums[k], nums[i]);        // 选择
+        permute(nums, k + 1, res);          // 递归
+        std::swap(nums[k], nums[i]);        // 撤销（回溯的关键！）
+    }
+}
+
+int main() {
+    std::vector&lt;std::vector&lt;char&gt;&gt; grid = {
+        {'1','1','0','0'},
+        {'1','0','0','1'},
+        {'0','0','1','1'}
+    };
+    std::cout &lt;&lt; "岛屿数 = " &lt;&lt; numIslands(grid) &lt;&lt; '\n';   // 3
+
+    std::vector&lt;int&gt; p = {1, 2, 3};
+    std::vector&lt;std::vector&lt;int&gt;&gt; res;
+    permute(p, 0, res);
+    std::cout &lt;&lt; "全排列个数 = " &lt;&lt; res.size() &lt;&lt; '\n';       // 6
+    return 0;
+}
+</code></pre>
+  </div>
+</section>
+
+<!-- ============ 模板库 ============ -->
+<section class="section" id="template" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Template</span>
+      <h2>竞赛 / 刷题万能头与常用工具</h2>
+      <p>
+        竞赛题里为了省时间，可以用 GCC 的万能头 <code class="inline">&lt;bits/stdc++.h&gt;</code>。但<strong>面试和工程里千万别用</strong>——它不是标准头文件，MSVC 不支持。       </p>
+    </div>
+
+<pre class="code" data-lang="cpp"><code>
+// ============== 刷题 / 竞赛 起手式（GCC / Clang） =============
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+using ll  = long long;
+using pii = pair&lt;int, int&gt;;
+const int  INF = 0x3f3f3f3f;          // 常用"无穷多"，两倍不溢出 int
+const ll  LINF = 0x3f3f3f3f3f3f3f3fLL;
+
+// 快速输入输出：大数据量下必加，否则 cin 可能慢 5～10 倍
+void fastIO() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+}
+
+int main() {
+    fastIO();
+
+    // ---- 常用工具速查 ----
+    vector&lt;int&gt; v = {5, 1, 3, 3, 2, 4};
+
+    sort(v.begin(), v.end());                                   // 升序
+    sort(v.begin(), v.end(), greater&lt;&gt;());                      // 降序
+    v.erase(unique(v.begin(), v.end()), v.end());               // 去重（需先排序）
+
+    auto it  = lower_bound(v.begin(), v.end(), 3);              // 第一个 &gt;= 3 的位置
+    auto it2 = upper_bound(v.begin(), v.end(), 3);              // 第一个 &gt;  3 的位置
+
+    int mx  = *max_element(v.begin(), v.end());
+    int mn  = *min_element(v.begin(), v.end());
+    int sum = accumulate(v.begin(), v.end(), 0);
+
+    // 最大公约数 / 最小公倍数
+    ll g = std::gcd(12LL, 18LL);
+    ll l = std::lcm(12LL, 18LL);
+
+    // 快速幂：base^exp % mod，O(log exp)
+    auto qpow = [](ll base, ll exp, ll mod) {
+        ll r = 1 % mod; base %= mod;
+        while (exp) {
+            if (exp &amp; 1) r = r * base % mod;
+            base = base * base % mod;
+            exp &gt;&gt;= 1;
+        }
+        return r;
+    };
+    cout &lt;&lt; qpow(2, 10, 1000) &lt;&lt; '\n';   // 24（ ^10 = 1024）
+
+    // 并查集（内联版，比赛时够用）
+    struct DSU {
+        vector&lt;int&gt; p, r;
+        DSU(int n) : p(n), r(n, 0) { iota(p.begin(), p.end(), 0); }
+        int find(int x) { return p[x] == x ? x : p[x] = find(p[x]); }
+        void unite(int a, int b) {
+            a = find(a); b = find(b);
+            if (a == b) return;
+            if (r[a] &lt; r[b]) swap(a, b);
+            p[b] = a;
+            if (r[a] == r[b]) ++r[a];
+        }
+    };
+
+    cout &lt;&lt; mx &lt;&lt; ' ' &lt;&lt; mn &lt;&lt; ' ' &lt;&lt; sum &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+
+    <div class="split">
+      <div class="callout tip" style="margin:0">
+        <span class="ci">⚠</span>
+        <div>
+          <span class="ct">性能小抄</span>
+          <ul class="tight" style="margin-bottom:0">
+            <li><code class="inline">sync_with_stdio(false)</code> 能让 <code class="inline">cin</code> 快 5～10 倍</li>
+            <li><code class="inline">v.reserve(n)</code> 避免反复扩容拷贝</li>
+            <li>传大对象用 <code class="inline">const T&amp;</code>，避免无谓拷贝</li>
+            <li><code class="inline">unordered_map</code> 在出题人恶意构造数据时可能被卡到 O(n)</li>
+            <li>局部大数组会爆栈，放全局或改用 <code class="inline">vector</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout pink" style="margin:0">
+        <span class="ci">📝</span>
+        <div>
+          <span class="ct">调试小抄</span>
+          <ul class="tight" style="margin-bottom:0">
+            <li><strong>对拍</strong>：写一个暴力程序，随机造数据，比对两个程序的输出</li>
+            <li><strong>边界数据</strong>：n=0 / n=1 / 全相同 / 已有序 / 极值</li>
+            <li><strong>溢出检查</strong>：把所有 <code class="inline">int</code> 换成 <code class="inline">long long</code> 再跑一遍</li>
+            <li>本地开 <code class="inline">-fsanitize=address,undefined</code> 抓越界和未定义行为</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 刷题路线 ============ -->
+<section class="section" id="route">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Route</span>
+      <h2>刷题路线：按专题推进，不要乱刷</h2>
+      <p>
+        题库的难度是<strong>混杂</strong>的，随机刷会让你反复撞在同一类不会的题上。         按下面的专题顺序推进，每个专题 5～10 题，效果最好。       </p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th style="width:56px">序号</th><th>专题</th><th>核心考察点</th><th>建议题量</th><th>难度</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>数组与字符串基础</td><td>遍历、双指针、原地修改</td><td>10</td><td>🟢</td></tr>
+          <tr><td>2</td><td>哈希表</td><td>两数之和、计数、去重</td><td>8</td><td>🟢</td></tr>
+          <tr><td>3</td><td>链表</td><td>虚拟头节点、快慢指针、反转</td><td>8</td><td>🟡</td></tr>
+          <tr><td>4</td><td>栈与队列</td><td>括号匹配、单调栈、滑动窗口</td><td>8</td><td>🟡</td></tr>
+          <tr><td>5</td><td>二分查找</td><td>边界控制、二分答案</td><td>8</td><td>🟡</td></tr>
+          <tr><td>6</td><td>前缀和 / 差分</td><td>区间统计</td><td>6</td><td>🟡</td></tr>
+          <tr><td>7</td><td>二叉树</td><td>三种遍历、递归返回值、BST 性质</td><td>12</td><td>🟡</td></tr>
+          <tr><td>8</td><td>堆与优先队列</td><td>Top-K、多路归并</td><td>6</td><td>🟡</td></tr>
+          <tr><td>9</td><td>排序与贪心</td><td>自定义比较、区间调度</td><td>8</td><td>🟡</td></tr>
+          <tr><td>10</td><td>DFS / BFS</td><td>连通块、层序遍历、最短步数</td><td>10</td><td>🟡</td></tr>
+          <tr><td>11</td><td>回溯</td><td>排列组合、子集、剪构</td><td>10</td><td>🔴</td></tr>
+          <tr><td>12</td><td>动态规划 · 入门</td><td>线性 DP、斐波那契类</td><td>10</td><td>🔴</td></tr>
+          <tr><td>13</td><td>动态规划 · 背包</td><td>01 背包、完全背包、多重背包</td><td>8</td><td>🔴</td></tr>
+          <tr><td>14</td><td>动态规划 · 序列</td><td>LIS、LCS、编辑距离</td><td>8</td><td>🔴</td></tr>
+          <tr><td>15</td><td>图论基础</td><td>最短路、拓扑排序、并查集</td><td>10</td><td>🔴</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:1.6rem">
+      <div class="card">
+        <div class="icon-badge pink">📅</div>
+        <h3>每日节奏</h3>
+        <ul class="tight" style="margin:0">
+          <li>新题 1～2 道（按专题）</li>
+          <li>复习旧题 2～3 道（隔 1 / 3 / 7 天回头看）</li>
+          <li>写题解，一句话说清思路和复杂度</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon-badge amber">⏱️</div>
+        <h3>时间分配</h3>
+        <ul class="tight" style="margin:0">
+          <li>思考 20 分钟没思路 → 看题解</li>
+          <li>看题解后<strong>合上代码自己重写一遍</strong></li>
+          <li>不要在一道题上耗超过 1 小时</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon-badge mint">📈</div>
+        <h3>难度配比</h3>
+        <ul class="tight" style="margin:0">
+          <li>简单 40%，中等 40%，困难 20%</li>
+          <li>只刷简单题永远不会有提升</li>
+          <li>但一上来就啃困难题会直接劝退</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 资源 ============ -->
+<section class="section" id="res" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Resources</span>
+      <h2>本阶段资源</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h3 style="font-size:1rem">🎬 视频课</h3>
+        <div class="res-list">
+          <a class="res" href="https://www.bilibili.com/video/BV1Ka411f7k9/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">代码随想录 · 算法公开课</span><span class="desc">按专题讲刷题，配套网站有完整文字题解，零基础刷题最佳起点</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1At411P79N/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">AcWing · 算法基础课 / 提高课</span><span class="desc">竞赛向，模板化、密度高，讲完一个算法立刻做题</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1dg4y137M2/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">清华大学 邓俊辉 · 数据结构</span><span class="desc">学院派，讲原理与复杂度证明，适合想彻底搞懂"为什么"的人</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.bilibili.com/video/BV1Ww41167Ac/" target="_blank" rel="noopener">
+            <span class="ic bili">B</span>
+            <span class="body"><span class="title">动态规划专题</span><span class="desc">DP 是公认最难自学的部分，集中看几个专题讲解再刷题，效率最高</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem">📚 图解文档与题库</h3>
+        <div class="res-list">
+          <a class="res" href="https://www.hello-algo.com/" target="_blank" rel="noopener">
+            <span class="ic doc">H</span>
+            <span class="body"><span class="title">Hello 算法（强烈推荐）</span><span class="desc">带动态图解和可运行代码，数据结构部分看图就能懂</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://oi-wiki.org/" target="_blank" rel="noopener">
+            <span class="ic doc">O</span>
+            <span class="body"><span class="title">OI Wiki</span><span class="desc">中文算法百科，每个算法都有原理 + 复杂度 + 模板代码</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://programmercarl.com/" target="_blank" rel="noopener">
+            <span class="ic doc">难</span>
+            <span class="body"><span class="title">代码随想录</span><span class="desc">刷题顺序 + 详细题解 + 分类总结</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://leetcode.cn/problemset/" target="_blank" rel="noopener">
+            <span class="ic prac">LC</span>
+            <span class="body"><span class="title">LeetCode 题库（按标签筛选）</span><span class="desc">按上面的专题表逐类攻克</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://www.luogu.com.cn/training/list" target="_blank" rel="noopener">
+            <span class="ic prac">洛</span>
+            <span class="body"><span class="title">洛谷题单</span><span class="desc">官方整理的分级题单，从入门到省选都有</span></span><span class="go">→</span>
+          </a>
+          <a class="res" href="https://codeforces.com/problemset" target="_blank" rel="noopener">
+            <span class="ic prac">CF</span>
+            <span class="body"><span class="title">Codeforces Problemset</span><span class="desc">指 rating 递增刷，是公认提升最快的路径之一</span></span><span class="go">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout pink" style="margin-top:1.8rem">
+      <span class="ci">i</span>
+      <div>
+        <span class="ct">小 A 的最后一句话</span>
+        <p style="margin:0">
+          这一阶段会有很多次"我是不是不适合学算法"的自我怀疑。           请记住：<strong>所有的"不会"都只是「还没学过对应的模型」。</strong>
+          算法不是智商测试，它是一份有 15 个专题的清单——把清单划完，你就会了。           第 20 题和第 200 题的感觉，是完全不一样的。         </p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem">
+      <a class="btn btn-ghost" href="oop-stl.html">→ 阶段三：面向对象与 STL</a>
+      <a class="btn btn-primary" href="advanced.html">进入阶段五：进阶与实战 →</a>
+    </div>
+
+    <div class="code-lab" id="lab">
+      <script type="application/json" class="lab-spec">
+      {
+        "title": "二分查找",
+        "statement": "第一行读入整数 n（1 <= n <= 200000）和 q（1 <= q <= 100000），第二行读入 n 个升序排列的整数（可能重复），接下来 q 行每行一个整数 x。对每个询问输出一行：x 在数组中第一次出现的下标（下标从 0 开始），不存在则输出 -1。",
+        "template": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n, q;\n    if (!(cin >> n >> q)) return 0;\n    vector<long long> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    \n    return 0;\n}\n",
+        "tests": [
+          { "name": "用例 1", "input": "6 3\n1 3 3 3 7 9\n3\n9\n5\n", "output": "1\n5\n-1\n" },
+          { "name": "全相同", "input": "5 2\n8 8 8 8 8\n8\n1\n", "output": "0\n-1\n" },
+          { "name": "单元素", "input": "1 2\n42\n42\n7\n", "output": "0\n-1\n" }
+        ],
+        "hints": [
+          "每次询问都线性扫一遍是 O(nq)，n、q 都是 1e5 量级时会到 1e10 次——必须二分。",
+          "手写左端点二分：while (l < r) { mid = (l+r)/2; if (a[mid] >= x) r = mid; else l = mid + 1; }，最后检查 a[l] 是否等于 x。",
+          "也可以直接用 lower_bound：int p = lower_bound(a.begin(), a.end(), x) - a.begin();"
+        ]
+      }
+      </script>
+    </div>
+
+    <div class="code-lab">
+      <script type="application/json" class="lab-spec">
+      {
+        "title": "判断回文（双指针）",
+        "statement": "读入一行一个字符串 s（长度 1 <= |s| <= 100000，只含英文字母和数字，可能混有大小写）。先把所有字母转成小写并去掉非字母数字字符后，判断剩下的是不是回文：是输出 yes，否则输出 no。",
+        "template": "#include <iostream>\n#include <string>\n#include <cctype>\nusing namespace std;\n\nint main() {\n    string s;\n    if (!(cin >> s)) return 0;\n    \n    return 0;\n}\n",
+        "tests": [
+          { "name": "用例 1", "input": "A man, a plan, a canal: Panama\n", "output": "yes\n" },
+          { "name": "用例 2", "input": "race a car\n", "output": "no\n" },
+          { "name": "单个字符", "input": "0P\n", "output": "no\n" },
+          { "name": "纯数字", "input": "12321\n", "output": "yes\n" }
+        ],
+        "hints": [
+          "先把 s 过滤成只含小写字母和数字的新串，再对过滤后的串用双指针：左指针从头、右指针从尾向中间靠拢逐位比较。",
+          "注意「0P」过滤后是 \"0p\"，不是回文——大小写转换别忘了 tolower。"
+        ]
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:28em">
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/img/favicon.svg" alt="" style="width:26px">
+          <span>Code Bloom<small>C++ &amp; ALGORITHM</small></span>
+        </div>
+        <p style="margin:0;font-size:.85rem">个人学习路线整理，非官方站点。所有资源链接均指向原始平台，内容版权归各自作者所有。</p>
+      </div>
+      <div>
+        <h4>学习路径</h4>
+        <div class="footer-links">
+          <a href="basics.html">② C++ 基础</a>
+          <a href="oop-stl.html">③ 面向对象 · STL</a>
+          <a href="algorithms.html">④ 算法与数据结构</a>
+          <a href="advanced.html">⑤ 进阶与实战</a>
+        </div>
+      </div>
+      <div>
+        <h4>本页跳转</h4>
+        <div class="footer-links">
+          <a href="#complexity">复杂度分析</a>
+          <a href="#ideas">算法思想</a>
+          <a href="#template">模板库</a>
+          <a href="#route">刷题路线</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:1.6rem 0 0;font-size:.8rem;text-align:center;opacity:.8">
+      © <span id="year">2026</span> Code Bloom · 手工搭建
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/judge.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
