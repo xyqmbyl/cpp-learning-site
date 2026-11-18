@@ -1,5 +1,7 @@
 # Code Bloom · C++ 与算法学习路线
 
+**👉 在线浏览：https://xyqmbyl.github.io/cpp-learning-site/**
+
 一个纯静态的 C++ / 算法学习网站：零依赖、零构建步骤，双击 `index.html` 就能看。
 深色优先、克制的排版，没有任何第三方素材与 CDN。四个章节页内置**在线编程练习**，
 代码送到真实在线编译器编译运行并自动判题（需要联网）。
@@ -44,7 +46,8 @@ cpp-anime-learning/
 ├── advanced.html       ④ 进阶：模板、智能指针、并发、CMake、测试、性能（含在线判题练习）
 ├── tools.html          ⑤ 环境与工具：Visual Studio 2026 / VS Code 2026 / MinGW / CMake
 ├── _tools/
-│   └── judge-demo.html 判题模块自检页（临时验证用，不属于正式站点内容）
+│   ├── judge-demo.html 判题模块自检页（临时验证用，不属于正式站点内容）
+│   └── DEPLOY.md       双仓库部署说明（私有主库 + 公开站点库，含同步步骤）
 ├── assets/
 │   ├── css/style.css   全站样式（深色优先）+ 排版 + 封面翻页动画
 │   ├── css/layout.css  响应式布局与栅格系统
